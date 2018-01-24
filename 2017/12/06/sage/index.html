@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ctf,crypto,sage,python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="做密码学很多地方都需要用到sage，特此来学习一下">
+<meta name="keywords" content="ctf,crypto,sage,python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sagemath入门">
+<meta property="og:url" content="https://d001um3.github.io/2017/12/06/sage/index.html">
+<meta property="og:site_name" content="D001UM3&#39;S BLOG">
+<meta property="og:description" content="做密码学很多地方都需要用到sage，特此来学习一下">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/54ae2ec0836510f6223411f5975217f5.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/c5be7bd2d2bb14a226514c7c79ef803b.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/3565cc28740543ca21b3ac8c0e5c3c60.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/ef19588dc00b7e65bde84be7935635b8.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/0c1922d6a4d8b9e33e13e351d2639f13.png">
+<meta property="og:updated_time" content="2018-01-24T06:08:43.875Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sagemath入门">
+<meta name="twitter:description" content="做密码学很多地方都需要用到sage，特此来学习一下">
+<meta name="twitter:image" content="http://oztni9daw.bkt.clouddn.com/54ae2ec0836510f6223411f5975217f5.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://d001um3.github.io/2017/12/06/sage/"/>
+
+
+
+
+
+  <title>sagemath入门 | D001UM3'S BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">D001UM3'S BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://d001um3.github.io/2017/12/06/sage/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D001UM3">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D001UM3'S BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">sagemath入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-06T01:25:04+08:00">
+                2017-12-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  做密码学很多地方都需要用到sage，特此来学习一下
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="sagemath简介"><a href="#sagemath简介" class="headerlink" title="sagemath简介"></a>sagemath简介</h1><blockquote>
+<p>SageMath 是一个基于GPL协议的开源数学软件。它使用Python作为通用接口，将现有的许多开源软件包整合在一起，构建一个统一的计算平台</p>
+</blockquote>
+<p>官网：<a href="http://www.sagemath.org/" target="_blank" rel="noopener">http://www.sagemath.org/</a><br>中文版官网：<a href="http://www.sagemath.org/zh/" target="_blank" rel="noopener">http://www.sagemath.org/zh/</a><br>中文版的SageMath入门手册： <a href="http://ai7.org/wp/html/682.html" target="_blank" rel="noopener">http://ai7.org/wp/html/682.html</a></p>
+<h1 id="sagemath安装"><a href="#sagemath安装" class="headerlink" title="sagemath安装"></a>sagemath安装</h1><h3 id="MACos"><a href="#MACos" class="headerlink" title="MACos"></a>MACos</h3><p>下载地址：<a href="http://www.sagemath.org/download-mac.html" target="_blank" rel="noopener">http://www.sagemath.org/download-mac.html</a></p>
+<p>选择一个服务器进行下载，这里我们选清华的服务器，然后选择cpu，一般是inter，然后选择是app还是命令行的，我选择app的，最后下载地址：<br><a href="https://mirrors.tuna.tsinghua.edu.cn/sagemath/osx/intel/sage-8.0-OSX_10.11.6-x86_64.app.dmg" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/sagemath/osx/intel/sage-8.0-OSX_10.11.6-x86_64.app.dmg</a></p>
+<p>打开，进入设置，改一下sage的执行命令为对应的可执行文件，然后加入环境变量</p>
+<p><img src="http://oztni9daw.bkt.clouddn.com/54ae2ec0836510f6223411f5975217f5.png" alt=""></p>
+<p>其实也就是做了个软链接，现在可以输入sage，进入交互命令行</p>
+<p><img src="http://oztni9daw.bkt.clouddn.com/c5be7bd2d2bb14a226514c7c79ef803b.png" alt=""></p>
+<p>终端选择iterm</p>
+<p><img src="http://oztni9daw.bkt.clouddn.com/3565cc28740543ca21b3ac8c0e5c3c60.png" alt=""></p>
+<h3 id="kali"><a href="#kali" class="headerlink" title="kali"></a>kali</h3><p>选择<code>sage-8.1-Ubuntu_16.04-x86_64.tar.bz2</code>下载：</p>
+<p><a href="https://mirrors.tuna.tsinghua.edu.cn/sagemath/linux/64bit/sage-8.1-Ubuntu_16.04-x86_64.tar.bz2" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/sagemath/linux/64bit/sage-8.1-Ubuntu_16.04-x86_64.tar.bz2</a></p>
+<p>然后解压出来，进入解压目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -jxvf sage-8.1-Ubuntu_16.04-x86_64.tar.bz2</span><br><span class="line">cd SageMath/</span><br></pre></td></tr></table></figure>
+<p>先运行一遍，第一次运行要等一会，然后编辑sage中的<code>SAGE_ROOT</code>，为你解压目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./sage</span><br><span class="line">gedit sage</span><br></pre></td></tr></table></figure>
+<p><img src="http://oztni9daw.bkt.clouddn.com/ef19588dc00b7e65bde84be7935635b8.png" alt=""></p>
+<p>复制到可执行目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp ./sage /usr/local/bin/sage</span><br></pre></td></tr></table></figure>
+<p>输入sage看能不能正常进入，大功告成</p>
+<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><p>提供4种方式运行</p>
+<ul>
+<li>Notebook 图形界面</li>
+<li>交互命令行</li>
+<li>程序:在 Sage 中编写解释型或者编译型的程序</li>
+<li>脚本:在独立的 Python 脚本中调用 Sage 库文件</li>
+</ul>
+<p>如果设置好环境变量了，可以输入<code>sage</code>进入交互命令行</p>
+<p>在命令行中输入<code>notebook()</code>进入Notebook 图形界面</p>
+<p>输入<code>sage do_some_math.sage</code>执行脚本</p>
+<h1 id="一些基本语法"><a href="#一些基本语法" class="headerlink" title="一些基本语法"></a>一些基本语法</h1><blockquote>
+<p>这里给出部分和<code>python2.7</code>不一样的地方，大部分语法和python类似</p>
+</blockquote>
+<h3 id="基础运算"><a href="#基础运算" class="headerlink" title="基础运算"></a>基础运算</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sage: 2ˆ3</span><br><span class="line">8</span><br><span class="line">sage: 10/4</span><br><span class="line">5/2</span><br><span class="line">sage: 10//4</span><br><span class="line">2</span><br><span class="line">sage: sqrt(3.4)</span><br><span class="line">1.84390889145858</span><br><span class="line">sage: sin(5.135)</span><br><span class="line">-0.912021158525540</span><br></pre></td></tr></table></figure>
+<h3 id="n-取精确值"><a href="#n-取精确值" class="headerlink" title="n()取精确值"></a>n()取精确值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">sage: n(pi)</span><br><span class="line">3.14159265358979</span><br><span class="line">sage: sin(pi/3)</span><br><span class="line">1/2*sqrt(3)</span><br><span class="line">sage: sqrt(pi).numerical_approx()</span><br><span class="line">1.77245385090552</span><br><span class="line">sage: sin(10).n(digits=5)</span><br><span class="line">-0.54402</span><br><span class="line">sage: N(sin(10),digits=10)</span><br><span class="line">-0.5440211109</span><br><span class="line">sage: numerical_approx(pi, prec=200)</span><br><span class="line">3.1415926535897932384626433832795028841971693993751058209749</span><br></pre></td></tr></table></figure>
+<h3 id="进制转换"><a href="#进制转换" class="headerlink" title="进制转换"></a>进制转换</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sage: 8.str(2)</span><br><span class="line">&apos;1000&apos;</span><br><span class="line">sage: 8.str(7)</span><br><span class="line">&apos;11&apos;</span><br></pre></td></tr></table></figure>
+<h3 id="内置文档"><a href="#内置文档" class="headerlink" title="内置文档"></a>内置文档</h3><blockquote>
+<p>函数名加<code>?</code>，键<code>q</code>退出</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">sage: exp?</span><br><span class="line">Type:           Function_exp</span><br><span class="line">String form:    exp</span><br><span class="line">File:           /Applications/SageMath-8.0.app/Contents/Resources/sage/local/lib/python2.7/site-packages/sage/functions/log.py</span><br><span class="line">Docstring:</span><br><span class="line">   The exponential function, exp(x) = e^x.</span><br><span class="line"></span><br><span class="line">   EXAMPLES:</span><br><span class="line"></span><br><span class="line">      sage: exp(-1)</span><br><span class="line">      e^(-1)</span><br><span class="line">      sage: exp(2)</span><br><span class="line">      e^2</span><br><span class="line">      ......</span><br></pre></td></tr></table></figure>
+<h3 id="解方程"><a href="#解方程" class="headerlink" title="解方程"></a>解方程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sage: x = var(&apos;x&apos;)</span><br><span class="line">sage: solve(x^2 + 3*x + 2, x)</span><br><span class="line">[x == -2, x == -1]</span><br><span class="line">sage: x, b, c = var(&apos;x b c&apos;)</span><br><span class="line">sage: solve([x^2 + b*x + c == 0],x)</span><br><span class="line">[x == -1/2*b - 1/2*sqrt(b^2 - 4*c), x == -1/2*b + 1/2*sqrt(b^2 - 4*c)]</span><br><span class="line">sage: x, y = var(&apos;x, y&apos;)</span><br><span class="line">sage: solve([x+y==6, x-y==4], x, y)</span><br><span class="line">[[x == 5, y == 1]]</span><br></pre></td></tr></table></figure>
+<h1 id="更多特性"><a href="#更多特性" class="headerlink" title="更多特性"></a>更多特性</h1><blockquote>
+<p>sage的中文文档讲的十分详细了，如果感兴趣可以自己读下文档</p>
+</blockquote>
+<p>Sage Tutorial 中文版（HTML）：</p>
+<p><a href="http://www.ai7.org/wp/wp-content/uploads/2010/01/html.zip" target="_blank" rel="noopener">http://www.ai7.org/wp/wp-content/uploads/2010/01/html.zip</a></p>
+<p>Sage Tutorial 中文版（PDF）：</p>
+<p><a href="http://www.ai7.org/wp/wp-content/uploads/2010/01/pdf.zip" target="_blank" rel="noopener">http://www.ai7.org/wp/wp-content/uploads/2010/01/pdf.zip</a></p>
+<blockquote>
+<p>附上文档目录</p>
+</blockquote>
+<p><img src="http://oztni9daw.bkt.clouddn.com/0c1922d6a4d8b9e33e13e351d2639f13.png" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ctf/" rel="tag"># ctf</a>
+          
+            <a href="/tags/crypto/" rel="tag"># crypto</a>
+          
+            <a href="/tags/sage/" rel="tag"># sage</a>
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/05/Jarvis_crypto_3/" rel="next" title="Jarvis OJ -- crypto题（下）">
+                <i class="fa fa-chevron-left"></i> Jarvis OJ -- crypto题（下）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/08/Jarvis_pwn_2/" rel="prev" title="Jarvis OJ -- pwn题（中）">
+                Jarvis OJ -- pwn题（中） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/head.png"
+                alt="D001UM3" />
+            
+              <p class="site-author-name" itemprop="name">D001UM3</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#sagemath简介"><span class="nav-number">1.</span> <span class="nav-text">sagemath简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sagemath安装"><span class="nav-number">2.</span> <span class="nav-text">sagemath安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MACos"><span class="nav-number">2.0.1.</span> <span class="nav-text">MACos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kali"><span class="nav-number">2.0.2.</span> <span class="nav-text">kali</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行"><span class="nav-number">3.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些基本语法"><span class="nav-number">4.</span> <span class="nav-text">一些基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础运算"><span class="nav-number">4.0.1.</span> <span class="nav-text">基础运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#n-取精确值"><span class="nav-number">4.0.2.</span> <span class="nav-text">n()取精确值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进制转换"><span class="nav-number">4.0.3.</span> <span class="nav-text">进制转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内置文档"><span class="nav-number">4.0.4.</span> <span class="nav-text">内置文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解方程"><span class="nav-number">4.0.5.</span> <span class="nav-text">解方程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更多特性"><span class="nav-number">5.</span> <span class="nav-text">更多特性</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">D001UM3</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

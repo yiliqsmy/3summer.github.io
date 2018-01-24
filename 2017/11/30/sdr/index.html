@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="sdr,HackRF," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SDR入门，HackRF in kali">
+<meta name="keywords" content="sdr,HackRF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HackRF入门">
+<meta property="og:url" content="https://d001um3.github.io/2017/11/30/sdr/index.html">
+<meta property="og:site_name" content="D001UM3&#39;S BLOG">
+<meta property="og:description" content="SDR入门，HackRF in kali">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/39192e3b3a4c181d7d8010fad5226ca6.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/026cbc6271edca173e89c0ada5bd4555.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/40dc48d2986de4d78d0692ffc782e891.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/29e612fd1ff8fb0a3cbf51f4d69a92d9.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/f9fe2e927cfd45661bb9c23005bd3521.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/dad897e884d55928ac54707a524869de.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/da5617bc5723d9bcdede87ce3da48ee0.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/41a6a5006ba072776f787bd11dc14b1f.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/d66a39431b272aba624aaf6e1c77d9ba.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/1571e09e86b75c4c72f1707c6a46fb05.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/856d4432fdc38377031f442fc758ba4f.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/88d6468faf1c90e4b7adcbb1454c125d.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/7738aa86f04dbc716d26b5aaaff6a87c.png">
+<meta property="og:image" content="https://i.imgur.com/k4tzW98.png">
+<meta property="og:image" content="https://i.imgur.com/L3Rvsbc.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/073a8b482fca8afe4645431f91047fc8.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/c6efe87266ba3fbb326d1b35c7b52ea7.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/61239dc394d6c6f8709f7f0a3078eec7.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/630390475e40ac9a90ec472b0f5354a9.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/699a25b1743be377b428c59ff7410af9.png">
+<meta property="og:updated_time" content="2017-12-03T07:25:34.060Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HackRF入门">
+<meta name="twitter:description" content="SDR入门，HackRF in kali">
+<meta name="twitter:image" content="http://oztni9daw.bkt.clouddn.com/39192e3b3a4c181d7d8010fad5226ca6.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://d001um3.github.io/2017/11/30/sdr/"/>
+
+
+
+
+
+  <title>HackRF入门 | D001UM3'S BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">D001UM3'S BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://d001um3.github.io/2017/11/30/sdr/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D001UM3">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D001UM3'S BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HackRF入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-30T23:59:42+08:00">
+                2017-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/sdr/" itemprop="url" rel="index">
+                    <span itemprop="name">sdr</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  SDR入门，HackRF in kali
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="无线电基础"><a href="#无线电基础" class="headerlink" title="无线电基础"></a>无线电基础</h1><h2 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h2><ul>
+<li>1837年，摩斯发明了电报，创造了摩斯密码（Morse code），开始了通信的新纪元。</li>
+<li>1865年，英国的麦克斯韦总结了前人的科学成果，提出电磁波学说。</li>
+<li>1876年，贝尔发明了电话，能够直接将语言信号变为电能沿导线传送。</li>
+<li>1887年，德国科学家赫兹（Hertz）用一个振荡偶子产生了电磁波，在历史上第一次直接验证了电磁波的存在。</li>
+<li>1897年，意大利科学家马可尼（Marconi）在赫兹实验的基础上，实现了远距离无线电信号的传送，这个距离在当时不过一百码，但一年后他就实现了船只与海岸的通信。</li>
+<li>1901年12月12日，马可尼做了跨越大西洋传送无线电信号的表演。这一次他把信号从英国的Cornwall发送到加拿大的Newfoundland。 马可尼因此获得1909年度诺贝尔奖。与他分享这一年度诺贝尔奖的是布劳恩（Braun），因为布氏发现金属硫化物具有单向导电性，这一成果可用于无线电接收装置。</li>
+<li>1904年，英国科学家弗莱明（Fleming）获得了一项专利，在专利说明书中描述了一个高频交变电流整流用的两极真空管，标志着进入无线电电子学时代。  </li>
+<li>1906年，美国科学家弗雷斯特（Forest）发明了真空三极管，是电子技术发展史上第一个重要里程碑。同年，美国科学家费森登（Fessenden）在Massachusetts领导了第一次广播。</li>
+<li>1912年，英国科学家埃克尔斯（Eccles）提出了无线电波通过电离层传播的理论，这一理论使得一群业余爱好者在1921年实现了短波试验性广播； 同年，美国的费森登（Fessenden）和阿姆斯特朗（Armstrong）改进了接收机的工作方式，发明了外差式接受系统，这种形式仍是目前许多无线电接收机的主要工作方式。</li>
+</ul>
+<h2 id="无线电与电磁波"><a href="#无线电与电磁波" class="headerlink" title="无线电与电磁波"></a>无线电与电磁波</h2><p>频率在数百千赫兹到数百兆赫兹之间的电磁波叫做无线电波，它包括短波、中波、长波、微波，无线电波也仅仅是电磁波的一部分，但电磁波不仅仅只有无线电波，仅仅只有频率相对较低的一部分电磁波才叫无线电波。</p>
+<h2 id="日常生活中的无线电"><a href="#日常生活中的无线电" class="headerlink" title="日常生活中的无线电"></a>日常生活中的无线电</h2><h3 id="收音机（无线广播）"><a href="#收音机（无线广播）" class="headerlink" title="收音机（无线广播）"></a>收音机（无线广播）</h3><p><img src="http://oztni9daw.bkt.clouddn.com/39192e3b3a4c181d7d8010fad5226ca6.png" alt=""></p>
+<h3 id="遥控器"><a href="#遥控器" class="headerlink" title="遥控器"></a>遥控器</h3><p><img src="http://oztni9daw.bkt.clouddn.com/026cbc6271edca173e89c0ada5bd4555.png" alt=""></p>
+<h3 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h3><p><img src="http://oztni9daw.bkt.clouddn.com/40dc48d2986de4d78d0692ffc782e891.png" alt=""></p>
+<h3 id="蓝牙"><a href="#蓝牙" class="headerlink" title="蓝牙"></a>蓝牙</h3><p><img src="http://oztni9daw.bkt.clouddn.com/29e612fd1ff8fb0a3cbf51f4d69a92d9.png" alt=""></p>
+<h3 id="卫星天线"><a href="#卫星天线" class="headerlink" title="卫星天线"></a>卫星天线</h3><p><img src="http://oztni9daw.bkt.clouddn.com/f9fe2e927cfd45661bb9c23005bd3521.png" alt=""></p>
+<h3 id="对讲机"><a href="#对讲机" class="headerlink" title="对讲机"></a>对讲机</h3><p><img src="http://oztni9daw.bkt.clouddn.com/dad897e884d55928ac54707a524869de.png" alt=""></p>
+<h3 id="GPS"><a href="#GPS" class="headerlink" title="GPS"></a>GPS</h3><p><img src="http://oztni9daw.bkt.clouddn.com/da5617bc5723d9bcdede87ce3da48ee0.png" alt=""></p>
+<h3 id="无人机"><a href="#无人机" class="headerlink" title="无人机"></a>无人机</h3><p><img src="http://oztni9daw.bkt.clouddn.com/41a6a5006ba072776f787bd11dc14b1f.png" alt=""></p>
+<blockquote>
+<p>各种物联网，智能家电，等等</p>
+</blockquote>
+<h2 id="软件无线电（SDR）"><a href="#软件无线电（SDR）" class="headerlink" title="软件无线电（SDR）"></a>软件无线电（SDR）</h2><blockquote>
+<p>软件无线电，即Software Defined Radio，SDR。通俗来讲，SDR就是基于通用的硬件平台上用软件来实现各种通信模块。</p>
+</blockquote>
+<p><img src="http://oztni9daw.bkt.clouddn.com/d66a39431b272aba624aaf6e1c77d9ba.png" alt=""></p>
+<p>概念中有两个关键词，“通用硬件平台”和“软件”。“通用硬件平台”就是说我们能基于这个硬件平台实现各种各样的通信功能，而不是说一个硬件平台只能实现一种通信功能。“软件”来实现通信模块是相对于传统的无线电技术来讲的，传统的无线电通信模块都是用硬件电路来设计，一个通信电路只能完成一种通信功能，开发周期长，开发成本高，而且一旦设计好后功能就无法改变。软件化可以加快通信模块的开发速度，降低开发成本，便于调试和维护。</p>
+<p>SDR技术被誉为通信领域的第三次革命。第一次革命是1G通信系统，由有线通信到无线通信的革命；第二次革命是2G通信系统，由模拟通信到数字通信的革命。SDR是未来通信系统的发展趋势。</p>
+<h2 id="各种SDR平台"><a href="#各种SDR平台" class="headerlink" title="各种SDR平台"></a>各种SDR平台</h2><h3 id="USRP"><a href="#USRP" class="headerlink" title="USRP"></a>USRP</h3><p>USRP是Ettus公司的产品，目前主要有B系列，E系列，N系列和X系列等，基本上系列字母越靠后价格越贵。由于USRP型号太多，我们以B系列为例来介绍USRP。 B系列主打小型化，目前有USRP B200/B210、USRP mini系列等，其中迷你系列更是只有一张名片大小。而且B系列都采用USB3.0接口与GPP通信，而且直接采用USB供电，使用非常便捷。USRP B系列的产品大部分单价都在7000-8000块之间，但是如果加上税钱、运费等，差不多就得10000块了。国内代理USRP相关的主要是嘉兆科技有限公司。USRP相关产品的介绍请链接<a href="https://www.ettus.com/product" target="_blank" rel="noopener">官网</a></p>
+<p><img src="http://oztni9daw.bkt.clouddn.com/1571e09e86b75c4c72f1707c6a46fb05.png" alt=""></p>
+<h3 id="BladeRF"><a href="#BladeRF" class="headerlink" title="BladeRF"></a>BladeRF</h3><p>BladeRF主要有三种型号，BladeRF X40，BladeRF X115， BladeRF X115 Thermal。BladeRF X40 是低配版，大概约$420，即3000块左右；BladeRF X115是高配版，FPGA比BladeRF X40好，价格约$650，即4500块左右；而BladeRF X115 Thermal则是顶配版，可以耐受极端环境，价格约$1500，即10000块左右。BladeRF的详细信息请查阅<a href="http://www.nuand.com/" target="_blank" rel="noopener">官网</a></p>
+<p><img src="http://oztni9daw.bkt.clouddn.com/856d4432fdc38377031f442fc758ba4f.png" alt=""></p>
+<h3 id="HackRF"><a href="#HackRF" class="headerlink" title="HackRF"></a>HackRF</h3><p>HackRF，顾名思义是黑客版的SDR外设，它主打性价比高，价格便宜。HackRF主要有两种版本，HackRF blue和HackRF one，其中HackRF blue是低配版，HackRF是高配版。注意的是HackRF只能支持半双工。HackRF详细的信息请查阅<a href="http://greatscottgadgets.com/hackrf/" target="_blank" rel="noopener">官网</a></p>
+<p><img src="http://oztni9daw.bkt.clouddn.com/88d6468faf1c90e4b7adcbb1454c125d.png" alt=""></p>
+<h3 id="RTLSDR"><a href="#RTLSDR" class="headerlink" title="RTLSDR"></a>RTLSDR</h3><p>如果说上述设备对学生党来说都太贵了，毕竟动不动就好几千块钱，那么不得不隆重介绍下入门级的SDR外设，RTLSDR。淘宝一搜RTLSDR就能出来一大堆，而且都只需要几十块钱。便宜就意味着性能的低，RTLSDR本来是用来接收电视信号的，所以也称为电视棒。RTLSDR只能接收信号，不能发射信号，而且只有2.8M/s的采样速率，根据奈奎斯特采样定律换算一下理论上最大支持的带宽只有1.4M。但这仍然是一款非常适合用来入门的SDR外设。RTLSDR具体使用方法参见<a href="http://sdr.osmocom.org/trac/wiki/rtl-sdr" target="_blank" rel="noopener">sdr.osmocom.org</a>和<a href="http://www.rtl-sdr.com/" target="_blank" rel="noopener">rtl-sdr.com</a>。</p>
+<h3 id="三款SDR平台对比"><a href="#三款SDR平台对比" class="headerlink" title="三款SDR平台对比"></a>三款SDR平台对比</h3><p><img src="http://oztni9daw.bkt.clouddn.com/7738aa86f04dbc716d26b5aaaff6a87c.png" alt=""></p>
+<h1 id="hackrf-in-kali环境搭建"><a href="#hackrf-in-kali环境搭建" class="headerlink" title="hackrf in kali环境搭建"></a>hackrf in kali环境搭建</h1><h2 id="安装hackrf驱动及依赖"><a href="#安装hackrf驱动及依赖" class="headerlink" title="安装hackrf驱动及依赖"></a>安装hackrf驱动及依赖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install hackrf libhackrf-dev libhackrf0</span><br></pre></td></tr></table></figure>
+<p><code>hackrf_info</code>查看是否安装成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# hackrf_info</span><br><span class="line">hackrf_info version: unknown</span><br><span class="line">libhackrf version: unknown (0.5)</span><br><span class="line">Found HackRF</span><br><span class="line">Index: 0</span><br><span class="line">Serial number: 0000000000000000925866e62a5813e3</span><br><span class="line">Board ID Number: 2 (HackRF One)</span><br><span class="line">Firmware Version: 2015.07.2 (API:1.00)</span><br><span class="line">Part ID Number: 0xa000cb3c 0x0061435e</span><br></pre></td></tr></table></figure>
+<h2 id="安装gnuradio，gqrx等"><a href="#安装gnuradio，gqrx等" class="headerlink" title="安装gnuradio，gqrx等"></a>安装gnuradio，gqrx等</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install gnuradio gnuradio-dev gr-osmosdr gr-osmosdr gqrx-sdr wireshark</span><br></pre></td></tr></table></figure>
+<h1 id="在kali下听广播"><a href="#在kali下听广播" class="headerlink" title="在kali下听广播"></a>在kali下听广播</h1><h2 id="用gqrx来收听FM调频广播"><a href="#用gqrx来收听FM调频广播" class="headerlink" title="用gqrx来收听FM调频广播"></a>用gqrx来收听FM调频广播</h2><p>device选hackrf，然后会看到device string后面为刚才<code>hackrf_info</code>查看得到的<code>Serial number</code>最后部分，就是正确了，然后点ok，如图设置好，点左上角三角形启动就能听广播了</p>
+<p><img src="https://i.imgur.com/k4tzW98.png" alt=""></p>
+<p>然后点 input controls 控制RF，IF，BB的收益值直到能听到清晰的广播</p>
+<p><img src="https://i.imgur.com/L3Rvsbc.png" alt=""></p>
+<p>另外，左边瀑布图可以按住左键滑动鼠标中间滚轮放大放小，右下角rec可以录制广播，默认存在~目录</p>
+<h1 id="实时广播"><a href="#实时广播" class="headerlink" title="实时广播"></a>实时广播</h1><p>利用<code>hackrf_transfer</code>，-h查看参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# hackrf_transfer -h</span><br><span class="line">Usage:</span><br><span class="line">	-h # this help</span><br><span class="line">	[-d serial_number] # Serial number of desired HackRF.</span><br><span class="line">	-r &lt;filename&gt; # Receive data into file (use &apos;-&apos; for stdout).</span><br><span class="line">	-t &lt;filename&gt; # Transmit data from file (use &apos;-&apos; for stdin).</span><br><span class="line">	-w # Receive data into file with WAV header and automatic name.</span><br><span class="line">	   # This is for SDR# compatibility and may not work with other software.</span><br><span class="line">	[-f freq_hz] # Frequency in Hz [0MHz to 7250MHz].</span><br><span class="line">	[-i if_freq_hz] # Intermediate Frequency (IF) in Hz [2150MHz to 2750MHz].</span><br><span class="line">	[-o lo_freq_hz] # Front-end Local Oscillator (LO) frequency in Hz [84MHz to 5400MHz].</span><br><span class="line">	[-m image_reject] # Image rejection filter selection, 0=bypass, 1=low pass, 2=high pass.</span><br><span class="line">	[-a amp_enable] # RX/TX RF amplifier 1=Enable, 0=Disable.</span><br><span class="line">	[-p antenna_enable] # Antenna port power, 1=Enable, 0=Disable.</span><br><span class="line">	[-l gain_db] # RX LNA (IF) gain, 0-40dB, 8dB steps</span><br><span class="line">	[-g gain_db] # RX VGA (baseband) gain, 0-62dB, 2dB steps</span><br><span class="line">	[-x gain_db] # TX VGA (IF) gain, 0-47dB, 1dB steps</span><br><span class="line">	[-s sample_rate_hz] # Sample rate in Hz (4/8/10/12.5/16/20MHz, default 10MHz).</span><br><span class="line">	[-n num_samples] # Number of samples to transfer (default is unlimited).</span><br><span class="line">	[-S buf_size] # Enable receive streaming with buffer size buf_size.</span><br><span class="line">	[-c amplitude] # CW signal source mode, amplitude 0-127 (DC value to DAC).</span><br><span class="line">	[-R] # Repeat TX mode (default is off)</span><br><span class="line">	[-b baseband_filter_bw_hz] # Set baseband filter bandwidth in Hz.</span><br><span class="line">	Possible values: 1.75/2.5/3.5/5/5.5/6/7/8/9/10/12/14/15/20/24/28MHz, default &lt;= 0.75 * sample_rate_hz.</span><br><span class="line">	[-C ppm] # Set Internal crystal clock error in ppm.</span><br><span class="line">	[-H hw_sync_enable] # Synchronise USB transfer using GPIO pins.</span><br></pre></td></tr></table></figure>
+<h2 id="开始录制："><a href="#开始录制：" class="headerlink" title="开始录制："></a>开始录制：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hackrf_transfer -r 96_3.raw -f 96300000 -g 30 -l 24 -a 1 -p 1 -s 8000000 -b 4000000</span><br></pre></td></tr></table></figure>
+<p>ctrl+c停止录制之后/root中会有一个1.raw文件，这时使用hackrf_transfer进行发射：</p>
+<blockquote>
+<p>第二百八十八条 违反国家规定，擅自设置、使用无线电台（站），或者擅自占用频率，经责令停止使用后拒不停止使用，干扰无线电通讯正常进行，造成严重后果的，处三年以下有期徒刑、拘役或者管制，并处或者单处罚金</p>
+</blockquote>
+<h2 id="发射广播"><a href="#发射广播" class="headerlink" title="发射广播"></a>发射广播</h2><p>测试时最好<code>-f</code>指定一个未使用的频率，<code>-x</code>发射增益尽量小一点，这里gqrx发现97.4左右没有广播</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hackrf_transfer -t 96_3.raw -f 97400000 -x 10 -a 1 -p 1 -s 8000000 -b 4000000 -R</span><br></pre></td></tr></table></figure>
+<p>这就是最简单的重放攻击，重放攻击应用场景十分广泛，也是常见的无线电攻击手段，举几个栗子</p>
+<ul>
+<li>汽车遥控开门</li>
+<li>遥控电动卷帘门</li>
+<li>GPS攻击</li>
+<li>遥控玩具小车</li>
+<li>……</li>
+</ul>
+<blockquote>
+<p>理论上可以对一切通过无线电进行的通讯，进行监听，重放攻击，不过一般无线电通讯都是加密的，不同通讯采用的协议不一样，如wifi采用WPA2，GSM采用A5加密等，所以密码学在无线通信中承担着重要的角色</p>
+</blockquote>
+<p>另外可以用gnuradio来广播你自己的音乐，或者利用麦克风输入的声音作为声音源进行实时广播，具体做法可以参考这篇链接</p>
+<p><a href="http://www.freebuf.com/news/139716.html" target="_blank" rel="noopener">http://www.freebuf.com/news/139716.html</a></p>
+<h1 id="GPS劫持"><a href="#GPS劫持" class="headerlink" title="GPS劫持"></a>GPS劫持</h1><h2 id="下载并编译gps-sdr-sim"><a href="#下载并编译gps-sdr-sim" class="headerlink" title="下载并编译gps-sdr-sim"></a>下载并编译gps-sdr-sim</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/osqzss/gps-sdr-sim.git</span><br><span class="line">cd gps-sdr-sim</span><br><span class="line">gcc gpssim.c -lm -O3 -o gps-sdr-sim</span><br></pre></td></tr></table></figure>
+<p>参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~/gps-sdr-sim# ./gps-sdr-sim -h</span><br><span class="line">Usage: gps-sdr-sim [options]</span><br><span class="line">Options:</span><br><span class="line">  -e &lt;gps_nav&gt;     RINEX navigation file for GPS ephemerides (required)</span><br><span class="line">  -u &lt;user_motion&gt; User motion file (dynamic mode)</span><br><span class="line">  -g &lt;nmea_gga&gt;    NMEA GGA stream (dynamic mode)</span><br><span class="line">  -l &lt;location&gt;    Lat,Lon,Hgt (static mode) e.g. 35.681298,139.766247,10.0</span><br><span class="line">  -t &lt;date,time&gt;   Scenario start time YYYY/MM/DD,hh:mm:ss</span><br><span class="line">  -T &lt;date,time&gt;   Overwrite TOC and TOE to scenario start time</span><br><span class="line">  -d &lt;duration&gt;    Duration [sec] (dynamic mode max: 300, static mode max: 86400)</span><br><span class="line">  -o &lt;output&gt;      I/Q sampling data file (default: gpssim.bin)</span><br><span class="line">  -s &lt;frequency&gt;   Sampling frequency [Hz] (default: 2600000)</span><br><span class="line">  -b &lt;iq_bits&gt;     I/Q data format [1/8/16] (default: 16)</span><br><span class="line">  -i               Disable ionospheric delay for spacecraft scenario</span><br><span class="line">  -v               Show details about simulated channels</span><br></pre></td></tr></table></figure>
+<h2 id="制作定位文件"><a href="#制作定位文件" class="headerlink" title="制作定位文件"></a>制作定位文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gps-sdr-sim -e brdc3540.14n -l 66,66,100 -b 8 -d 300</span><br></pre></td></tr></table></figure>
+<h2 id="将手机定位模式设置为仅GPS"><a href="#将手机定位模式设置为仅GPS" class="headerlink" title="将手机定位模式设置为仅GPS"></a>将手机定位模式设置为仅GPS</h2><blockquote>
+<p>设置–位置信息–模式–仅限设备（使用GPS确定位置）</p>
+</blockquote>
+<p><img src="http://oztni9daw.bkt.clouddn.com/073a8b482fca8afe4645431f91047fc8.png" alt=""></p>
+<h2 id="劫持前（软件名字GPS工具箱和高德地图）"><a href="#劫持前（软件名字GPS工具箱和高德地图）" class="headerlink" title="劫持前（软件名字GPS工具箱和高德地图）"></a>劫持前（软件名字<code>GPS工具箱</code>和<code>高德地图</code>）</h2><p><img src="http://oztni9daw.bkt.clouddn.com/c6efe87266ba3fbb326d1b35c7b52ea7.png" alt=""></p>
+<p><img src="http://oztni9daw.bkt.clouddn.com/61239dc394d6c6f8709f7f0a3078eec7.png" alt=""></p>
+<p>对1575420000Hz（民用GPS频率）实施劫持</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hackrf_transfer -t gpssim.bin -f 1575420000 -s 2600000 -a 1 -x 10</span><br></pre></td></tr></table></figure>
+<h2 id="劫持后"><a href="#劫持后" class="headerlink" title="劫持后"></a>劫持后</h2><p><img src="http://oztni9daw.bkt.clouddn.com/630390475e40ac9a90ec472b0f5354a9.png" alt=""></p>
+<p><img src="http://oztni9daw.bkt.clouddn.com/699a25b1743be377b428c59ff7410af9.png" alt=""></p>
+<h1 id="hackrf的更多玩法及资料"><a href="#hackrf的更多玩法及资料" class="headerlink" title="hackrf的更多玩法及资料"></a>hackrf的更多玩法及资料</h1><h2 id="黑客商店，超多好玩的东西"><a href="#黑客商店，超多好玩的东西" class="headerlink" title="黑客商店，超多好玩的东西"></a>黑客商店，超多好玩的东西</h2><blockquote>
+<p>Hackrf one，大菠萝，橡皮鸭，Bash Bunny，UBERTOOTH ONE等</p>
+</blockquote>
+<p><a href="https://www.hak5.org" target="_blank" rel="noopener">www.hak5.org</a><br><a href="https://hakshop.com" target="_blank" rel="noopener">hakshop.com</a></p>
+<h2 id="hackrf-net"><a href="#hackrf-net" class="headerlink" title="hackrf.net"></a>hackrf.net</h2><p><a href="http://www.hackrf.net" target="_blank" rel="noopener">hackrf.net</a></p>
+<h2 id="freebuf"><a href="#freebuf" class="headerlink" title="freebuf"></a>freebuf</h2><p><a href="http://www.freebuf.com/?s=hackrf" target="_blank" rel="noopener">freebuf搜索：hackrf</a></p>
+<p><a href="http://www.freebuf.com/?s=sdr" target="_blank" rel="noopener">freebuf搜索：sdr</a></p>
+<h2 id="android"><a href="#android" class="headerlink" title="android"></a>android</h2><p>配合otg线</p>
+<blockquote>
+<p>RFAnalyzer.apk</p>
+</blockquote>
+<h2 id="一些网址"><a href="#一些网址" class="headerlink" title="一些网址"></a>一些网址</h2><ul>
+<li><a href="http://www.bkjia.com/aqgjrj/1116125.html" target="_blank" rel="noopener">远程控制别人的无线鼠标</a></li>
+<li><a href="http://bbs.kechuang.org/read/78528/1" target="_blank" rel="noopener">无线电信号回放控制遥控小车</a></li>
+<li><a href="http://www.freebuf.com/articles/wireless/68736.html" target="_blank" rel="noopener">利用hackRF嗅探GSM网络流量</a></li>
+<li><a href="http://www.freebuf.com/articles/wireless/77819.html" target="_blank" rel="noopener">无线电入门</a></li>
+<li><a href="http://www.freebuf.com/news/special/83650.html" target="_blank" rel="noopener">家用无线门铃信号重放</a></li>
+<li><a href="http://www.freebuf.com/news/88281.html" target="_blank" rel="noopener">低功耗蓝牙（BLE）入门之如何调戏别人的小米手环</a></li>
+<li><a href="http://www.freebuf.com/news/special/87353.html" target="_blank" rel="noopener">从无线电角度揭秘定位劫持</a></li>
+<li><a href="http://www.freebuf.com/articles/wireless/86345.html" target="_blank" rel="noopener">HackRF嗅探蓝牙重放iBeacons信号</a></li>
+<li><a href="http://www.freebuf.com/articles/wireless/76220.html" target="_blank" rel="noopener">使用Arduino模块实施无线信号的重放攻击</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/sdr/" rel="tag"># sdr</a>
+          
+            <a href="/tags/HackRF/" rel="tag"># HackRF</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/27/Jarvis_crypto_1/" rel="next" title="Jarvis OJ -- crypto题（上）">
+                <i class="fa fa-chevron-left"></i> Jarvis OJ -- crypto题（上）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/01/Jarvis_crypto_2/" rel="prev" title="Jarvis OJ -- crypto题（中）">
+                Jarvis OJ -- crypto题（中） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/head.png"
+                alt="D001UM3" />
+            
+              <p class="site-author-name" itemprop="name">D001UM3</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#无线电基础"><span class="nav-number">1.</span> <span class="nav-text">无线电基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#历史"><span class="nav-number">1.1.</span> <span class="nav-text">历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无线电与电磁波"><span class="nav-number">1.2.</span> <span class="nav-text">无线电与电磁波</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日常生活中的无线电"><span class="nav-number">1.3.</span> <span class="nav-text">日常生活中的无线电</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#收音机（无线广播）"><span class="nav-number">1.3.1.</span> <span class="nav-text">收音机（无线广播）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遥控器"><span class="nav-number">1.3.2.</span> <span class="nav-text">遥控器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由器"><span class="nav-number">1.3.3.</span> <span class="nav-text">路由器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#蓝牙"><span class="nav-number">1.3.4.</span> <span class="nav-text">蓝牙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卫星天线"><span class="nav-number">1.3.5.</span> <span class="nav-text">卫星天线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对讲机"><span class="nav-number">1.3.6.</span> <span class="nav-text">对讲机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPS"><span class="nav-number">1.3.7.</span> <span class="nav-text">GPS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无人机"><span class="nav-number">1.3.8.</span> <span class="nav-text">无人机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件无线电（SDR）"><span class="nav-number">1.4.</span> <span class="nav-text">软件无线电（SDR）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#各种SDR平台"><span class="nav-number">1.5.</span> <span class="nav-text">各种SDR平台</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#USRP"><span class="nav-number">1.5.1.</span> <span class="nav-text">USRP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BladeRF"><span class="nav-number">1.5.2.</span> <span class="nav-text">BladeRF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HackRF"><span class="nav-number">1.5.3.</span> <span class="nav-text">HackRF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RTLSDR"><span class="nav-number">1.5.4.</span> <span class="nav-text">RTLSDR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三款SDR平台对比"><span class="nav-number">1.5.5.</span> <span class="nav-text">三款SDR平台对比</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hackrf-in-kali环境搭建"><span class="nav-number">2.</span> <span class="nav-text">hackrf in kali环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装hackrf驱动及依赖"><span class="nav-number">2.1.</span> <span class="nav-text">安装hackrf驱动及依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装gnuradio，gqrx等"><span class="nav-number">2.2.</span> <span class="nav-text">安装gnuradio，gqrx等</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在kali下听广播"><span class="nav-number">3.</span> <span class="nav-text">在kali下听广播</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用gqrx来收听FM调频广播"><span class="nav-number">3.1.</span> <span class="nav-text">用gqrx来收听FM调频广播</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实时广播"><span class="nav-number">4.</span> <span class="nav-text">实时广播</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开始录制："><span class="nav-number">4.1.</span> <span class="nav-text">开始录制：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发射广播"><span class="nav-number">4.2.</span> <span class="nav-text">发射广播</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GPS劫持"><span class="nav-number">5.</span> <span class="nav-text">GPS劫持</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载并编译gps-sdr-sim"><span class="nav-number">5.1.</span> <span class="nav-text">下载并编译gps-sdr-sim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#制作定位文件"><span class="nav-number">5.2.</span> <span class="nav-text">制作定位文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将手机定位模式设置为仅GPS"><span class="nav-number">5.3.</span> <span class="nav-text">将手机定位模式设置为仅GPS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#劫持前（软件名字GPS工具箱和高德地图）"><span class="nav-number">5.4.</span> <span class="nav-text">劫持前（软件名字GPS工具箱和高德地图）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#劫持后"><span class="nav-number">5.5.</span> <span class="nav-text">劫持后</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hackrf的更多玩法及资料"><span class="nav-number">6.</span> <span class="nav-text">hackrf的更多玩法及资料</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#黑客商店，超多好玩的东西"><span class="nav-number">6.1.</span> <span class="nav-text">黑客商店，超多好玩的东西</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hackrf-net"><span class="nav-number">6.2.</span> <span class="nav-text">hackrf.net</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#freebuf"><span class="nav-number">6.3.</span> <span class="nav-text">freebuf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#android"><span class="nav-number">6.4.</span> <span class="nav-text">android</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些网址"><span class="nav-number">6.5.</span> <span class="nav-text">一些网址</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">D001UM3</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

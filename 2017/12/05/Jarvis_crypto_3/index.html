@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ctf,Jarvis OJ,writeup,crypto," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="crypto题差一题AK--（下）">
+<meta name="keywords" content="ctf,Jarvis OJ,writeup,crypto">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jarvis OJ -- crypto题（下）">
+<meta property="og:url" content="https://d001um3.github.io/2017/12/05/Jarvis_crypto_3/index.html">
+<meta property="og:site_name" content="D001UM3&#39;S BLOG">
+<meta property="og:description" content="crypto题差一题AK--（下）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-08T01:11:02.125Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jarvis OJ -- crypto题（下）">
+<meta name="twitter:description" content="crypto题差一题AK--（下）">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://d001um3.github.io/2017/12/05/Jarvis_crypto_3/"/>
+
+
+
+
+
+  <title>Jarvis OJ -- crypto题（下） | D001UM3'S BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">D001UM3'S BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://d001um3.github.io/2017/12/05/Jarvis_crypto_3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D001UM3">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D001UM3'S BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Jarvis OJ -- crypto题（下）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-05T20:46:16+08:00">
+                2017-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Jarvis-OJ/" itemprop="url" rel="index">
+                    <span itemprop="name">Jarvis OJ</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  crypto题差一题AK--（下）
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="61dctf-bbencode"><a href="#61dctf-bbencode" class="headerlink" title="[61dctf]bbencode"></a>[61dctf]bbencode</h1><p>题目给了一个py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">flag = open(&quot;flag&quot;, &quot;r&quot;).read().strip()</span><br><span class="line">assert len(flag) == 32</span><br><span class="line">def str2num(s):</span><br><span class="line">    return int(s.encode(&apos;hex&apos;), 16)</span><br><span class="line">def bbencode(n):</span><br><span class="line">    a = 0</span><br><span class="line">    for i in bin(n)[2:]:</span><br><span class="line">        a = a &lt;&lt; 1</span><br><span class="line">        if (int(i)):</span><br><span class="line">            a = a ^ n</span><br><span class="line">        if a &gt;&gt; 256:</span><br><span class="line">            a = a ^ 0x10000000000000000000000000000000000000000000000000000000000000223L</span><br><span class="line">    return a</span><br><span class="line"></span><br><span class="line">print bbencode(str2num(flag))</span><br><span class="line"></span><br><span class="line">#result:61406787709715709430385495960238216763226399960658358000016620560764164045692</span><br></pre></td></tr></table></figure>
+<p>因为是异或，所以重复encode就能拿到flag了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">def bbencode(n):</span><br><span class="line">    a = 0</span><br><span class="line">    for i in bin(n)[2:]:</span><br><span class="line">        a = a &lt;&lt; 1</span><br><span class="line">        if (int(i)):</span><br><span class="line">            a = a ^ n</span><br><span class="line">        if a &gt;&gt; 256:</span><br><span class="line">            a = a ^ 0x10000000000000000000000000000000000000000000000000000000000000223L</span><br><span class="line">    return a</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">result = 61406787709715709430385495960238216763226399960658358000016620560764164045692</span><br><span class="line">for i in range(3000):</span><br><span class="line">    result = bbencode(result)</span><br><span class="line">    if &apos;flag&#123;&apos;.encode(&apos;hex&apos;) in hex(result)[2:-1]:</span><br><span class="line">        print hex(result)[2:-1].decode(&apos;hex&apos;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>flag{you_xian_yu_huan_le<em>duo</em>!!}</p>
+</blockquote>
+<h1 id="61dctf-rsappend"><a href="#61dctf-rsappend" class="headerlink" title="[61dctf]rsappend"></a>[61dctf]rsappend</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  rsappend_101ghfuaori488hs9 ls -l</span><br><span class="line">total 96</span><br><span class="line">-rwxr-xr-x@ 1 ioot  staff  41140  4  3  2017 result</span><br><span class="line">-rwxr-xr-x@ 1 ioot  staff    761  4  3  2017 rsappend.py</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>rsappend.py</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">flag = open(&quot;flag&quot;, &quot;r&quot;).read().strip()</span><br><span class="line">assert len(flag) == 32</span><br><span class="line"></span><br><span class="line">import primefac</span><br><span class="line">import random</span><br><span class="line">from os import urandom</span><br><span class="line">def genprime(l):</span><br><span class="line">    l/=8</span><br><span class="line">    big=1</span><br><span class="line">    while(l):</span><br><span class="line">        big=big&lt;&lt;8</span><br><span class="line">        l-=1</span><br><span class="line">    big-=1</span><br><span class="line">    small=(big+1)&gt;&gt;4</span><br><span class="line">    temp=random.randint(small,big)</span><br><span class="line">    return primefac.nextprime(temp)</span><br><span class="line">def str2num(s):</span><br><span class="line">    return int(s.encode(&apos;hex&apos;), 16)</span><br><span class="line">def padding(s):</span><br><span class="line">    return s+urandom(abs(256-len(s)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def rsappend(m):</span><br><span class="line">    p = genprime(2048)</span><br><span class="line">    q = genprime(2048)</span><br><span class="line">    n = p * q</span><br><span class="line">    result=[str(n)+&quot;\n&quot;]</span><br><span class="line">    pm=padding(flag)</span><br><span class="line">    for i in range(32):</span><br><span class="line">        e=genprime(32)</span><br><span class="line">        c=pow(str2num(pm),e,n)</span><br><span class="line">        result.append(str(e)+&quot;###&quot;+str(c)+&quot;\n&quot;)</span><br><span class="line">    return &quot;&quot;.join(result)</span><br><span class="line">open(&quot;result&quot;,&quot;w&quot;).write(rsappend(flag))</span><br></pre></td></tr></table></figure>
+<p>第一直觉是共模攻击，pm为256位，前32位是flag，后224位是随机填充值。但是又仔细一想，共模攻击的条件是加密同一明文，这里很明显不满足，但是如果不是共模攻击，这题除了往死里爆破p和q，就没办法了啊。先不管那么多，试试共模攻击</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">import gmpy2</span><br><span class="line">from Crypto.Util.number import long_to_bytes</span><br><span class="line"></span><br><span class="line">with open(&apos;rsappend/result&apos;, &apos;r&apos;) as file:</span><br><span class="line">    rsas = file.readlines()</span><br><span class="line"></span><br><span class="line">n = int(rsas[0].strip())</span><br><span class="line">eandc = &#123;&#125;</span><br><span class="line">for i in rsas[1:]:</span><br><span class="line">    e = int(i.strip().split(&apos;###&apos;)[0])</span><br><span class="line">    c = int(i.strip().split(&apos;###&apos;)[1])</span><br><span class="line">    eandc[e] = c</span><br><span class="line">e1 = eandc.keys()[0]</span><br><span class="line">cipher1 = eandc[e1]</span><br><span class="line">e2 = eandc.keys()[11]</span><br><span class="line">cipher2 = eandc[e2]</span><br><span class="line">gcd, s, t = gmpy2.gcdext(e1, e2)</span><br><span class="line">if s &lt; 0:</span><br><span class="line">    s = -s</span><br><span class="line">    cipher1 = gmpy2.invert(cipher1, n)</span><br><span class="line">if t &lt; 0:</span><br><span class="line">    t = -t</span><br><span class="line">    cipher2 = gmpy2.invert(cipher2, n)</span><br><span class="line">plain = gmpy2.powmod(cipher1, s, n) * gmpy2.powmod(cipher2, t, n) % n</span><br><span class="line">print long_to_bytes(plain)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>另外在这里，我尝试取不同组的(e, c)，最后的结果居然一样，这就解释了为什么能进行共模攻击，因为他给的result文件并不是按他给的脚本加密出来的，应该是出题的意识到无解，然后悄悄把随机那里变成了固定的padding</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  crypto python rsappend.py</span><br><span class="line">flag&#123;we_do_ctf_together_for_fun&#125;\gK�m7����a�Ś3Ö�m+��3��&apos;���R</span><br><span class="line">                                                            ���</span><br><span class="line">Po6��q�cMK	R�5�̱vRs�Q�2+�� �����N��!�HAy@����a.I�v\�����2���l</span><br><span class="line">sȬܛ�$�&quot;IH�,V-~�E����Y��UG��e�9gu�w�����Ӂ_1���=EiN���J(��</span><br><span class="line">                                                        ;����x&apos;pڽW���*�?�t</span><br><span class="line"> ֚E�ɚ</span><br></pre></td></tr></table></figure>
+<h1 id="61dctf-rsa（not-solved）"><a href="#61dctf-rsa（not-solved）" class="headerlink" title="[61dctf]rsa（not solved）"></a>[61dctf]rsa（not solved）</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ cd Downloads/rsa</span><br><span class="line">➜  rsa ls</span><br><span class="line">alice_public_key.py communication.py    send.bak</span><br><span class="line">bob_public_key.py   keygen.sage</span><br></pre></td></tr></table></figure>
+<p>其中send.bak是128字节的乱码，然后分别看一下每一个文件的内容</p>
+<blockquote>
+<p>keygen.sage</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env sage</span><br><span class="line"># coding=utf-8</span><br><span class="line"></span><br><span class="line">proof.arithmetic(False)</span><br><span class="line"></span><br><span class="line">threshold = 21 &lt;&lt; 1018 # just chosen arbitrarily:)</span><br><span class="line"></span><br><span class="line">def genKey(n, nd):</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    Designed with the awesome idea that generating two RSA key pairs</span><br><span class="line">    that have the same public and private exponents to reduce the</span><br><span class="line">    storage requirements!</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line"></span><br><span class="line">    assert n/2 &gt; nd</span><br><span class="line">    tmp = n/2 - nd</span><br><span class="line"></span><br><span class="line">    while True:</span><br><span class="line">        while True:</span><br><span class="line">            x1 = randrange(2^(nd-1), 2^nd)</span><br><span class="line">            x2 = randrange(2^(tmp-1), 2^tmp)</span><br><span class="line">            p1 = x1*x2 + 1</span><br><span class="line">            if p1.is_prime():</span><br><span class="line">                print &apos;[+]bit length of p1:&apos;, int(p1).bit_length()</span><br><span class="line">                break</span><br><span class="line"></span><br><span class="line">        while True:</span><br><span class="line">            y2 = randrange(2^(tmp-1), 2^tmp)</span><br><span class="line">            p2 = x1*y2 + 1</span><br><span class="line">            if p2.is_prime():</span><br><span class="line">                print &apos;[+]bit length of p2:&apos;, int(p2).bit_length()</span><br><span class="line">                break</span><br><span class="line"></span><br><span class="line">        while True:</span><br><span class="line">            y1 = randrange(2^(nd-1), 2^nd)</span><br><span class="line">            q1 = y1*y2 + 1</span><br><span class="line">            if q1.is_prime():</span><br><span class="line">                print &apos;[+]bit length of q1:&apos;, int(q1).bit_length()</span><br><span class="line">                break</span><br><span class="line"></span><br><span class="line">        count = 0</span><br><span class="line">        while True:</span><br><span class="line">            d = randrange(2^(nd-1), 2^nd)</span><br><span class="line">            if gcd(x1*x2*y1*y2, d) != 1:</span><br><span class="line">                continue</span><br><span class="line">            e = int(1/Mod(d, (p1-1)*(q1-1)))</span><br><span class="line">            k1 = (e*d - 1) // ((p1-1)*(q1-1))</span><br><span class="line">            assert e*d == (p1-1)*(q1-1)*k1 + 1</span><br><span class="line">            q2 = k1*x2 + 1</span><br><span class="line">            if q2.is_prime():</span><br><span class="line">                print &apos;[+]bit length of q2:&apos;, int(q2).bit_length()</span><br><span class="line">                break</span><br><span class="line">        n1 = p1 * q1</span><br><span class="line">        n2 = p2 * q2</span><br><span class="line">        n1, n2 = max([n1, n2]), min([n1, n2])</span><br><span class="line">        if n1 &lt;= threshold:</span><br><span class="line">            print &apos;[+]N for encryptions is too small!&apos;</span><br><span class="line">            continue</span><br><span class="line">        if n2 &gt;= threshold:</span><br><span class="line">            print &apos;[+]N for signatures is too large!&apos;</span><br><span class="line">            continue</span><br><span class="line">        break</span><br><span class="line"></span><br><span class="line">    assert int(pow(pow(0xdeadbeef, e, n1), d)) == 0xdeadbeef</span><br><span class="line">    assert int(pow(pow(0xdeadbeef, e, n2), d)) == 0xdeadbeef</span><br><span class="line">    return (e, d, n1, n2)</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    print genKey(1024, 342)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>communication.py</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># coding=utf-8</span><br><span class="line">from os import urandom</span><br><span class="line">from secret_socket import socket_with_bob</span><br><span class="line">import alice_private_key</span><br><span class="line">import bob_public_key</span><br><span class="line"></span><br><span class="line">def str2int(s):</span><br><span class="line">    return int(s.encode(&apos;hex&apos;), 16)</span><br><span class="line"></span><br><span class="line">def int2str(i):</span><br><span class="line">    tmp = hex(i)[2:].strip(&apos;L&apos;)</span><br><span class="line">    tmp = (&apos;0&apos; if len(tmp)%2 else &apos;&apos;) + tmp</span><br><span class="line">    return tmp.decode(&apos;hex&apos;)</span><br><span class="line"></span><br><span class="line">def sign_and_encrypt(m):</span><br><span class="line">    m = urandom(126-len(m)) + &apos;\x00&apos; + m</span><br><span class="line">    sig = pow(str2int(m), alice_private_key.d, alice_private_key.N2)</span><br><span class="line">    assert sig &lt; bob_public_key.N1</span><br><span class="line">    sig_enc = pow(sig, bob_public_key.e, bob_public_key.N1)</span><br><span class="line">    return int2str(sig_enc)</span><br><span class="line"></span><br><span class="line">def decrypt_and_verify(c):</span><br><span class="line">    sig = pow(str2int(c), alice_private_key.d, alice_private_key.N1)</span><br><span class="line">    assert sig &lt; bob_public_key.N2</span><br><span class="line">    message = pow(sig, bob_public_key.e, bob_public_key.N2)</span><br><span class="line">    message = int2str(message)</span><br><span class="line">    message = message[message.rindex(&apos;\x00&apos;)+1:]</span><br><span class="line">    return message</span><br><span class="line"></span><br><span class="line">s = socket_with_bob()</span><br><span class="line">recv_enc = s.recv()</span><br><span class="line">recv_message = decrypt_and_verify(recv_enc)</span><br><span class="line">assert recv_message == &quot;Ooops, my flag have been encrypted by wannacry! Could you please send it to me again, Alice?&quot;</span><br><span class="line"></span><br><span class="line">with open(&apos;flag.txt&apos;) as f:</span><br><span class="line">    flag = f.read()</span><br><span class="line">send_message = &quot;Well, OK... Here is what you what: &#123;&#125;&quot;.format(flag)</span><br><span class="line">assert len(send_message) &lt; 128</span><br><span class="line">to_send = sign_and_encrypt(send_message)</span><br><span class="line">s.send(to_send)</span><br><span class="line">s.close()</span><br><span class="line"></span><br><span class="line">with open(&apos;send.bak&apos;, &apos;wb&apos;) as f:</span><br><span class="line">    f.write(to_send)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>bob_public_key.py</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># coding=utf-8</span><br><span class="line"></span><br><span class="line"># Generated by genKey(1024, 342) in keygen.sage</span><br><span class="line"></span><br><span class="line">e = 57019382772166837488750427040015464490863175936396575556290232679668259683514801918298546850349718538222635977304361506235546587039055174992606638351023434322917005735910505716857963030159773221874370814472973319422853023944637626372539074831161749650232791256091117301145054914651557523038888181457290682237</span><br><span class="line"></span><br><span class="line">N1 = 68253958478963934124300215757460723273691925280596309221863375905836387105252457670797482776100691909463871547306272253629697109054703333176926409544379734932863965587299902358818026560280727724874176607409038276642286734734838152097800253007709025880304435661500771500046972983240470823245360867996258239121</span><br><span class="line"></span><br><span class="line">N2 = 58831168144192031952989136031836716698976227434725683505500936300434624499242689272670040374754049533739858144785202063762391111213777476380071324869525517503277889732429358219404717664025176836710995641523459333571168229803403205064106761733957455221168205091994936332421038092333687260644067187030525515969</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>alice_public_key.py</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># coding=utf-8</span><br><span class="line"></span><br><span class="line"># Generated by genKey(1024, 342) in keygen.sage</span><br><span class="line"></span><br><span class="line">e = 16140311304784625807971244520043756160102111440186500282911137675250199677022940503982292569233803572106227632954920805936151799049981849612210588147943318190599476331582153430089688143361226994947530603424082905816220548156412649246782363716825121201733242060234874574393149811078415952220812029904096645141</span><br><span class="line"></span><br><span class="line">N1 = 73871864906066571406532457145607595847175670495017175565388132342574183187410380661917315431292987479576202710800243301821110154265031908769855345111418669574603508401169110155260587673272035301147668990301239964950207744512780378527326467318883681760821710529273075846801071296284930852211925448126134456371</span><br><span class="line"></span><br><span class="line">N2 = 10548244241379959973012698997313565838321599691374783075397881482031959048170291643267402594849260277539547268187806692681844616430159988384126260317181183835757828333838579492655650376150221839149317599035426574857154820265992983356076281713571392012617269312376565128009638293040584673854656713040776519371</span><br></pre></td></tr></table></figure>
+<p>不难看出，要解密send.bak，我们需要先用bob的私钥对(bob.d, bob.n1)得到sig，然后再用alice的公钥对(alice.e, alice.n2)解密得到明文。alice的公钥我们直接从题目给的文件就能得到，那么我们要做的就是通过bob的(e, n1, n2)拿到bob的私钥d。</p>
+<blockquote>
+<p>卡了两天，尽可能尝试了我已知的RSA攻击方法，都不能解出私钥d，毕竟500分的题。。。能力有限，此题日后在肝</p>
+</blockquote>
+<h1 id="61dctf-cry"><a href="#61dctf-cry" class="headerlink" title="[61dctf]cry"></a>[61dctf]cry</h1><blockquote>
+<p>nc pwn2.jarvisoj.com 9891</p>
+</blockquote>
+<p>下载得到一个py文件</p>
+<blockquote>
+<p>cry.py</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">import primefac</span><br><span class="line">import random</span><br><span class="line">from os import urandom</span><br><span class="line">class Unbuffered(object):</span><br><span class="line">   def __init__(self, stream):</span><br><span class="line">       self.stream = stream</span><br><span class="line">   def write(self, data):</span><br><span class="line">       self.stream.write(data)</span><br><span class="line">       self.stream.flush()</span><br><span class="line">   def __getattr__(self, attr):</span><br><span class="line">       return getattr(self.stream, attr)</span><br><span class="line">import sys</span><br><span class="line">from Crypto.Cipher import AES</span><br><span class="line">def aes_cbc_encode(password,iv,m):</span><br><span class="line">    cipher = AES.new(password, AES.MODE_CBC, iv)</span><br><span class="line">    return cipher.encrypt(m)</span><br><span class="line">def aes_cbc_decode(password,iv,c):</span><br><span class="line">    cipher = AES.new(password, AES.MODE_CBC, iv)</span><br><span class="line">    return cipher.decrypt(c)</span><br><span class="line">sys.stdout = Unbuffered(sys.stdout)</span><br><span class="line">def genprime(l):</span><br><span class="line">    l /= 8</span><br><span class="line">    big = 1</span><br><span class="line">    while l:</span><br><span class="line">        big = big &lt;&lt; 8</span><br><span class="line">        l -= 1</span><br><span class="line">    big -= 1</span><br><span class="line">    small = (big + 1) &gt;&gt; 4</span><br><span class="line">    temp = random.randint(small, big)</span><br><span class="line">    return primefac.nextprime(temp)</span><br><span class="line">def rsa_gen():</span><br><span class="line">    p = genprime(1024)</span><br><span class="line">    q = genprime(1024)</span><br><span class="line">    n = p * q</span><br><span class="line">    e = 65537</span><br><span class="line">    d = primefac.modinv(e,(p-1)*(q-1)) % ((p-1)*(q-1))</span><br><span class="line">    return (p,q,n,e,d)</span><br><span class="line">def num2str(num):</span><br><span class="line">    h=hex(num)[2:].replace(&quot;L&quot;,&quot;&quot;)</span><br><span class="line">    if len(h)%2 ==0 :</span><br><span class="line">        return h.decode(&quot;hex&quot;)</span><br><span class="line">    else:</span><br><span class="line">        return (&quot;0&quot;+h).decode(&quot;hex&quot;)</span><br><span class="line">def str2num(str):</span><br><span class="line">    return int(str.encode(&quot;hex&quot;),16)</span><br><span class="line">def pad16(str):</span><br><span class="line">    addl=16-(len(str)%16)</span><br><span class="line">    return &quot;a&quot;*addl+str</span><br><span class="line"></span><br><span class="line">def run():</span><br><span class="line">    print &quot;====welcome to cry system====&quot;</span><br><span class="line">    (p,q,n,e,d)=rsa_gen()</span><br><span class="line">    print &quot;give you the public key:&quot;</span><br><span class="line">    print &quot;n:&quot;+hex(n).replace(&quot;L&quot;,&quot;&quot;)</span><br><span class="line">    print &quot;e:&quot;+hex(e).replace(&quot;L&quot;,&quot;&quot;)</span><br><span class="line">    try:</span><br><span class="line">        c=int(raw_input(&quot;give me the crypted message in hex:&quot;)[2:].strip(),16)</span><br><span class="line">        m=pow(c,d,n)</span><br><span class="line">    except:</span><br><span class="line">        print &quot;wrong input&quot;</span><br><span class="line">    print &quot;your message is&quot;,num2str(m)</span><br><span class="line"></span><br><span class="line">    flag=open(&quot;pathtoflag&quot;,&quot;r&quot;).read().strip()</span><br><span class="line">    aes_key=urandom(16)</span><br><span class="line">    iv=urandom(16)</span><br><span class="line">    cf=aes_cbc_encode(aes_key,iv,pad16(flag))</span><br><span class="line">    ck=pow(str2num(aes_key),e,n)</span><br><span class="line">    civ = pow(str2num(iv), e, n)</span><br><span class="line">    print &quot;encrypted flag:&quot;+cf.encode(&quot;base64&quot;)+&apos;#&apos;+hex(ck).replace(&quot;L&quot;,&quot;&quot;)+&apos;#&apos;+hex(civ).replace(&quot;L&quot;,&quot;&quot;)+&apos;#&apos;+hex(p).replace(&quot;L&quot;,&quot;&quot;)[2:182]+&quot;##&quot;</span><br><span class="line">run()</span><br></pre></td></tr></table></figure>
+<p>先nc看看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">➜  rsa nc pwn2.jarvisoj.com 9891</span><br><span class="line">====welcome to cry system====</span><br><span class="line">give you the public key:</span><br><span class="line">n:0xa42a850d5ce6b8f89183a6fe90dce4be0e7b60f7e8e98b8c8971961febf183ab7b384885a83296762d7e3acb1ecfe2e0eaf039e7305eef0bac54c645952dd8d0d94ec299dfb67d0425a5eeb548f91cec20a853409cddb66a1730bdb5d63258f01c32249cd4534d1968ba6eab99d13f18ab073662fff820b98307887fb5133e2b7652ff86275bd51fbbb15317b99725784c64b37e8baa5c5ae3dc06a8fec0e7816a81eb1892cc98f45a9d33bd0746c360d2fa8e3e0ff9e7c990a0b177c5f702731f352684285dab31c599ad5702ac4552cbec32732fb04382162d6aa6d50a4d970507e23b814501bb6eed1b92f7f40d13f547ba3157c73919f245e4d3689a4417</span><br><span class="line">e:0x10001</span><br><span class="line">give me the crypted message in hex:0x2</span><br><span class="line">your message is ?�գ3�</span><br><span class="line">I���&#125;����Y-�</span><br><span class="line">�b`&quot;Ol!�.��oui,C�i��u</span><br><span class="line">�~�;�j�gQ�����K�S��L�A�~�D��&apos;�����;�</span><br><span class="line">                                    7��H��!i��&gt;��1k^�P��ab�%��t�e</span><br><span class="line">                                                                  e�q�yo5?sbKց��ہ�%5��k�ʥ]��3�]���˰-MKČ&quot;�f��Η+ݺ���?~i�ՅǛ �iG���,��R�W��vzZ</span><br><span class="line">                                                          �6|#</span><br><span class="line">                                                              �H���^s��^l�ll7ɼA�l�4�1�J�a-</span><br><span class="line">encrypted flag:U3o7vRfdgI9i4ptERBRnN0X+FbmRhsItyAwbMOn3ZQI=</span><br><span class="line">#0x366aa884d263c43350d82ee1ee398d6d0b36f311b6a4d4da3f735ffc675974483b515b094d8cac952602811aa6e97b69a75dfca1517197efc80e353a382731ec5ae8630049b5bcc094b337a31e8be4eb84a9b1315b71796476cf1ed85c925f4bd01b01b855d38b52dc329160e05f9107a193fa361193d8eb8bbac090fc2e1815bb4f456019a5ba95ff479ba21b8600b72c5295d968c6dbffa0c6e8c8f7ebbe81f58626dca746b60bbd5418aff1e1940002b7fe03c5e5ae3b593878d3cf31b7ae804bdf2f6cc7c595ef42647e16e493ad5f6e38c25d1e8f8c1faf23a880d52b4b1198863f2e70941ab52596bea9546a1f97d1916da7d34c040134897a2c77d7b9#0x861536e0a5f39072748bcceb04769508a3fdbd0bf928f440d393cba94b9f92bd26cb720ecaaf24ae6b9d034eef20d5dfa15caed87ad49ef37689e57f28cad3390123b29bd8d88ee073e10a5b2090413e1204e6aa3fcade64486ca54d0dc5c9346b69fb56b728a373ad0e7b50bbe9f74918045b0cf8012620a903feda7a939d42643e50dcba82e2d40d27b83bd08f9f3c610f32266d69ebd15849cd98802e2a93120cb0d92b677ea27164293da7f815cb4626c227f0dcd45b2070738256ccbfa5ce71ff6f65ae18ef5f425202e039ec483f30e01f39157bca0f94afcc183a6e008c1c32c5bd08f2bba790bbcc1196cf96dc8929b5040f66d93edae11587f7cb59#b14920e61a918e42650219cdcab669dad3cd1b985af6892a522b61bc2dc45cb15b33673c679ceaf10312cb9c7169e01e460afcba37c8917288e34bb5ad84a2ae9ed3256e7c3175c83b59e34180222576b18baa52e88948f728c7##</span><br></pre></td></tr></table></figure>
+<p>我们知道p的高<code>180*4</code>即720bit，p一共1024bit，所以采用<code>Factoring with high bits known</code></p>
+<p>原理及例子：<br><a href="https://github.com/mimoo/RSA-and-LLL-attacks#factoring-with-high-bits-known" target="_blank" rel="noopener">https://github.com/mimoo/RSA-and-LLL-attacks#factoring-with-high-bits-known</a></p>
+<p>下面是我按照上面nc得到的结果写的sage脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"># nc pwn2.jarvisoj.com 9891</span><br><span class="line">from sage.all import *</span><br><span class="line">import binascii</span><br><span class="line">from Crypto.Cipher import AES</span><br><span class="line">n = 0xa42a850d5ce6b8f89183a6fe90dce4be0e7b60f7e8e98b8c8971961febf183ab7b384885a83296762d7e3acb1ecfe2e0eaf039e7305eef0bac54c645952dd8d0d94ec299dfb67d0425a5eeb548f91cec20a853409cddb66a1730bdb5d63258f01c32249cd4534d1968ba6eab99d13f18ab073662fff820b98307887fb5133e2b7652ff86275bd51fbbb15317b99725784c64b37e8baa5c5ae3dc06a8fec0e7816a81eb1892cc98f45a9d33bd0746c360d2fa8e3e0ff9e7c990a0b177c5f702731f352684285dab31c599ad5702ac4552cbec32732fb04382162d6aa6d50a4d970507e23b814501bb6eed1b92f7f40d13f547ba3157c73919f245e4d3689a4417</span><br><span class="line">e = 0x10001</span><br><span class="line">flag = &apos;U3o7vRfdgI9i4ptERBRnN0X+FbmRhsItyAwbMOn3ZQI=&apos;</span><br><span class="line">s = &apos;#0x366aa884d263c43350d82ee1ee398d6d0b36f311b6a4d4da3f735ffc675974483b515b094d8cac952602811aa6e97b69a75dfca1517197efc80e353a382731ec5ae8630049b5bcc094b337a31e8be4eb84a9b1315b71796476cf1ed85c925f4bd01b01b855d38b52dc329160e05f9107a193fa361193d8eb8bbac090fc2e1815bb4f456019a5ba95ff479ba21b8600b72c5295d968c6dbffa0c6e8c8f7ebbe81f58626dca746b60bbd5418aff1e1940002b7fe03c5e5ae3b593878d3cf31b7ae804bdf2f6cc7c595ef42647e16e493ad5f6e38c25d1e8f8c1faf23a880d52b4b1198863f2e70941ab52596bea9546a1f97d1916da7d34c040134897a2c77d7b9#0x861536e0a5f39072748bcceb04769508a3fdbd0bf928f440d393cba94b9f92bd26cb720ecaaf24ae6b9d034eef20d5dfa15caed87ad49ef37689e57f28cad3390123b29bd8d88ee073e10a5b2090413e1204e6aa3fcade64486ca54d0dc5c9346b69fb56b728a373ad0e7b50bbe9f74918045b0cf8012620a903feda7a939d42643e50dcba82e2d40d27b83bd08f9f3c610f32266d69ebd15849cd98802e2a93120cb0d92b677ea27164293da7f815cb4626c227f0dcd45b2070738256ccbfa5ce71ff6f65ae18ef5f425202e039ec483f30e01f39157bca0f94afcc183a6e008c1c32c5bd08f2bba790bbcc1196cf96dc8929b5040f66d93edae11587f7cb59#b14920e61a918e42650219cdcab669dad3cd1b985af6892a522b61bc2dc45cb15b33673c679ceaf10312cb9c7169e01e460afcba37c8917288e34bb5ad84a2ae9ed3256e7c3175c83b59e34180222576b18baa52e88948f728c7##&apos;</span><br><span class="line">ck = int(s.strip(&apos;#&apos;).split(&apos;#&apos;)[0][2:], 16)</span><br><span class="line">civ = int(s.strip(&apos;#&apos;).split(&apos;#&apos;)[1][2:], 16)</span><br><span class="line">p = int(s.strip(&apos;#&apos;).split(&apos;#&apos;)[2], 16)</span><br><span class="line"></span><br><span class="line">pbits = 1024</span><br><span class="line">kbits = pbits - p.bit_length()</span><br><span class="line">p = p &lt;&lt; kbits</span><br><span class="line">PR.&lt;x&gt; = PolynomialRing(Zmod(n))</span><br><span class="line">f = x + p</span><br><span class="line">roots = f.small_roots(X=2^kbits, beta=0.4)</span><br><span class="line">if roots:</span><br><span class="line">    p = p+int(roots[0])</span><br><span class="line">    print &quot;p: &quot;, hex(int(p))</span><br><span class="line">    assert n % p == 0</span><br><span class="line">    q = n/int(p)</span><br><span class="line">    print &quot;q: &quot;, hex(int(q))</span><br><span class="line">    phin = (p-1)*(q-1)</span><br><span class="line">    d = inverse_mod(e,phin)</span><br><span class="line">    print &quot;d:&quot;, hex(int(d))</span><br><span class="line"></span><br><span class="line">aes_key = hex(int(pow(ck, d, n)))[2: -1]</span><br><span class="line">print &quot;aes_key: &quot;, aes_key</span><br><span class="line">iv = hex(int(pow(civ, d, n)))[2: -1]</span><br><span class="line">print &quot;iv: &quot;, iv</span><br><span class="line">cipher = AES.new(aes_key.decode(&apos;hex&apos;), AES.MODE_CBC, iv.decode(&apos;hex&apos;))</span><br><span class="line">print cipher.decrypt(flag.decode(&apos;base64&apos;))</span><br></pre></td></tr></table></figure>
+<p>运行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  crypto sage cry.sage</span><br><span class="line">p:  0xb14920e61a918e42650219cdcab669dad3cd1b985af6892a522b61bc2dc45cb15b33673c679ceaf10312cb9c7169e01e460afcba37c8917288e34bb5ad84a2ae9ed3256e7c3175c83b59e34180222576b18baa52e88948f728c74b83308bfdff9a36bfc3461523b43b0b7119372d0934561059a8afcb00e764a2948aed637767L</span><br><span class="line">q:  0xed0e2d9fd3925db7bf7b43bd6cb1670699102bd1e83ae62fa6349b8a3ed3aab2cb69d9433b46b4d545cfb31b0f0e545ea4f39d32a16539d630b26a6bcf86ab003e548c6998a72cf1c79f2de12e25f167666c4c9fbd17e027e859c0daa2b6e1a7d307d90d2ff6fee08a9aa791086c2cfa856abad3d34cb6de850e784f2beb4fd1L</span><br><span class="line">d: 0x3510897188560bf44d150125c82d9ec2d06b912c915cec7ec0eeb6581b2c362377f0f9803a9e1f8493aff9d12e648431afbf76f803eaabda5a1a0cfcf0fba0d9e1645402e90d53dbc34f9f9979bd0c5c473221b700fda9b92145e00ca6f01f4f7dcdb787fa19f31203883fbdb83aaaea8e5e067679c6faccfc4db31194b663a1a2eef887d9f6f8a5edfa1da50d6fbf28059900968dd688c58358d4afc80eee62874fa2d54cb741d46266b79cd1b672f9b842f8f6478032b672cc59f1ca20668e09cbcfaacfa470d84551252cc51a9ce99c4195fa36a62b2156c068b9b099862fac20a45ab585ec9bd29be194d80284f40922dd6d565264bb850a97c53e9c6801L</span><br><span class="line">aes_key:  f3994b69889dc1e03688ac4f484afc64</span><br><span class="line">iv:  7af904127a682278e8162e6ece5e73ad</span><br><span class="line">aaaaaflag&#123;ok_this_is_a_flag_rsa&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ctf/" rel="tag"># ctf</a>
+          
+            <a href="/tags/Jarvis-OJ/" rel="tag"># Jarvis OJ</a>
+          
+            <a href="/tags/writeup/" rel="tag"># writeup</a>
+          
+            <a href="/tags/crypto/" rel="tag"># crypto</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/04/kali/" rel="next" title="MACos安装kali及环境配置">
+                <i class="fa fa-chevron-left"></i> MACos安装kali及环境配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/06/sage/" rel="prev" title="sagemath入门">
+                sagemath入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/head.png"
+                alt="D001UM3" />
+            
+              <p class="site-author-name" itemprop="name">D001UM3</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#61dctf-bbencode"><span class="nav-number">1.</span> <span class="nav-text">[61dctf]bbencode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#61dctf-rsappend"><span class="nav-number">2.</span> <span class="nav-text">[61dctf]rsappend</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#61dctf-rsa（not-solved）"><span class="nav-number">3.</span> <span class="nav-text">[61dctf]rsa（not solved）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#61dctf-cry"><span class="nav-number">4.</span> <span class="nav-text">[61dctf]cry</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">D001UM3</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="kali,Parallels Desktop," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="之前的kali被搞坏了，重新安一遍，记录一下">
+<meta name="keywords" content="kali,Parallels Desktop">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MACos安装kali及环境配置">
+<meta property="og:url" content="https://d001um3.github.io/2017/12/04/kali/index.html">
+<meta property="og:site_name" content="D001UM3&#39;S BLOG">
+<meta property="og:description" content="之前的kali被搞坏了，重新安一遍，记录一下">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/b57d79a4cbf11de862ff99bc7420da7c.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/6a62e82ef09027c238040e1b59a58323.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/a4d60b841068781809ae1cc824c064cc.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/867af985000bdc92b4cca4d455f23fd9.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/dc76beb0ff110c56f48dc44e9c0c5189.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/40a2f8d4b129a72945b1f2a21f132ea6.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/ed3756cc01f2bd51403eedd1ba4dabc1.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/53d9a6f55066a6b0dc46d55b15240f4d.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/b67838a202a372bfdd6ff1200351c299.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/a52af91c9a3bbd3634b7b78df52986f7.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/eb0ed40c7e3e0f0bf843997af9fb35a8.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/44326971f66540d237f040847b9b143a.png">
+<meta property="og:updated_time" content="2017-12-22T12:11:18.883Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MACos安装kali及环境配置">
+<meta name="twitter:description" content="之前的kali被搞坏了，重新安一遍，记录一下">
+<meta name="twitter:image" content="http://oztni9daw.bkt.clouddn.com/b57d79a4cbf11de862ff99bc7420da7c.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://d001um3.github.io/2017/12/04/kali/"/>
+
+
+
+
+
+  <title>MACos安装kali及环境配置 | D001UM3'S BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">D001UM3'S BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://d001um3.github.io/2017/12/04/kali/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D001UM3">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D001UM3'S BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MACos安装kali及环境配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-04T01:05:37+08:00">
+                2017-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kali/" itemprop="url" rel="index">
+                    <span itemprop="name">kali</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  之前的kali被搞坏了，重新安一遍，记录一下
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>晚上突然作死在<code>Parallels Desktop</code>的<code>kali-2017.2</code>虚拟机中来了一发<code>apt-get upgrade</code>，然后喜闻乐见，kali重启开机黑屏了，猜测的原因是<code>Parallels tools</code>在<code>upgrade</code>某个库后（目测和内核有关），然后<code>Parallels tools</code>无法正常运行了，由于<code>Parallels tools</code>版本与系统版本不兼容，导致的黑屏。</p>
+<blockquote>
+<p>正好把环境换成<code>VMware Fusion</code>+<code>kali-2017.3</code>，写此文章记录一下</p>
+</blockquote>
+<h1 id="Parallels-Desktop-or-VMware-Fusion"><a href="#Parallels-Desktop-or-VMware-Fusion" class="headerlink" title="Parallels Desktop or VMware Fusion"></a><code>Parallels Desktop</code> or <code>VMware Fusion</code></h1><blockquote>
+<p>先说两个应用的安装</p>
+</blockquote>
+<p>MACos下找破解软件（没钱买正版）：<a href="http://xclient.info" target="_blank" rel="noopener">xclient.info</a></p>
+<h2 id="Parallels-Desktop-13"><a href="#Parallels-Desktop-13" class="headerlink" title="Parallels Desktop 13"></a><code>Parallels Desktop 13</code></h2><p>破解版<code>Parallels Desktop</code>：</p>
+<p><a href="https://pan.baidu.com/s/1skRggBr" target="_blank" rel="noopener">https://pan.baidu.com/s/1skRggBr</a> 提取码<code>3s24</code></p>
+<h2 id="VMware-Fusion-10-0-1"><a href="#VMware-Fusion-10-0-1" class="headerlink" title="VMware Fusion 10.0.1"></a><code>VMware Fusion 10.0.1</code></h2><p>官网下载</p>
+<p>激活码：<code>FU192-8MD43-H852Z-9GPGZ-ZYRR8</code></p>
+<h2 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h2><blockquote>
+<p>一句话：kali用Fusion，windows用Parallels</p>
+</blockquote>
+<h1 id="安装kali"><a href="#安装kali" class="headerlink" title="安装kali"></a>安装kali</h1><blockquote>
+<p>把下好的ova用<code>VMware Fusion</code>打开就行了</p>
+</blockquote>
+<h1 id="基础设置"><a href="#基础设置" class="headerlink" title="基础设置"></a>基础设置</h1><h2 id="设置共享文件夹"><a href="#设置共享文件夹" class="headerlink" title="设置共享文件夹"></a>设置共享文件夹</h2><p><img src="http://oztni9daw.bkt.clouddn.com/b57d79a4cbf11de862ff99bc7420da7c.png" alt=""></p>
+<p>然后软连接到桌面</p>
+<p><code>ln -s /mnt/hgfs/Downloads /root/Desktop/</code></p>
+<h2 id="设置锁屏选项"><a href="#设置锁屏选项" class="headerlink" title="设置锁屏选项"></a>设置锁屏选项</h2><p><code>settings--privacy--screen lock</code></p>
+<p><img src="http://oztni9daw.bkt.clouddn.com/6a62e82ef09027c238040e1b59a58323.png" alt=""></p>
+<p><code>settings--power--power saving</code></p>
+<p><img src="http://oztni9daw.bkt.clouddn.com/a4d60b841068781809ae1cc824c064cc.png" alt=""></p>
+<h2 id="设置代理"><a href="#设置代理" class="headerlink" title="设置代理"></a>设置代理</h2><p>其中ip地址为MACos下命令<code>ifconfig</code>中的vmnet8的地址，端口为ss对应的端口</p>
+<p><img src="http://oztni9daw.bkt.clouddn.com/867af985000bdc92b4cca4d455f23fd9.png" alt=""></p>
+<p>访问google查看是否设置成功</p>
+<p><img src="http://oztni9daw.bkt.clouddn.com/dc76beb0ff110c56f48dc44e9c0c5189.png" alt=""></p>
+<h2 id="设置快捷键"><a href="#设置快捷键" class="headerlink" title="设置快捷键"></a>设置快捷键</h2><h3 id="设置super键映射"><a href="#设置super键映射" class="headerlink" title="设置super键映射"></a>设置<code>super</code>键映射</h3><p>设置为右<code>super</code>键，不然没办法<code>super+c/v</code>复制粘贴等操作</p>
+<p><img src="http://oztni9daw.bkt.clouddn.com/40a2f8d4b129a72945b1f2a21f132ea6.png" alt=""></p>
+<h3 id="super-1-4-快速切换工作空间"><a href="#super-1-4-快速切换工作空间" class="headerlink" title="super+[1-4]快速切换工作空间"></a><code>super+[1-4]</code>快速切换工作空间</h3><p>修改图上8个键</p>
+<p><img src="http://oztni9daw.bkt.clouddn.com/ed3756cc01f2bd51403eedd1ba4dabc1.png" alt=""></p>
+<h3 id="super-w关闭当前窗口"><a href="#super-w关闭当前窗口" class="headerlink" title="super+w关闭当前窗口"></a><code>super+w</code>关闭当前窗口</h3><p>先取消super+w的占用</p>
+<p><img src="http://oztni9daw.bkt.clouddn.com/53d9a6f55066a6b0dc46d55b15240f4d.png" alt=""></p>
+<p>然后在kali中设置快捷键</p>
+<p><img src="http://oztni9daw.bkt.clouddn.com/b67838a202a372bfdd6ff1200351c299.png" alt=""></p>
+<h3 id="super-f搜索"><a href="#super-f搜索" class="headerlink" title="super+f搜索"></a><code>super+f</code>搜索</h3><p><img src="http://oztni9daw.bkt.clouddn.com/a52af91c9a3bbd3634b7b78df52986f7.png" alt=""></p>
+<h3 id="super-t新建一个终端"><a href="#super-t新建一个终端" class="headerlink" title="super+t新建一个终端"></a><code>super+t</code>新建一个终端</h3><p>最下面新建一个，命令为<code>gnome-terminal</code></p>
+<p><img src="http://oztni9daw.bkt.clouddn.com/eb0ed40c7e3e0f0bf843997af9fb35a8.png" alt=""></p>
+<h3 id="super-delete删除文件（右向删除字符）"><a href="#super-delete删除文件（右向删除字符）" class="headerlink" title="super+delete删除文件（右向删除字符）"></a><code>super+delete</code>删除文件（右向删除字符）</h3><p><img src="http://oztni9daw.bkt.clouddn.com/44326971f66540d237f040847b9b143a.png" alt=""></p>
+<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="安装32位运行库"><a href="#安装32位运行库" class="headerlink" title="安装32位运行库"></a>安装32位运行库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dpkg --add-architecture i386</span><br><span class="line">apt-get update</span><br><span class="line">apt-get install lib32z1 lib32ncurses5</span><br></pre></td></tr></table></figure>
+<h2 id="安装pwntools"><a href="#安装pwntools" class="headerlink" title="安装pwntools"></a>安装pwntools</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pwntools</span><br></pre></td></tr></table></figure>
+<h2 id="安装peda"><a href="#安装peda" class="headerlink" title="安装peda"></a>安装peda</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/longld/peda.git ~/peda</span><br><span class="line">echo &quot;source ~/peda/peda.py&quot; &gt;&gt; ~/.gdbinit</span><br></pre></td></tr></table></figure>
+<h2 id="安装gef"><a href="#安装gef" class="headerlink" title="安装gef"></a>安装gef</h2><blockquote>
+<p>升级gdb</p>
+</blockquote>
+<p>安装<code>texinfo</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install texinfo</span><br></pre></td></tr></table></figure>
+<p>下载最新版gdb，不要下8.x的，要7.x且大于7.7的，我用的7.12.1</p>
+<p><a href="https://www.gnu.org/software/gdb/" target="_blank" rel="noopener">https://www.gnu.org/software/gdb/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>安装gef</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -q -O- https://github.com/hugsy/gef/raw/master/gef.sh | sh</span><br></pre></td></tr></table></figure>
+<h2 id="安装HackRF驱动及无线电用到的一些软件"><a href="#安装HackRF驱动及无线电用到的一些软件" class="headerlink" title="安装HackRF驱动及无线电用到的一些软件"></a>安装<code>HackRF</code>驱动及无线电用到的一些软件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install hackrf libhackrf-dev libhackrf0 gnuradio gnuradio-dev gr-osmosdr gr-osmosdr gqrx-sdr</span><br></pre></td></tr></table></figure>
+<h2 id="安装socat"><a href="#安装socat" class="headerlink" title="安装socat"></a>安装socat</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install socat</span><br></pre></td></tr></table></figure>
+<h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a><code>TODO</code></h2><blockquote>
+<p>以后用到时再记录</p>
+</blockquote>
+<h1 id="一些开源软件"><a href="#一些开源软件" class="headerlink" title="一些开源软件"></a>一些开源软件</h1><h2 id="LibcSearcher"><a href="#LibcSearcher" class="headerlink" title="LibcSearcher"></a><code>LibcSearcher</code></h2><p>安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/lieanu/libc.git</span><br><span class="line">cd libc</span><br><span class="line">git submodule update --init --recursive</span><br><span class="line">python setup.py develop</span><br></pre></td></tr></table></figure>
+<p>libc数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">## 更新数据库</span><br><span class="line">./get</span><br><span class="line">## 将已有libc添加到数据库中</span><br><span class="line">./add libc.so</span><br><span class="line">## Find all the libc&apos;s in the database that have the given names at the given addresses.</span><br><span class="line">./find function1 addr function2 addr</span><br><span class="line">## Dump some useful offsets, given a libc ID. You can also provide your own names to dump.</span><br><span class="line">./Dump some useful offsets</span><br></pre></td></tr></table></figure>
+<h2 id="gps-sdr-sim"><a href="#gps-sdr-sim" class="headerlink" title="gps-sdr-sim"></a><code>gps-sdr-sim</code></h2><p>安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/osqzss/gps-sdr-sim.git</span><br><span class="line">cd gps-sdr-sim</span><br><span class="line">gcc gpssim.c -lm -O3 -o gps-sdr-sim</span><br></pre></td></tr></table></figure>
+<p>运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./gps-sdr-sim -e brdc3540.14n -l 66,66,100 -b 8 -d 300</span><br><span class="line">hackrf_transfer -t gpssim.bin -f 1575420000 -s 2600000 -a 1 -x 10</span><br></pre></td></tr></table></figure>
+<h2 id="中间人攻击框架Xerosploit"><a href="#中间人攻击框架Xerosploit" class="headerlink" title="中间人攻击框架Xerosploit"></a>中间人攻击框架<code>Xerosploit</code></h2><p>安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/LionSec/xerosploit</span><br><span class="line">cd xerosploit &amp;&amp; python install.py</span><br></pre></td></tr></table></figure>
+<p>运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./xerosploit</span><br></pre></td></tr></table></figure>
+<h2 id="框架版aircrack-ng：Airgeddon"><a href="#框架版aircrack-ng：Airgeddon" class="headerlink" title="框架版aircrack-ng：Airgeddon"></a>框架版<code>aircrack-ng</code>：<code>Airgeddon</code></h2><p>安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/v1s1t0r1sh3r3/airgeddon.git</span><br><span class="line">cd airgeddon &amp;&amp; chmod +x airgeddon.sh</span><br></pre></td></tr></table></figure>
+<p>运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./airgeddon.sh</span><br></pre></td></tr></table></figure>
+<h2 id="社工钓取wifi密码框架Fluxion"><a href="#社工钓取wifi密码框架Fluxion" class="headerlink" title="社工钓取wifi密码框架Fluxion"></a>社工钓取wifi密码框架<code>Fluxion</code></h2><p>安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/wi-fi-analyzer/fluxion.git</span><br><span class="line">cd fluxion &amp;&amp; ./fluxion.sh</span><br><span class="line">./install/install.sh</span><br></pre></td></tr></table></figure>
+<p>运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./fluxion.sh</span><br></pre></td></tr></table></figure>
+<h2 id="网页快照，报告生成EyeWitness"><a href="#网页快照，报告生成EyeWitness" class="headerlink" title="网页快照，报告生成EyeWitness"></a>网页快照，报告生成<code>EyeWitness</code></h2><p>安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/ChrisTruncer/EyeWitness.git</span><br><span class="line">cd EyeWitness/setup/</span><br><span class="line">./setup.sh</span><br></pre></td></tr></table></figure>
+<p>运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./EyeWitness.py --headless -f your_url.txt</span><br></pre></td></tr></table></figure>
+<h2 id="一键开启洋葱代理torghost"><a href="#一键开启洋葱代理torghost" class="headerlink" title="一键开启洋葱代理torghost"></a>一键开启洋葱代理<code>torghost</code></h2><p>安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/susmithHCK/torghost.git</span><br><span class="line">cd torghost &amp;&amp;  chmod +x install.sh &amp;&amp; ./install.sh</span><br></pre></td></tr></table></figure>
+<p>运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">torghost start</span><br><span class="line">torghost stop</span><br><span class="line">torghost switch</span><br></pre></td></tr></table></figure>
+<h2 id="python打包成可执行文件pyinstaller"><a href="#python打包成可执行文件pyinstaller" class="headerlink" title="python打包成可执行文件pyinstaller"></a>python打包成可执行文件<code>pyinstaller</code></h2><p>安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyinstaller</span><br></pre></td></tr></table></figure>
+<p>运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller -h</span><br></pre></td></tr></table></figure>
+<h2 id="pycrypto"><a href="#pycrypto" class="headerlink" title="pycrypto"></a>pycrypto</h2><p>pip安装的部分函数被阉割了，从github上手动安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/dlitz/pycrypto.git</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure>
+<h2 id="TODO-1"><a href="#TODO-1" class="headerlink" title="TODO"></a><code>TODO</code></h2><blockquote>
+<p>以后用到时再记录</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kali/" rel="tag"># kali</a>
+          
+            <a href="/tags/Parallels-Desktop/" rel="tag"># Parallels Desktop</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/01/Jarvis_crypto_2/" rel="next" title="Jarvis OJ -- crypto题（中）">
+                <i class="fa fa-chevron-left"></i> Jarvis OJ -- crypto题（中）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/05/Jarvis_crypto_3/" rel="prev" title="Jarvis OJ -- crypto题（下）">
+                Jarvis OJ -- crypto题（下） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/head.png"
+                alt="D001UM3" />
+            
+              <p class="site-author-name" itemprop="name">D001UM3</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Parallels-Desktop-or-VMware-Fusion"><span class="nav-number">2.</span> <span class="nav-text">Parallels Desktop or VMware Fusion</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Parallels-Desktop-13"><span class="nav-number">2.1.</span> <span class="nav-text">Parallels Desktop 13</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VMware-Fusion-10-0-1"><span class="nav-number">2.2.</span> <span class="nav-text">VMware Fusion 10.0.1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对比"><span class="nav-number">2.3.</span> <span class="nav-text">对比</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装kali"><span class="nav-number">3.</span> <span class="nav-text">安装kali</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础设置"><span class="nav-number">4.</span> <span class="nav-text">基础设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置共享文件夹"><span class="nav-number">4.1.</span> <span class="nav-text">设置共享文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置锁屏选项"><span class="nav-number">4.2.</span> <span class="nav-text">设置锁屏选项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置代理"><span class="nav-number">4.3.</span> <span class="nav-text">设置代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置快捷键"><span class="nav-number">4.4.</span> <span class="nav-text">设置快捷键</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置super键映射"><span class="nav-number">4.4.1.</span> <span class="nav-text">设置super键映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#super-1-4-快速切换工作空间"><span class="nav-number">4.4.2.</span> <span class="nav-text">super+[1-4]快速切换工作空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#super-w关闭当前窗口"><span class="nav-number">4.4.3.</span> <span class="nav-text">super+w关闭当前窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#super-f搜索"><span class="nav-number">4.4.4.</span> <span class="nav-text">super+f搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#super-t新建一个终端"><span class="nav-number">4.4.5.</span> <span class="nav-text">super+t新建一个终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#super-delete删除文件（右向删除字符）"><span class="nav-number">4.4.6.</span> <span class="nav-text">super+delete删除文件（右向删除字符）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环境配置"><span class="nav-number">5.</span> <span class="nav-text">环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装32位运行库"><span class="nav-number">5.1.</span> <span class="nav-text">安装32位运行库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装pwntools"><span class="nav-number">5.2.</span> <span class="nav-text">安装pwntools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装peda"><span class="nav-number">5.3.</span> <span class="nav-text">安装peda</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装gef"><span class="nav-number">5.4.</span> <span class="nav-text">安装gef</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装HackRF驱动及无线电用到的一些软件"><span class="nav-number">5.5.</span> <span class="nav-text">安装HackRF驱动及无线电用到的一些软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装socat"><span class="nav-number">5.6.</span> <span class="nav-text">安装socat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TODO"><span class="nav-number">5.7.</span> <span class="nav-text">TODO</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些开源软件"><span class="nav-number">6.</span> <span class="nav-text">一些开源软件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LibcSearcher"><span class="nav-number">6.1.</span> <span class="nav-text">LibcSearcher</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gps-sdr-sim"><span class="nav-number">6.2.</span> <span class="nav-text">gps-sdr-sim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中间人攻击框架Xerosploit"><span class="nav-number">6.3.</span> <span class="nav-text">中间人攻击框架Xerosploit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#框架版aircrack-ng：Airgeddon"><span class="nav-number">6.4.</span> <span class="nav-text">框架版aircrack-ng：Airgeddon</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#社工钓取wifi密码框架Fluxion"><span class="nav-number">6.5.</span> <span class="nav-text">社工钓取wifi密码框架Fluxion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网页快照，报告生成EyeWitness"><span class="nav-number">6.6.</span> <span class="nav-text">网页快照，报告生成EyeWitness</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一键开启洋葱代理torghost"><span class="nav-number">6.7.</span> <span class="nav-text">一键开启洋葱代理torghost</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python打包成可执行文件pyinstaller"><span class="nav-number">6.8.</span> <span class="nav-text">python打包成可执行文件pyinstaller</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pycrypto"><span class="nav-number">6.9.</span> <span class="nav-text">pycrypto</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TODO-1"><span class="nav-number">6.10.</span> <span class="nav-text">TODO</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">D001UM3</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ctf,Jarvis OJ,writeup,crypto," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="crypto题差一题AK--（上）">
+<meta name="keywords" content="ctf,Jarvis OJ,writeup,crypto">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jarvis OJ -- crypto题（上）">
+<meta property="og:url" content="https://d001um3.github.io/2017/11/27/Jarvis_crypto_1/index.html">
+<meta property="og:site_name" content="D001UM3&#39;S BLOG">
+<meta property="og:description" content="crypto题差一题AK--（上）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/1cc3c30f7e965c1a19ec99cff0fa4e2d.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/55f893494a0fcc6038cad45a6b9d9ee1.png">
+<meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/518bb13e2cf7d20b8462a37cb3ad0b37.png">
+<meta property="og:updated_time" content="2017-12-08T01:10:52.687Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jarvis OJ -- crypto题（上）">
+<meta name="twitter:description" content="crypto题差一题AK--（上）">
+<meta name="twitter:image" content="http://oztni9daw.bkt.clouddn.com/1cc3c30f7e965c1a19ec99cff0fa4e2d.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://d001um3.github.io/2017/11/27/Jarvis_crypto_1/"/>
+
+
+
+
+
+  <title>Jarvis OJ -- crypto题（上） | D001UM3'S BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">D001UM3'S BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://d001um3.github.io/2017/11/27/Jarvis_crypto_1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D001UM3">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D001UM3'S BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Jarvis OJ -- crypto题（上）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-27T21:19:58+08:00">
+                2017-11-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Jarvis-OJ/" itemprop="url" rel="index">
+                    <span itemprop="name">Jarvis OJ</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  crypto题差一题AK--（上）
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Medium-RSA"><a href="#Medium-RSA" class="headerlink" title="Medium RSA"></a>Medium RSA</h1><blockquote>
+<p>你没看错，这还真是密码学系列了，相信你已经解出前两题了，那么继续看这题吧。</p>
+</blockquote>
+<p>读取一下公钥</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">➜  mediumRSA openssl rsa -pubin -in pubkey.pem -text -modulus</span><br><span class="line">Public-Key: (256 bit)</span><br><span class="line">Modulus:</span><br><span class="line">    00:c2:63:6a:e5:c3:d8:e4:3f:fb:97:ab:09:02:8f:</span><br><span class="line">    1a:ac:6c:0b:f6:cd:3d:70:eb:ca:28:1b:ff:e9:7f:</span><br><span class="line">    be:30:dd</span><br><span class="line">Exponent: 65537 (0x10001)</span><br><span class="line">Modulus=C2636AE5C3D8E43FFB97AB09028F1AAC6C0BF6CD3D70EBCA281BFFE97FBE30DD</span><br><span class="line">writing RSA key</span><br><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhAMJjauXD2OQ/+5erCQKPGqxsC/bNPXDr</span><br><span class="line">yigb/+l/vjDdAgMBAAE=</span><br><span class="line">-----END PUBLIC KEY-----</span><br></pre></td></tr></table></figure>
+<p>或者通过python读取pem</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from Crypto.PublicKey import RSA</span><br><span class="line">with open(&apos;./pubkey.pem&apos;, &apos;r&apos;) as f:</span><br><span class="line">    key = RSA.importKey(f)</span><br><span class="line">    n = key.n</span><br><span class="line">    e = key.e</span><br><span class="line">print n</span><br><span class="line"># 87924348264132406875276140514499937145050893665602592992418171647042491658461</span><br><span class="line">print e</span><br><span class="line"># 65537</span><br></pre></td></tr></table></figure>
+<p><a href="http://factordb.com" target="_blank" rel="noopener">factordb.com</a>分解一下p和q，得到</p>
+<p> <code>p = 275127860351348928173285174381581152299</code></p>
+<p> <code>q = 319576316814478949870590164193048041239</code></p>
+<p> 然后求私钥d，解密文</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import libnum</span><br><span class="line">from Crypto.Util.number import long_to_bytes</span><br><span class="line"></span><br><span class="line">p = 275127860351348928173285174381581152299</span><br><span class="line">q = 319576316814478949870590164193048041239</span><br><span class="line">n = 87924348264132406875276140514499937145050893665602592992418171647042491658461</span><br><span class="line">e = 65537</span><br><span class="line"></span><br><span class="line">d = libnum.invmod(e, (p - 1) * (q - 1))</span><br><span class="line">with open(&apos;flag.enc&apos;, &apos;r&apos;) as f:</span><br><span class="line">    c = f.read().encode(&apos;hex&apos;)</span><br><span class="line">    c = int(c, 16)</span><br><span class="line">m = pow(c, d, n)</span><br><span class="line">print long_to_bytes(m)</span><br><span class="line"># 前面有一部分不知道为什么乱码，但是不影响看出flag</span><br><span class="line"># ���&amp;[�PCTF&#123;256b_i5_m3dium&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="BrokenPic"><a href="#BrokenPic" class="headerlink" title="BrokenPic"></a>BrokenPic</h1><blockquote>
+<p>这里有个图片，可是好像打不开？</p>
+<p>Hint1: 图片大小是1366*768</p>
+</blockquote>
+<p>按提示加上bmp头</p>
+<p><img src="http://oztni9daw.bkt.clouddn.com/1cc3c30f7e965c1a19ec99cff0fa4e2d.png" alt="bmp"></p>
+<p>有个key，bmp文件010 editor打开可以看到32位，32位的变换很规律，应该是aes加密</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from Crypto.Cipher import AES</span><br><span class="line">key = &apos;PHRACK-BROKENPIC&apos;</span><br><span class="line">aes = AES.new(key)</span><br><span class="line"></span><br><span class="line">with open(&apos;brokenpic.bmp&apos;, &apos;r&apos;) as f:</span><br><span class="line">    data = f.read()</span><br><span class="line">    pic = aes.decrypt(data)</span><br><span class="line"></span><br><span class="line">with open(&apos;2.bmp&apos;, &apos;w&apos;) as f:</span><br><span class="line">    f.write(pic)</span><br></pre></td></tr></table></figure>
+<p>再加上bmp头，可以看到</p>
+<p><img src="http://oztni9daw.bkt.clouddn.com/55f893494a0fcc6038cad45a6b9d9ee1.png" alt="bmp"></p>
+<p><code>PCTF{AES_i5_W3ak_foR_im4ge}</code></p>
+<h1 id="hard-RSA"><a href="#hard-RSA" class="headerlink" title="hard RSA"></a>hard RSA</h1><blockquote>
+<p>相信你已经做出了medium RSA，这题的pubkey在medium RSA的基础上我做了点手脚，继续挑战吧。</p>
+<p>Hint1: 1.不需要爆破。2.用你的数学知识解决此题。3.难道大家都不会开根号吗？</p>
+</blockquote>
+<p>如果按第一题那样做会发现求d的时候就会报错找不到e的模反数</p>
+<blockquote>
+<p>ValueError: no invmod for given @a and @n</p>
+</blockquote>
+<p>正如题目所说的动了下手脚……</p>
+<p>因为题目里提到里开根号，所以做之前我要先说一点废话，关于开根号，网上大多wp里都用的gmpy2，那么我们先安装一下gmpy2，我是macos，按这篇文章里面linux的方法安装就行了，有几点要注意</p>
+<ul>
+<li>macos需要先安装xcode的Command Line Tools</li>
+<li>文章里面安装MPFR的地址404了，需要去官网获取最新的</li>
+</ul>
+<p>地址：<a href="https://www.cnblogs.com/pcat/p/5746821.html" target="_blank" rel="noopener">www.cnblogs.com/pcat/p/5746821.html</a></p>
+<p>然后可以通过<code>gmpy2.iroot(n,e)</code>求n开e次方，返回一个元组，包括一个结果值和一个是否刚好n能开e次方的bool值。gmpy2安装稍微复杂，相比之下libnum也有求根函数，为<code>libnum.nroot(n,e)</code>，但是只返回结果值。因为两个函数求根返回的结果值都是int型的，比如<code>libnum.nroot(16,3)</code>，返回int型的值2，但是3^2=9不等于16，但是<code>gmpy2.iroot(16,3)</code>，返回一个元组(mpz(2), False)，然后我们可以通过元组的第二个元素判断是否刚好n能开e次方。当然也可以采用<code>d = libnum.nroot(n,e)</code>求出d，然后判断<code>n == pow(e,d)</code></p>
+<p>关于libnum和gmpy2的开根号的区别就说到这里，很多密码学的题里都会用到这两个库，不过刚才安了gmpy2后发现，还是libnum好用，安装又简单</p>
+<p>然后准备用<code>小公钥指数攻击</code>爆破，爆破了几十秒，发现哪里不对劲，重新看下提示，说不用爆破。于是注意到这题rsa的e = 2，搜一下就会发现有个听着很吊的名字</p>
+<blockquote>
+<p>Rabin 算法</p>
+</blockquote>
+<p>看了下数学推理过程，发现看不懂，算了，还是拿着脚本上吧</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"># coding=utf-8</span><br><span class="line">import gmpy2</span><br><span class="line">import string</span><br><span class="line">from Crypto.PublicKey import RSA</span><br><span class="line"></span><br><span class="line">with open(&apos;hardRSA/pubkey.pem&apos;, &apos;r&apos;) as f:</span><br><span class="line">    key = RSA.importKey(f)</span><br><span class="line">    N = key.n</span><br><span class="line">    e = key.e</span><br><span class="line">with open(&apos;hardRSA/flag.enc&apos;, &apos;r&apos;) as f:</span><br><span class="line">    cipher = f.read().encode(&apos;hex&apos;)</span><br><span class="line">    cipher = string.atoi(cipher, base=16)</span><br><span class="line"></span><br><span class="line"># factordb.com分解得到p和q</span><br><span class="line">p = 275127860351348928173285174381581152299</span><br><span class="line">q = 319576316814478949870590164193048041239</span><br><span class="line">inv_p = gmpy2.invert(p, q)</span><br><span class="line">inv_q = gmpy2.invert(q, p)</span><br><span class="line"># 还是偏向于使用libnum，用法如下</span><br><span class="line"># import libnum</span><br><span class="line"># inv_p = libnum.invmod(p, q)</span><br><span class="line"># inv_q = libnum.invmod(q, p)</span><br><span class="line"></span><br><span class="line"># 计算mp和mq</span><br><span class="line">mp = pow(cipher, (p + 1) / 4, p)</span><br><span class="line">mq = pow(cipher, (q + 1) / 4, q)</span><br><span class="line"></span><br><span class="line"># 计算a,b,c,d</span><br><span class="line">a = (inv_p * p * mq + inv_q * q * mp) % N</span><br><span class="line">b = N - int(a)</span><br><span class="line">c = (inv_p * p * mq - inv_q * q * mp) % N</span><br><span class="line">d = N - int(c)</span><br><span class="line"></span><br><span class="line">for i in (a, b, c, d):</span><br><span class="line">    s = &apos;%x&apos; % i</span><br><span class="line">    if len(s) % 2 != 0:</span><br><span class="line">        s = &apos;0&apos; + s</span><br><span class="line">    print s.decode(&apos;hex&apos;)</span><br><span class="line"></span><br><span class="line"># D�#���P�ޚe�cb�`ކ�P�/�V��</span><br><span class="line"># &#125;�Y¾�S��Zv#�</span><br><span class="line"># C]�+��gq=</span><br><span class="line"># �`��8</span><br><span class="line">#      (�$X�@��i�&#123;Y�=�`�w</span><br><span class="line">#                        \��</span><br><span class="line"># �2�̻`�?��PCTF&#123;sp3ci4l_rsa&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="very-hard-RSA"><a href="#very-hard-RSA" class="headerlink" title="very hard RSA"></a>very hard RSA</h1><blockquote>
+<p>前几题因为N太小，都被你攻破了，出题人这次来了个RSA4096，是否接受挑战就看你了。</p>
+</blockquote>
+<p>下载下来，发现这次多了一个python文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">import random</span><br><span class="line"></span><br><span class="line">N = 0x00b0bee5e3e9e5a7e8d00b493355c618fc8c7d7d03b82e409951c182f398dee3104580e7ba70d383ae5311475656e8a964d380cb157f48c951adfa65db0b122ca40e42fa709189b719a4f0d746e2f6069baf11cebd650f14b93c977352fd13b1eea6d6e1da775502abff89d3a8b3615fd0db49b88a976bc20568489284e181f6f11e270891c8ef80017bad238e363039a458470f1749101bc29949d3a4f4038d463938851579c7525a69984f15b5667f34209b70eb261136947fa123e549dfff00601883afd936fe411e006e4e93d1a00b0fea541bbfc8c5186cb6220503a94b2413110d640c77ea54ba3220fc8f4cc6ce77151e29b3e06578c478bd1bebe04589ef9a197f6f806db8b3ecd826cad24f5324ccdec6e8fead2c2150068602c8dcdc59402ccac9424b790048ccdd9327068095efa010b7f196c74ba8c37b128f9e1411751633f78b7b9e56f71f77a1b4daad3fc54b5e7ef935d9a72fb176759765522b4bbc02e314d5c06b64d5054b7b096c601236e6ccf45b5e611c805d335dbab0c35d226cc208d8ce4736ba39a0354426fae006c7fe52d5267dcfb9c3884f51fddfdf4a9794bcfe0e1557113749e6c8ef421dba263aff68739ce00ed80fd0022ef92d3488f76deb62bdef7bea6026f22a1d25aa2a92d124414a8021fe0c174b9803e6bb5fad75e186a946a17280770f1243f4387446ccceb2222a965cc30b3929L</span><br><span class="line"></span><br><span class="line">def pad_even(x):</span><br><span class="line">    return (&apos;&apos;, &apos;0&apos;)[len(x) % 2] + x</span><br><span class="line"></span><br><span class="line">e1 = 17</span><br><span class="line">e2 = 65537</span><br><span class="line"></span><br><span class="line">fi = open(&apos;flag.txt&apos;, &apos;rb&apos;)</span><br><span class="line">fo1 = open(&apos;flag.enc1&apos;, &apos;wb&apos;)</span><br><span class="line">fo2 = open(&apos;flag.enc2&apos;, &apos;wb&apos;)</span><br><span class="line"></span><br><span class="line">data = fi.read()</span><br><span class="line">fi.close()</span><br><span class="line"></span><br><span class="line">while (len(data) &lt; 512 - 11):</span><br><span class="line">    data = chr(random.randint(0, 255)) + data</span><br><span class="line"></span><br><span class="line">data_num = int(data.encode(&apos;hex&apos;), 16)</span><br><span class="line"></span><br><span class="line">encrypt1 = pow(data_num, e1, N)</span><br><span class="line">encrypt2 = pow(data_num, e2, N)</span><br><span class="line"></span><br><span class="line">fo1.write(pad_even(format(encrypt1, &apos;x&apos;)).decode(&apos;hex&apos;))</span><br><span class="line">fo2.write(pad_even(format(encrypt2, &apos;x&apos;)).decode(&apos;hex&apos;))</span><br><span class="line"></span><br><span class="line">fo1.close()</span><br><span class="line">fo2.close()</span><br></pre></td></tr></table></figure>
+<p>可以看到，对一段密文分别用两个不同的公钥加密，但是两个公钥只有e不一样，模数n是一样的。于是很明显是共模攻击</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">import gmpy2</span><br><span class="line">import string</span><br><span class="line">from Crypto.Util.number import long_to_bytes</span><br><span class="line"></span><br><span class="line">n = 0x00b0bee5e3e9e5a7e8d00b493355c618fc8c7d7d03b82e409951c182f398dee3104580e7ba70d383ae5311475656e8a964d380cb157f48c951adfa65db0b122ca40e42fa709189b719a4f0d746e2f6069baf11cebd650f14b93c977352fd13b1eea6d6e1da775502abff89d3a8b3615fd0db49b88a976bc20568489284e181f6f11e270891c8ef80017bad238e363039a458470f1749101bc29949d3a4f4038d463938851579c7525a69984f15b5667f34209b70eb261136947fa123e549dfff00601883afd936fe411e006e4e93d1a00b0fea541bbfc8c5186cb6220503a94b2413110d640c77ea54ba3220fc8f4cc6ce77151e29b3e06578c478bd1bebe04589ef9a197f6f806db8b3ecd826cad24f5324ccdec6e8fead2c2150068602c8dcdc59402ccac9424b790048ccdd9327068095efa010b7f196c74ba8c37b128f9e1411751633f78b7b9e56f71f77a1b4daad3fc54b5e7ef935d9a72fb176759765522b4bbc02e314d5c06b64d5054b7b096c601236e6ccf45b5e611c805d335dbab0c35d226cc208d8ce4736ba39a0354426fae006c7fe52d5267dcfb9c3884f51fddfdf4a9794bcfe0e1557113749e6c8ef421dba263aff68739ce00ed80fd0022ef92d3488f76deb62bdef7bea6026f22a1d25aa2a92d124414a8021fe0c174b9803e6bb5fad75e186a946a17280770f1243f4387446ccceb2222a965cc30b3929L</span><br><span class="line">e1 = 17</span><br><span class="line">e2 = 65537</span><br><span class="line"></span><br><span class="line">with open(&apos;veryhardRSA/flag.enc1&apos;, &apos;r&apos;) as f:</span><br><span class="line">    cipher1 = f.read().encode(&apos;hex&apos;)</span><br><span class="line">    cipher1 = string.atoi(cipher1, base=16)</span><br><span class="line">with open(&apos;veryhardRSA/flag.enc2&apos;, &apos;r&apos;) as f:</span><br><span class="line">    cipher2 = f.read().encode(&apos;hex&apos;)</span><br><span class="line">    cipher2 = string.atoi(cipher2, base=16)</span><br><span class="line"></span><br><span class="line"># s &amp; t</span><br><span class="line">gcd, s, t = gmpy2.gcdext(e1, e2)</span><br><span class="line">if s &lt; 0:</span><br><span class="line">    s = -s</span><br><span class="line">    cipher1 = gmpy2.invert(cipher1, n)</span><br><span class="line">if t &lt; 0:</span><br><span class="line">    t = -t</span><br><span class="line">    cipher2 = gmpy2.invert(cipher2, n)</span><br><span class="line">plain = gmpy2.powmod(cipher1, s, n) * gmpy2.powmod(cipher2, t, n) % n</span><br><span class="line">print long_to_bytes(plain)</span><br><span class="line"></span><br><span class="line"># &amp;�7�e��e�B</span><br><span class="line">#           ��-�y�7�������ĩ�G��TNh0!�4\</span><br><span class="line"># ��\��j���2$�+���&apos;����3�i�[_�h��xL3;ѓ�΃C rD���b�&quot;��Yp��&quot;�.�SQjE�@��JͷH�S��#ܝ��Y����</span><br><span class="line"># XO�eˍ1�����=g�&lt;|�&#123;0����WWQ�Au�ͅ&apos;[����&quot;L�Gw</span><br><span class="line"># ��^&quot;n�@ˏ|���ͬ]�u�3(�e��Y+Ɵ����X�����Z&apos;qo;*v�Z���\�鱼r�Nɞ��.%��ۀV&amp;#�&quot;�*��6�]z�%_��v:�,V_�Sg�h</span><br><span class="line"># ����Eu�</span><br><span class="line"># �Ͷ#�\(⓭1��躧̐PCTF&#123;M4st3r_oF_Number_Th3ory&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Extremely-hard-RSA"><a href="#Extremely-hard-RSA" class="headerlink" title="Extremely hard RSA"></a>Extremely hard RSA</h1><blockquote>
+<p>没想到RSA4096都被你给破了，一定是我的问题，给了你太多信息，这次我只给你一个flag的加密值和公钥，仍然是RSA4096，我就不信你还能解出来。</p>
+</blockquote>
+<p>先看下公钥</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">➜  extremelyhardRSA openssl rsa -pubin -in pubkey.pem -text -modulus</span><br><span class="line">Public-Key: (4096 bit)</span><br><span class="line">Modulus:</span><br><span class="line">    00:b0:be:e5:e3:e9:e5:a7:e8:d0:0b:49:33:55:c6:</span><br><span class="line">    18:fc:8c:7d:7d:03:b8:2e:40:99:51:c1:82:f3:98:</span><br><span class="line">    de:e3:10:45:80:e7:ba:70:d3:83:ae:53:11:47:56:</span><br><span class="line">    56:e8:a9:64:d3:80:cb:15:7f:48:c9:51:ad:fa:65:</span><br><span class="line">    db:0b:12:2c:a4:0e:42:fa:70:91:89:b7:19:a4:f0:</span><br><span class="line">    d7:46:e2:f6:06:9b:af:11:ce:bd:65:0f:14:b9:3c:</span><br><span class="line">    97:73:52:fd:13:b1:ee:a6:d6:e1:da:77:55:02:ab:</span><br><span class="line">    ff:89:d3:a8:b3:61:5f:d0:db:49:b8:8a:97:6b:c2:</span><br><span class="line">    05:68:48:92:84:e1:81:f6:f1:1e:27:08:91:c8:ef:</span><br><span class="line">    80:01:7b:ad:23:8e:36:30:39:a4:58:47:0f:17:49:</span><br><span class="line">    10:1b:c2:99:49:d3:a4:f4:03:8d:46:39:38:85:15:</span><br><span class="line">    79:c7:52:5a:69:98:4f:15:b5:66:7f:34:20:9b:70:</span><br><span class="line">    eb:26:11:36:94:7f:a1:23:e5:49:df:ff:00:60:18:</span><br><span class="line">    83:af:d9:36:fe:41:1e:00:6e:4e:93:d1:a0:0b:0f:</span><br><span class="line">    ea:54:1b:bf:c8:c5:18:6c:b6:22:05:03:a9:4b:24:</span><br><span class="line">    13:11:0d:64:0c:77:ea:54:ba:32:20:fc:8f:4c:c6:</span><br><span class="line">    ce:77:15:1e:29:b3:e0:65:78:c4:78:bd:1b:eb:e0:</span><br><span class="line">    45:89:ef:9a:19:7f:6f:80:6d:b8:b3:ec:d8:26:ca:</span><br><span class="line">    d2:4f:53:24:cc:de:c6:e8:fe:ad:2c:21:50:06:86:</span><br><span class="line">    02:c8:dc:dc:59:40:2c:ca:c9:42:4b:79:00:48:cc:</span><br><span class="line">    dd:93:27:06:80:95:ef:a0:10:b7:f1:96:c7:4b:a8:</span><br><span class="line">    c3:7b:12:8f:9e:14:11:75:16:33:f7:8b:7b:9e:56:</span><br><span class="line">    f7:1f:77:a1:b4:da:ad:3f:c5:4b:5e:7e:f9:35:d9:</span><br><span class="line">    a7:2f:b1:76:75:97:65:52:2b:4b:bc:02:e3:14:d5:</span><br><span class="line">    c0:6b:64:d5:05:4b:7b:09:6c:60:12:36:e6:cc:f4:</span><br><span class="line">    5b:5e:61:1c:80:5d:33:5d:ba:b0:c3:5d:22:6c:c2:</span><br><span class="line">    08:d8:ce:47:36:ba:39:a0:35:44:26:fa:e0:06:c7:</span><br><span class="line">    fe:52:d5:26:7d:cf:b9:c3:88:4f:51:fd:df:df:4a:</span><br><span class="line">    97:94:bc:fe:0e:15:57:11:37:49:e6:c8:ef:42:1d:</span><br><span class="line">    ba:26:3a:ff:68:73:9c:e0:0e:d8:0f:d0:02:2e:f9:</span><br><span class="line">    2d:34:88:f7:6d:eb:62:bd:ef:7b:ea:60:26:f2:2a:</span><br><span class="line">    1d:25:aa:2a:92:d1:24:41:4a:80:21:fe:0c:17:4b:</span><br><span class="line">    98:03:e6:bb:5f:ad:75:e1:86:a9:46:a1:72:80:77:</span><br><span class="line">    0f:12:43:f4:38:74:46:cc:ce:b2:22:2a:96:5c:c3:</span><br><span class="line">    0b:39:29</span><br><span class="line">Exponent: 3 (0x3)</span><br><span class="line">Modulus=B0BEE5E3E9E5A7E8D00B493355C618FC8C7D7D03B82E409951C182F398DEE3104580E7BA70D383AE5311475656E8A964D380CB157F48C951ADFA65DB0B122CA40E42FA709189B719A4F0D746E2F6069BAF11CEBD650F14B93C977352FD13B1EEA6D6E1DA775502ABFF89D3A8B3615FD0DB49B88A976BC20568489284E181F6F11E270891C8EF80017BAD238E363039A458470F1749101BC29949D3A4F4038D463938851579C7525A69984F15B5667F34209B70EB261136947FA123E549DFFF00601883AFD936FE411E006E4E93D1A00B0FEA541BBFC8C5186CB6220503A94B2413110D640C77EA54BA3220FC8F4CC6CE77151E29B3E06578C478BD1BEBE04589EF9A197F6F806DB8B3ECD826CAD24F5324CCDEC6E8FEAD2C2150068602C8DCDC59402CCAC9424B790048CCDD9327068095EFA010B7F196C74BA8C37B128F9E1411751633F78B7B9E56F71F77A1B4DAAD3FC54B5E7EF935D9A72FB176759765522B4BBC02E314D5C06B64D5054B7B096C601236E6CCF45B5E611C805D335DBAB0C35D226CC208D8CE4736BA39A0354426FAE006C7FE52D5267DCFB9C3884F51FDDFDF4A9794BCFE0E1557113749E6C8EF421DBA263AFF68739CE00ED80FD0022EF92D3488F76DEB62BDEF7BEA6026F22A1D25AA2A92D124414A8021FE0C174B9803E6BB5FAD75E186A946A17280770F1243F4387446CCCEB2222A965CC30B3929</span><br><span class="line">writing RSA key</span><br><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MIICIDANBgkqhkiG9w0BAQEFAAOCAg0AMIICCAKCAgEAsL7l4+nlp+jQC0kzVcYY</span><br><span class="line">/Ix9fQO4LkCZUcGC85je4xBFgOe6cNODrlMRR1ZW6Klk04DLFX9IyVGt+mXbCxIs</span><br><span class="line">pA5C+nCRibcZpPDXRuL2BpuvEc69ZQ8UuTyXc1L9E7Huptbh2ndVAqv/idOos2Ff</span><br><span class="line">0NtJuIqXa8IFaEiShOGB9vEeJwiRyO+AAXutI442MDmkWEcPF0kQG8KZSdOk9AON</span><br><span class="line">Rjk4hRV5x1JaaZhPFbVmfzQgm3DrJhE2lH+hI+VJ3/8AYBiDr9k2/kEeAG5Ok9Gg</span><br><span class="line">Cw/qVBu/yMUYbLYiBQOpSyQTEQ1kDHfqVLoyIPyPTMbOdxUeKbPgZXjEeL0b6+BF</span><br><span class="line">ie+aGX9vgG24s+zYJsrST1MkzN7G6P6tLCFQBoYCyNzcWUAsyslCS3kASMzdkycG</span><br><span class="line">gJXvoBC38ZbHS6jDexKPnhQRdRYz94t7nlb3H3ehtNqtP8VLXn75NdmnL7F2dZdl</span><br><span class="line">UitLvALjFNXAa2TVBUt7CWxgEjbmzPRbXmEcgF0zXbqww10ibMII2M5HNro5oDVE</span><br><span class="line">JvrgBsf+UtUmfc+5w4hPUf3f30qXlLz+DhVXETdJ5sjvQh26Jjr/aHOc4A7YD9AC</span><br><span class="line">LvktNIj3betive976mAm8iodJaoqktEkQUqAIf4MF0uYA+a7X6114YapRqFygHcP</span><br><span class="line">EkP0OHRGzM6yIiqWXMMLOSkCAQM=</span><br><span class="line">-----END PUBLIC KEY-----</span><br></pre></td></tr></table></figure>
+<p>emmm，看到e=3，那么应该是刚才hard RSA里面开始做时用的<code>小公钥指数攻击</code>了，直接爆破</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># coding=utf-8</span><br><span class="line">import gmpy2</span><br><span class="line">from Crypto.PublicKey import RSA</span><br><span class="line">from Crypto.Util.number import long_to_bytes</span><br><span class="line"></span><br><span class="line">with open(&apos;extremelyhardRSA/pubkey.pem&apos;, &apos;r&apos;) as f:</span><br><span class="line">    key = RSA.importKey(f)</span><br><span class="line">    N = key.n</span><br><span class="line">    e = key.e</span><br><span class="line">with open(&apos;extremelyhardRSA/flag.enc&apos;, &apos;r&apos;) as f:</span><br><span class="line">    cipher = f.read().encode(&apos;hex&apos;)</span><br><span class="line">    cipher = int(cipher, 16)</span><br><span class="line"></span><br><span class="line"># 爆破出来值为118719488</span><br><span class="line">for i in range(118000000, 120000000):</span><br><span class="line">    if gmpy2.iroot(cipher + i * N, 3)[1]:</span><br><span class="line">        print long_to_bytes(gmpy2.iroot(cipher + i * N, 3)[0])</span><br><span class="line"># Didn&apos;t you know RSA padding is really important? Now you see a non-padding message is so dangerous. And you should notice this in future.Fl4g: PCTF&#123;Sm4ll_3xpon3nt_i5_W3ak&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="God-Like-RSA"><a href="#God-Like-RSA" class="headerlink" title="God Like RSA"></a>God Like RSA</h1><blockquote>
+<p>既然你逼我到绝境，那就休怪我不客气了，代表上帝挑战你~</p>
+</blockquote>
+<p>先读公钥</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">➜  godlikeRSA openssl rsa -pubin -in pubkey.pem -text -modulus</span><br><span class="line">Public-Key: (4096 bit)</span><br><span class="line">Modulus:</span><br><span class="line">    00:c0:97:78:53:45:64:84:7d:8c:c4:b4:20:e9:33:</span><br><span class="line">    58:67:ec:78:3e:6c:f5:f0:5c:a0:3e:ee:dc:25:63:</span><br><span class="line">    d0:eb:2a:9e:ba:8f:19:52:a2:67:0b:e7:6e:b2:34:</span><br><span class="line">    b8:6d:50:76:e0:6a:d1:03:cf:77:33:d8:b1:e9:d7:</span><br><span class="line">    3b:e5:eb:1c:65:0c:25:96:fd:96:20:b9:7a:de:1d:</span><br><span class="line">    bf:fd:f2:b6:bf:81:3e:3e:47:44:43:98:bf:65:2f:</span><br><span class="line">    67:7e:27:75:f9:56:47:ba:c4:f0:4e:67:2b:da:e0:</span><br><span class="line">    1a:77:14:40:29:c1:a8:67:5a:8f:f5:2e:be:8e:82:</span><br><span class="line">    31:3d:43:26:d4:97:86:29:15:14:a9:69:36:2c:76:</span><br><span class="line">    ed:b5:90:eb:ec:6f:ce:d5:ca:24:1c:aa:f6:63:f8:</span><br><span class="line">    06:a2:62:cb:26:74:d3:5b:82:4b:b6:d5:e0:49:32:</span><br><span class="line">    7b:62:f8:05:c4:f7:0e:86:59:9b:f3:17:25:02:aa:</span><br><span class="line">    3c:97:78:84:7b:16:fd:1a:f5:67:cf:03:17:97:d0:</span><br><span class="line">    c6:69:85:f0:8d:fa:ce:ee:68:24:63:06:24:e1:e4:</span><br><span class="line">    4c:f8:e9:ad:25:c7:e0:c0:15:bb:b4:67:48:90:03:</span><br><span class="line">    9b:20:7f:0c:17:eb:9d:13:44:ab:ab:08:a5:c3:dc:</span><br><span class="line">    c1:98:88:c5:ce:4f:5a:87:9b:0b:bf:bd:d7:0e:a9:</span><br><span class="line">    09:59:81:fa:88:4f:59:60:6b:84:84:ad:d9:c7:25:</span><br><span class="line">    8c:e8:c0:e8:f7:26:9e:37:95:7c:e1:48:29:0f:51:</span><br><span class="line">    e7:bd:98:2f:f6:cc:80:e7:f0:32:0b:89:51:92:4e:</span><br><span class="line">    c2:6d:50:53:2b:3b:77:72:d1:bd:1a:1f:92:d7:12:</span><br><span class="line">    79:61:61:c5:a4:7e:b3:85:eb:f0:7c:6d:46:03:c5:</span><br><span class="line">    e6:d5:81:2c:ba:7e:ea:8d:51:7d:63:55:34:2a:b6:</span><br><span class="line">    d4:dc:31:5a:f1:99:e3:dc:8c:83:0b:a2:2a:d5:3c:</span><br><span class="line">    41:48:41:54:1a:a9:e8:b6:70:bf:d3:fe:ed:19:17:</span><br><span class="line">    14:94:13:b3:17:e3:8b:8e:6f:53:ed:e2:44:e8:4a:</span><br><span class="line">    32:d6:5c:0d:a8:80:f5:fc:02:e9:46:55:d5:a4:d3:</span><br><span class="line">    e7:c6:30:77:f9:73:e9:44:52:d8:13:9d:5d:bf:9e:</span><br><span class="line">    fa:3a:b5:96:79:82:5b:cd:19:5c:06:a9:00:96:fd:</span><br><span class="line">    4c:a4:73:88:1a:ec:3c:11:de:b9:3d:e0:50:00:1e:</span><br><span class="line">    ac:21:97:a1:96:7d:6b:15:f9:6c:c9:34:7f:70:d7:</span><br><span class="line">    9d:2d:d1:48:4a:81:71:f8:12:dd:32:ba:64:31:60:</span><br><span class="line">    08:26:4b:09:22:03:83:90:17:7f:f3:a7:72:57:bf:</span><br><span class="line">    89:6d:e4:d7:40:24:8b:7b:bd:df:33:c0:ff:30:2e:</span><br><span class="line">    e8:6c:1d</span><br><span class="line">Exponent: 65537 (0x10001)</span><br><span class="line">Modulus=C09778534564847D8CC4B420E9335867EC783E6CF5F05CA03EEEDC2563D0EB2A9EBA8F1952A2670BE76EB234B86D5076E06AD103CF7733D8B1E9D73BE5EB1C650C2596FD9620B97ADE1DBFFDF2B6BF813E3E47444398BF652F677E2775F95647BAC4F04E672BDAE01A77144029C1A8675A8FF52EBE8E82313D4326D49786291514A969362C76EDB590EBEC6FCED5CA241CAAF663F806A262CB2674D35B824BB6D5E049327B62F805C4F70E86599BF3172502AA3C9778847B16FD1AF567CF031797D0C66985F08DFACEEE6824630624E1E44CF8E9AD25C7E0C015BBB4674890039B207F0C17EB9D1344ABAB08A5C3DCC19888C5CE4F5A879B0BBFBDD70EA9095981FA884F59606B8484ADD9C7258CE8C0E8F7269E37957CE148290F51E7BD982FF6CC80E7F0320B8951924EC26D50532B3B7772D1BD1A1F92D712796161C5A47EB385EBF07C6D4603C5E6D5812CBA7EEA8D517D6355342AB6D4DC315AF199E3DC8C830BA22AD53C414841541AA9E8B670BFD3FEED1917149413B317E38B8E6F53EDE244E84A32D65C0DA880F5FC02E94655D5A4D3E7C63077F973E94452D8139D5DBF9EFA3AB59679825BCD195C06A90096FD4CA473881AEC3C11DEB93DE050001EAC2197A1967D6B15F96CC9347F70D79D2DD1484A8171F812DD32BA64316008264B0922038390177FF3A77257BF896DE4D740248B7BBDDF33C0FF302EE86C1D</span><br><span class="line">writing RSA key</span><br><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwJd4U0VkhH2MxLQg6TNY</span><br><span class="line">Z+x4Pmz18FygPu7cJWPQ6yqeuo8ZUqJnC+dusjS4bVB24GrRA893M9ix6dc75esc</span><br><span class="line">ZQwllv2WILl63h2//fK2v4E+PkdEQ5i/ZS9nfid1+VZHusTwTmcr2uAadxRAKcGo</span><br><span class="line">Z1qP9S6+joIxPUMm1JeGKRUUqWk2LHbttZDr7G/O1cokHKr2Y/gGomLLJnTTW4JL</span><br><span class="line">ttXgSTJ7YvgFxPcOhlmb8xclAqo8l3iEexb9GvVnzwMXl9DGaYXwjfrO7mgkYwYk</span><br><span class="line">4eRM+OmtJcfgwBW7tGdIkAObIH8MF+udE0Srqwilw9zBmIjFzk9ah5sLv73XDqkJ</span><br><span class="line">WYH6iE9ZYGuEhK3ZxyWM6MDo9yaeN5V84UgpD1HnvZgv9syA5/AyC4lRkk7CbVBT</span><br><span class="line">Kzt3ctG9Gh+S1xJ5YWHFpH6zhevwfG1GA8Xm1YEsun7qjVF9Y1U0KrbU3DFa8Znj</span><br><span class="line">3IyDC6Iq1TxBSEFUGqnotnC/0/7tGRcUlBOzF+OLjm9T7eJE6Eoy1lwNqID1/ALp</span><br><span class="line">RlXVpNPnxjB3+XPpRFLYE51dv576OrWWeYJbzRlcBqkAlv1MpHOIGuw8Ed65PeBQ</span><br><span class="line">AB6sIZehln1rFflsyTR/cNedLdFISoFx+BLdMrpkMWAIJksJIgODkBd/86dyV7+J</span><br><span class="line">beTXQCSLe73fM8D/MC7obB0CAwEAAQ==</span><br><span class="line">-----END PUBLIC KEY-----</span><br></pre></td></tr></table></figure>
+<p>然后题目给了个<code>private.corrupted</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br></pre></td><td class="code"><pre><span class="line">Private-Key: (4096 bit)</span><br><span class="line">modulus:</span><br><span class="line">    0 :c :9 :  :  : 5:6 :  :  :  :  :  :20:  :  :</span><br><span class="line">     8:  :  :7 :  :  :  :  :5 :  :  :ee:  :  :6 :</span><br><span class="line">    d :  : a:9e:  :  :  :  :a : 7:  :e7: e: 2:  :</span><br><span class="line">      :  :50:  :  :6 : 1:  :c :7 :  :  :b :e :d7:</span><br><span class="line">     b:e : b:  :6 :  : 5:9 :  :  : 0:b :  :  :1 :</span><br><span class="line">      :f :f : 6:b :  : e:  :4 :  : 3: 8:  :6 :  :</span><br><span class="line">      :7 :2 :  :  : 6:  :  :  : 0:  :  :2 :  : 0:</span><br><span class="line">      :  :  :  :  :  :  :  : a:  :f :  :be:  : 2:</span><br><span class="line">    3 :3 : 3:  :d4:  : 6:  :  : 4: 9:  : 6: c:  :</span><br><span class="line">     d:  :  : b:ec: f:  :  :  :  :1 :  :  : 3: 8:</span><br><span class="line">    0 :  :  :  :  :  : 3:  : 2: b:  : 5:  : 9:  :</span><br><span class="line">    7 :  : 8: 5:c4:f :  :  : 9:  :f :  :  :  :  :</span><br><span class="line">    3 :  :78:8 : b:  :fd:  :  :6 :  :  :  :9 :  :</span><br><span class="line">    c6:6 :  :  :8d:  :  :e :6 :  :6 : 6: 4:  : 4:</span><br><span class="line">      :  :  :a :  :  : 0:  : 5:  :b :  :4 :  :  :</span><br><span class="line">     b:20:  :  :  : b: d:  :4 :  :  : 8:a :c :d :</span><br><span class="line">    c1:  :  :  :ce:  :5a: 7:  :0 :  : d:  : e: 9:</span><br><span class="line">    09:  : 1:  : 8:4 :  :  :  :  :8 :a : 9:  : 5:</span><br><span class="line">      : 8:  : 8:  : 6: e:  :95:  : 1:  :  : f: 1:</span><br><span class="line">      :b :  :  :  : c:  :  :  :  :0 :8 : 1:  :4e:</span><br><span class="line">    c :  :  :  :  :  : 7:  :  :b :  :  :9 :  :  :</span><br><span class="line">      :61: 1:  :  :  : 3:85:  :f :7c: d: 6:  :c :</span><br><span class="line">      :d5:  :  :  : e:ea: d: 1:  :6 : 5:3 :  :b :</span><br><span class="line">    d :  :  :  :  : 9:  :  :  :83:  : 2:  :  :  :</span><br><span class="line">    4 :  :4 :  :  :  : 8:b : 0:  :  :f :  :  :  :</span><br><span class="line">      :  :1 :  :  :  :  :8 :6 :  :  :  :  :  :  :</span><br><span class="line">      : 6:5 :  :  :8 :f5: c:  :  :  : 5:  :  :  :</span><br><span class="line">      :  :3 :7 : 9:7 :  :  :  :d8:  : d:5 : f:  :</span><br><span class="line">    fa:  :  : 6:  :  :  :cd: 9:  : 6:a9:0 :  : d:</span><br><span class="line">     c:a4:7 : 8:  :e : c:1 :  :b :  :  :  :  :  :</span><br><span class="line">      :21:9 :a :96:  :  :  :  :6 :c :  :7 :  :d :</span><br><span class="line">      :  :  : 8:4 :8 :71:  :1 : d:  :  :  :  : 0:</span><br><span class="line">    08:  : b:  :  :03:83:  : 7:  :f :  : 2:  :  :</span><br><span class="line">    8 :6 :e : 7:40:2 : b:  : d:  :3 : 0:f :  : e:</span><br><span class="line">     8: c: d</span><br><span class="line">publicExponent: 65537 (0x10001)</span><br><span class="line">privateExponent:</span><br><span class="line">      :  :  : f:8 :a5:d : 2: 0:b :7 :  : 1:  : 4:</span><br><span class="line">     1:0d:  :3 :  :6 :  :  : b:  :  :  :e :  :  :</span><br><span class="line">    0e: 0:db:  :1a:1c:c0:  : e:  :  :99:bc:8 :a5:</span><br><span class="line">    7 :7 :7 : b:  :  : 8: 8:  :7 :55: 2:  :  :f :</span><br><span class="line">    b2:  :  :b :f :4 :  : 8:  :b :  :  :  : 0:  :</span><br><span class="line">    0 :  :6 :9 :  :  :  : b: 4:  : 0: a: 5:07:b :</span><br><span class="line">     9: c:9a: 9:  : 7:9e:  : b:60:f :  :  :  :0 :</span><br><span class="line">      : 3:0 :  :  :  : 1:b :  :  : b: 6:0 :f :  :</span><br><span class="line">      : 2:18: 6: b:1 :  :  :  :  :d3:f3:  :a :  :</span><br><span class="line">     3:  :  :  :  : 3: d: 1: 2:7 :  : d:  : 2: d:</span><br><span class="line">      :  : d:4 :  :d :  :6d: c:a :b6:  :  :  : 1:</span><br><span class="line">    69:  : 7:  :89:  :c :8 :61: d:25: 3:7 :1b: 4:</span><br><span class="line">    b :  :8 :55:  :49: 1:2 :3 :  :1 :e9:a8: 3:  :</span><br><span class="line">    9 :  : 1:f8:d3:  :e :  :d :  :9 :b6:  :  :71:</span><br><span class="line">    1 :  :c1:  : b: 1:  : 6:e :  :64:  :  :1a:c :</span><br><span class="line">      : b:  :bf:c :  : 0:  : 8:a :4 :  :26:a :5 :</span><br><span class="line">    6 :  :  :  :eb:  :e5: a:  :3e:f9:10:0 :  :  :</span><br><span class="line">     6:0 :  : 8:  : 1:72: c:0 : f:5 : f:9c: 0: e:</span><br><span class="line">     7:b :  :  :  :  :d9: 4:  : e:c :68:  :  :  :</span><br><span class="line">     c:  :3a:  :  :a0:ea: 3: 4:  :72:a :d : 8:  :</span><br><span class="line">      :0d:5 :0 : a: 7:c :bb: 6: 4:a :ce:d :2 : 1:</span><br><span class="line">      :  :17:6 :  : c: b:  : f:  :3 : 5:6 :3 :0e:</span><br><span class="line">      : 7:c :3e: 2: 9: 7: 6: f: e: f: 9:  :f3: 9:</span><br><span class="line">    a :c1:6 :  : 1:9 :  :43:  : f: 5:  :0 :27: 4:</span><br><span class="line">    4 :a :  :e9:  : 8: 4:3 :8a: 6:16:d5:c : e: e:</span><br><span class="line">      :d : c:b :a8:  : 7:  : 9:  :7 :7d:  :  :  :</span><br><span class="line">      :  :  :4 :2 :  : 3: 3: 6:  :  :  :7b:0 :  :</span><br><span class="line">     e:  :0 :  :a :  : 5:  :  :  : 5:1 :82:c :0d:</span><br><span class="line">    4 :2 :fd:36: 5:50:0 :  :  :d : f: 6:  :  :e :</span><br><span class="line">    0 :  :  :ce:  :9e:8 :  :0 :d :07:b3:  :  :  :</span><br><span class="line">    0 :e4:  :  :68:b :c :  : c:5 :  :  :3 : 7: 2:</span><br><span class="line">     c:e0:  :5 :  :  :b4:  :ef: 7:  :1 :e : 0:f :</span><br><span class="line">      :6 :  :  :  :e0:c :3 :  :  : 3:  : d:  :  :</span><br><span class="line">     3: 3: c: a:  :b : a:71: 3: 0:a :  :4 :5d:  :</span><br><span class="line">    0 :4</span><br><span class="line">prime1:</span><br><span class="line">     0: e:  :  :  :c :c :  :  :  :b :  :  :  :  :</span><br><span class="line">      :ab: e: 2: 8:c :  :  : 1:6 :6 : 6: f:d9: 0:</span><br><span class="line">    8 :5c:7 :06:  :  :  :0 : 3:5 :4b:  :6 :  :  :</span><br><span class="line">    2 :  :6 :  :  :  :2 :bc: c:  :85:1 : 1:d : 3:</span><br><span class="line">     1:b4:  : b: 1: 3: d:a :  :  :6e: 0:b :2 :  :</span><br><span class="line">      :b :  :9 :e :  :82:8d:  :  :13:  :  : a: a:</span><br><span class="line">      :  :4 :  :c : f:  :  :7 :e :0a:  :  : b: 5:</span><br><span class="line">      : e:91:3 :  :3c: 9:  : 6:  :  :b5:7d: 1:  :</span><br><span class="line">      :  :  :b :a1:99:6 :4 :3 :c :1a:02:4 :  : 9:</span><br><span class="line">    9 :f : d:bd:  :0 :  :  :  :b3:  : 4:  :e9: 9:</span><br><span class="line">      : d:  :  :7 :  :93:  : e:dc:  : 0:  :e7:  :</span><br><span class="line">    e :  :2 : b: 2:5 :  :  :  :  : c:5f:  :  :e2:</span><br><span class="line">      :  : 9:  :2a:  : e:  :  :2 :  :9f: 7:3 :  :</span><br><span class="line">    b : f:b :  : 8: 7:  :  :f :6 :e :c :  :3 :  :</span><br><span class="line">    f7: 5: 8: 5:  :  :  :  :  : 8: e:  :03: c:  :</span><br><span class="line">    33:76:e : 1:7 : c:  : 0:  :0b:  : a:  : 2: 9:</span><br><span class="line">      :c8:bf:  :  :06: 7:d5:  :02: c:b :e2: 7:2 :</span><br><span class="line">      :</span><br><span class="line">prime2:</span><br><span class="line">     0: f:  :d0: 1:55: 4:31:  : b:c4:8 :  : e: d:</span><br><span class="line">    34: 3:f :  :  :  :  : 8:99:1 :  : a:0 :  :4 :</span><br><span class="line">    0 :  :f :  :a4:41:2 :  :a :  : 1:  : a: c:  :</span><br><span class="line">      :  : 9:  :  : 2:f4: f:  :  :  :  :1 : 4:9 :</span><br><span class="line">    a :  :  :79:0 :  :  :  :  : 2: 8:b :  :4 : 8:</span><br><span class="line">      :9b: 1:  :d :  :f :e4:  :4 :c :e :  :3 :  :</span><br><span class="line">     7:2 :  :d :8 :2 :7 :  :d :67:fc:e : 0:f9: 7:</span><br><span class="line">    8 :  :  :  :1 :2f:  :51:  :  :2e:0a: e:3d: 6:</span><br><span class="line">    b :  :dd:  : 0:fb:  :f4:  :  :  :b4: 9:c :  :</span><br><span class="line">     a:  :  :  :d :  :  :6b: 2:  :9b: a:60:  :d6:</span><br><span class="line">     0:4f:16:d1:  :  :5 :fc:  :f :  :8 :  :  :  :</span><br><span class="line">     1: 6:e1:9 : e:4 : 6: c: d:d :73: 3:  :  :7 :</span><br><span class="line">      :8 : 9:  :3b:f : 2:  :  :f1: e:  :  :1e:  :</span><br><span class="line">    8 :  :  : 6:0 : 4:99:e :  : 5:  :  : 4:  :  :</span><br><span class="line">      : a:81:64:  :7 :f : 9: d:  :9 :  : 7:93:f :</span><br><span class="line">    ac:8c:  : 8:  : 0: d: 8:  :7 :  :1d:  :f :  :</span><br><span class="line">    1 :a :6 :8 :  :60:  :b3:  :  :  :89:  :  :14:</span><br><span class="line">      :5</span><br><span class="line">exponent1:</span><br><span class="line">      : 3:2a:  : d:  :  :  :  :0 :1 : f:  :  : 6:</span><br><span class="line">    1 :2 :1b:07: a:e :b :c5:58:7 :  :e8: 7: 1: c:</span><br><span class="line">      : 1:b :a0: 4:0f:5 :67:  :3 :7 :6 :f9:  : c:</span><br><span class="line">      :79: 0:1 :65:  :8 :  :99: d:d :  :2 :9 :0 :</span><br><span class="line">     e:  :0 :  :  :  : d:  :d :7 :6 :a9: a:8b: b:</span><br><span class="line">      :  : 7: a:37:  :  :7 :1 :6 :  :c2: 7:6 :b :</span><br><span class="line">     e:  :  :  :  :  :  :b :3a:5 :  :  :  :  :  :</span><br><span class="line">      :  :  :cd:8 :  : d:  :7 : 3:  : f:e : c:  :</span><br><span class="line">      : a:  :c : f:c : 7:b :5 :  :  :2 :8 :8 :6 :</span><br><span class="line">    0a: a:  :  :3 :db:  : 4:00:  : d:  :b : 5:  :</span><br><span class="line">    20: 2: 5:  :82:  : 0: 6:  :8a:  :7 :  : 8:  :</span><br><span class="line">     4: 1:  :  :  : 8:46:  :  :  :  :  : 0:f :c8:</span><br><span class="line">    2 :  : c:7 :  : 1:  :  :2 : 0: 5:  :  : 1:9b:</span><br><span class="line">     6:9 : 0:74:  :c :  :e :  :  :cb:b :3 :3 :  :</span><br><span class="line">     2:  :  :47:  :2 : 0:5 :  :  : d: 6:83:  :  :</span><br><span class="line">      :c7:  :  :0b:  :  : c:  :3 :8 :  :9 :4 : 7:</span><br><span class="line">    5 :c0:fe:  :f9: 1:  :0 : e: 8:02:  : f:  :c :</span><br><span class="line">    55:61</span><br><span class="line">exponent2:</span><br><span class="line">      :0b:7 :4 :0 : 0:6 : 7:7e:  : 5:  : 7:  : a:</span><br><span class="line">    a :d : 0: 6: 4:86:  :  :8 :  :  :  :  :e :8f:</span><br><span class="line">     9:  :  :  : 1:  :2 :  : 7: b:1 :5 : f:  :8 :</span><br><span class="line">      :d :21:  :e : d:  :c9:e : b:  :  :1 :  :  :</span><br><span class="line">      :d :a2:b7:  :  :  :f3:  :42:  :e : c:  :f :</span><br><span class="line">      : 0:f :7 : 4: 5:34:  :4 : c:  :  :8 :d : 8:</span><br><span class="line">    5 :af: 3:1d: 5:4 :  :2 :  :6 :c : 6:a :1 :5 :</span><br><span class="line">     a:9 :  :d :  :  :0a:a1:  :f :7 :9 :b :  :  :</span><br><span class="line">     f:2 :27: f:  :0 :f6:4d:  :  :  :  :  :5 :  :</span><br><span class="line">     4:08:  : 5:  : 8: 5:  :  :  :18: 4: 8:57: 2:</span><br><span class="line">     f: a:  :  :a8: f: c:f : e: 1:9 :c : 4:9 :  :</span><br><span class="line">      :  :  :  :  : 1:  :2 :  :d1:  : 6:e : d:  :</span><br><span class="line">      : f:04:2 :8d:  : 3:  :  :b : 8:  :d6:  : 2:</span><br><span class="line">      :  :  :6 :  : f:  :  : 0:6 :  :51:  :48:19:</span><br><span class="line">      :  :  :69:4 : c:  :c :  : f:  :f4:d :  : f:</span><br><span class="line">     d:0 :0d:b :3 : 3:2 :  :  :6 : b:5 :2 :  : c:</span><br><span class="line">     1:5a: f:f :  :  :7e:3e:  :d :f :0 : d: c: 6:</span><br><span class="line">     1</span><br><span class="line">coefficient:</span><br><span class="line">      :  :4 :  :6 :  :35:  :e :  :  : e: c:  :  :</span><br><span class="line">      :5 :5 :f8:1 : 9: a:3 :5 : b:  :f :  :  :  :</span><br><span class="line">     a:  :2c:  :  :c :  :03:  :2 :  :  :68:c : 5:</span><br><span class="line">    c9:8 :a :  : b:2 :  :  :3 :  : a: d:  :  :a :</span><br><span class="line">      :  :  :8 :  :7b: e:  :e :  :  :a :  :d :  :</span><br><span class="line">      :  :db:  :26: e:  :4 :  :  :  : 0:  :f :5 :</span><br><span class="line">    2 : 7:  : d:  :  :8 : 5:  :75: 3:  :  :4 :4 :</span><br><span class="line">    6 :c :  :  :  :b :  :f : c:  :a :d :b : a:  :</span><br><span class="line">      :  : f:f3:  :  :  :  :  :13:04: f:3 :  :  :</span><br><span class="line">    e :3 :  :d5:a4: 6:  :9 :  :  :  :b : d:  :  :</span><br><span class="line">     9:  :  :  :  :  : a:7 :  :  :  :  :  :c : a:</span><br><span class="line">    2 :  :  :  :  : 2:  :  :15:  :  :  :  :  :  :</span><br><span class="line">    f : 6: 1: 0: 6:  :  :  :  :  :  :c :  : 7:  :</span><br><span class="line">      : d:  :f :  :  :  : 8:b :  :4 :  :  : a:1 :</span><br><span class="line">    a9:  : 9: 0:1e:  :  :4 :3 :  :  : f:  :d :2 :</span><br><span class="line">      :  :a :8 :  :  :  : 7:  :3 :  :3 :9 :7 : c:</span><br><span class="line">      :  :80:  :6d:  :  :  : 4:  :  : a:e4:8 :6 :</span><br></pre></td></tr></table></figure>
+<p>4096bits的N，e又不小，正常是解不了了，但是给了个破损的私钥文件，需要修复私钥，google到的修复办法为</p>
+<ul>
+<li>given a candidate for <code>(p mod 16**(t - 1))</code>, generate all possible candidates for <code>(p mod 16**t)</code> (check against mask for prime1)</li>
+<li>calculate <code>q = n * invmod(p, 16**t)</code> (and check against mask for prime2)</li>
+<li>calculate <code>d = invmod(e, 16**t) * (1 + k * (N - p - q + 1))</code> (and check against mask for private exponent)</li>
+<li>calculate <code>d_p = invmod(e, 16**t) * (1 + k_p * (p - 1))</code> (and check against mask for exponent1)</li>
+<li>calculate <code>d_q = invmod(e, 16**t) * (1 + k_q * (q - 1))</code> (and check against mask for exponent2)</li>
+<li>if any of checks failed - check next candidate</li>
+</ul>
+<p>修复脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line">from itertools import product</span><br><span class="line">from libnum import invmod</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def solve_linear(a, b, mod):</span><br><span class="line">    if a &amp; 1 == 0 or b &amp; 1 == 0:</span><br><span class="line">        return None</span><br><span class="line">    return (b * invmod(a, mod)) &amp; (mod - 1)  # hack for mod = power of 2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def to_n(s):</span><br><span class="line">    s = re.sub(r&quot;[^0-9a-f]&quot;, &quot;&quot;, s)</span><br><span class="line">    return int(s, 16)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def msk(s):</span><br><span class="line">    cleaned = &quot;&quot;.join(map(lambda x: x[-2:], s.split(&quot;:&quot;)))</span><br><span class="line">    return msk_ranges(cleaned), msk_mask(cleaned), msk_val(cleaned)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def msk_ranges(s):</span><br><span class="line">    return [range(16) if c == &quot; &quot; else [int(c, 16)] for c in s]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def msk_mask(s):</span><br><span class="line">    return int(&quot;&quot;.join(&quot;0&quot; if c == &quot; &quot; else &quot;f&quot; for c in s), 16)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def msk_val(s):</span><br><span class="line">    return int(&quot;&quot;.join(&quot;0&quot; if c == &quot; &quot; else c for c in s), 16)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">E = 65537</span><br><span class="line"></span><br><span class="line">N = to_n(&quot;&quot;&quot;00:c0:97:78:53:45:64:84:7d:8c:c4:b4:20:e9:33:</span><br><span class="line">    58:67:ec:78:3e:6c:f5:f0:5c:a0:3e:ee:dc:25:63:</span><br><span class="line">    d0:eb:2a:9e:ba:8f:19:52:a2:67:0b:e7:6e:b2:34:</span><br><span class="line">    b8:6d:50:76:e0:6a:d1:03:cf:77:33:d8:b1:e9:d7:</span><br><span class="line">    3b:e5:eb:1c:65:0c:25:96:fd:96:20:b9:7a:de:1d:</span><br><span class="line">    bf:fd:f2:b6:bf:81:3e:3e:47:44:43:98:bf:65:2f:</span><br><span class="line">    67:7e:27:75:f9:56:47:ba:c4:f0:4e:67:2b:da:e0:</span><br><span class="line">    1a:77:14:40:29:c1:a8:67:5a:8f:f5:2e:be:8e:82:</span><br><span class="line">    31:3d:43:26:d4:97:86:29:15:14:a9:69:36:2c:76:</span><br><span class="line">    ed:b5:90:eb:ec:6f:ce:d5:ca:24:1c:aa:f6:63:f8:</span><br><span class="line">    06:a2:62:cb:26:74:d3:5b:82:4b:b6:d5:e0:49:32:</span><br><span class="line">    7b:62:f8:05:c4:f7:0e:86:59:9b:f3:17:25:02:aa:</span><br><span class="line">    3c:97:78:84:7b:16:fd:1a:f5:67:cf:03:17:97:d0:</span><br><span class="line">    c6:69:85:f0:8d:fa:ce:ee:68:24:63:06:24:e1:e4:</span><br><span class="line">    4c:f8:e9:ad:25:c7:e0:c0:15:bb:b4:67:48:90:03:</span><br><span class="line">    9b:20:7f:0c:17:eb:9d:13:44:ab:ab:08:a5:c3:dc:</span><br><span class="line">    c1:98:88:c5:ce:4f:5a:87:9b:0b:bf:bd:d7:0e:a9:</span><br><span class="line">    09:59:81:fa:88:4f:59:60:6b:84:84:ad:d9:c7:25:</span><br><span class="line">    8c:e8:c0:e8:f7:26:9e:37:95:7c:e1:48:29:0f:51:</span><br><span class="line">    e7:bd:98:2f:f6:cc:80:e7:f0:32:0b:89:51:92:4e:</span><br><span class="line">    c2:6d:50:53:2b:3b:77:72:d1:bd:1a:1f:92:d7:12:</span><br><span class="line">    79:61:61:c5:a4:7e:b3:85:eb:f0:7c:6d:46:03:c5:</span><br><span class="line">    e6:d5:81:2c:ba:7e:ea:8d:51:7d:63:55:34:2a:b6:</span><br><span class="line">    d4:dc:31:5a:f1:99:e3:dc:8c:83:0b:a2:2a:d5:3c:</span><br><span class="line">    41:48:41:54:1a:a9:e8:b6:70:bf:d3:fe:ed:19:17:</span><br><span class="line">    14:94:13:b3:17:e3:8b:8e:6f:53:ed:e2:44:e8:4a:</span><br><span class="line">    32:d6:5c:0d:a8:80:f5:fc:02:e9:46:55:d5:a4:d3:</span><br><span class="line">    e7:c6:30:77:f9:73:e9:44:52:d8:13:9d:5d:bf:9e:</span><br><span class="line">    fa:3a:b5:96:79:82:5b:cd:19:5c:06:a9:00:96:fd:</span><br><span class="line">    4c:a4:73:88:1a:ec:3c:11:de:b9:3d:e0:50:00:1e:</span><br><span class="line">    ac:21:97:a1:96:7d:6b:15:f9:6c:c9:34:7f:70:d7:</span><br><span class="line">    9d:2d:d1:48:4a:81:71:f8:12:dd:32:ba:64:31:60:</span><br><span class="line">    08:26:4b:09:22:03:83:90:17:7f:f3:a7:72:57:bf:</span><br><span class="line">    89:6d:e4:d7:40:24:8b:7b:bd:df:33:c0:ff:30:2e:</span><br><span class="line">    e8:6c:1d&quot;&quot;&quot;)</span><br><span class="line"></span><br><span class="line">p_ranges, pmask_msk, pmask_val = msk(&quot;&quot;&quot; 0: e:  :  :  :c :c :  :  :  :b :  :  :  :  :</span><br><span class="line">      :ab: e: 2: 8:c :  :  : 1:6 :6 : 6: f:d9: 0:</span><br><span class="line">    8 :5c:7 :06:  :  :  :0 : 3:5 :4b:  :6 :  :  :</span><br><span class="line">    2 :  :6 :  :  :  :2 :bc: c:  :85:1 : 1:d : 3:</span><br><span class="line">     1:b4:  : b: 1: 3: d:a :  :  :6e: 0:b :2 :  :</span><br><span class="line">      :b :  :9 :e :  :82:8d:  :  :13:  :  : a: a:</span><br><span class="line">      :  :4 :  :c : f:  :  :7 :e :0a:  :  : b: 5:</span><br><span class="line">      : e:91:3 :  :3c: 9:  : 6:  :  :b5:7d: 1:  :</span><br><span class="line">      :  :  :b :a1:99:6 :4 :3 :c :1a:02:4 :  : 9:</span><br><span class="line">    9 :f : d:bd:  :0 :  :  :  :b3:  : 4:  :e9: 9:</span><br><span class="line">      : d:  :  :7 :  :93:  : e:dc:  : 0:  :e7:  :</span><br><span class="line">    e :  :2 : b: 2:5 :  :  :  :  : c:5f:  :  :e2:</span><br><span class="line">      :  : 9:  :2a:  : e:  :  :2 :  :9f: 7:3 :  :</span><br><span class="line">    b : f:b :  : 8: 7:  :  :f :6 :e :c :  :3 :  :</span><br><span class="line">    f7: 5: 8: 5:  :  :  :  :  : 8: e:  :03: c:  :</span><br><span class="line">    33:76:e : 1:7 : c:  : 0:  :0b:  : a:  : 2: 9:</span><br><span class="line">      :c8:bf:  :  :06: 7:d5:  :02: c:b :e2: 7:2 :</span><br><span class="line">      :  &quot;&quot;&quot;)</span><br><span class="line"></span><br><span class="line">q_ranges, qmask_msk, qmask_val = msk(&quot;&quot;&quot; 0: f:  :d0: 1:55: 4:31:  : b:c4:8 :  : e: d:</span><br><span class="line">    34: 3:f :  :  :  :  : 8:99:1 :  : a:0 :  :4 :</span><br><span class="line">    0 :  :f :  :a4:41:2 :  :a :  : 1:  : a: c:  :</span><br><span class="line">      :  : 9:  :  : 2:f4: f:  :  :  :  :1 : 4:9 :</span><br><span class="line">    a :  :  :79:0 :  :  :  :  : 2: 8:b :  :4 : 8:</span><br><span class="line">      :9b: 1:  :d :  :f :e4:  :4 :c :e :  :3 :  :</span><br><span class="line">     7:2 :  :d :8 :2 :7 :  :d :67:fc:e : 0:f9: 7:</span><br><span class="line">    8 :  :  :  :1 :2f:  :51:  :  :2e:0a: e:3d: 6:</span><br><span class="line">    b :  :dd:  : 0:fb:  :f4:  :  :  :b4: 9:c :  :</span><br><span class="line">     a:  :  :  :d :  :  :6b: 2:  :9b: a:60:  :d6:</span><br><span class="line">     0:4f:16:d1:  :  :5 :fc:  :f :  :8 :  :  :  :</span><br><span class="line">     1: 6:e1:9 : e:4 : 6: c: d:d :73: 3:  :  :7 :</span><br><span class="line">      :8 : 9:  :3b:f : 2:  :  :f1: e:  :  :1e:  :</span><br><span class="line">    8 :  :  : 6:0 : 4:99:e :  : 5:  :  : 4:  :  :</span><br><span class="line">      : a:81:64:  :7 :f : 9: d:  :9 :  : 7:93:f :</span><br><span class="line">    ac:8c:  : 8:  : 0: d: 8:  :7 :  :1d:  :f :  :</span><br><span class="line">    1 :a :6 :8 :  :60:  :b3:  :  :  :89:  :  :14:</span><br><span class="line">      :5 &quot;&quot;&quot;)</span><br><span class="line"></span><br><span class="line">_, dmask_msk, dmask_val = msk(&quot;&quot;&quot;  :  :  : f:8 :a5:d : 2: 0:b :7 :  : 1:  : 4:</span><br><span class="line">     1:0d:  :3 :  :6 :  :  : b:  :  :  :e :  :  :</span><br><span class="line">    0e: 0:db:  :1a:1c:c0:  : e:  :  :99:bc:8 :a5:</span><br><span class="line">    7 :7 :7 : b:  :  : 8: 8:  :7 :55: 2:  :  :f :</span><br><span class="line">    b2:  :  :b :f :4 :  : 8:  :b :  :  :  : 0:  :</span><br><span class="line">    0 :  :6 :9 :  :  :  : b: 4:  : 0: a: 5:07:b :</span><br><span class="line">     9: c:9a: 9:  : 7:9e:  : b:60:f :  :  :  :0 :</span><br><span class="line">      : 3:0 :  :  :  : 1:b :  :  : b: 6:0 :f :  :</span><br><span class="line">      : 2:18: 6: b:1 :  :  :  :  :d3:f3:  :a :  :</span><br><span class="line">     3:  :  :  :  : 3: d: 1: 2:7 :  : d:  : 2: d:</span><br><span class="line">      :  : d:4 :  :d :  :6d: c:a :b6:  :  :  : 1:</span><br><span class="line">    69:  : 7:  :89:  :c :8 :61: d:25: 3:7 :1b: 4:</span><br><span class="line">    b :  :8 :55:  :49: 1:2 :3 :  :1 :e9:a8: 3:  :</span><br><span class="line">    9 :  : 1:f8:d3:  :e :  :d :  :9 :b6:  :  :71:</span><br><span class="line">    1 :  :c1:  : b: 1:  : 6:e :  :64:  :  :1a:c :</span><br><span class="line">      : b:  :bf:c :  : 0:  : 8:a :4 :  :26:a :5 :</span><br><span class="line">    6 :  :  :  :eb:  :e5: a:  :3e:f9:10:0 :  :  :</span><br><span class="line">     6:0 :  : 8:  : 1:72: c:0 : f:5 : f:9c: 0: e:</span><br><span class="line">     7:b :  :  :  :  :d9: 4:  : e:c :68:  :  :  :</span><br><span class="line">     c:  :3a:  :  :a0:ea: 3: 4:  :72:a :d : 8:  :</span><br><span class="line">      :0d:5 :0 : a: 7:c :bb: 6: 4:a :ce:d :2 : 1:</span><br><span class="line">      :  :17:6 :  : c: b:  : f:  :3 : 5:6 :3 :0e:</span><br><span class="line">      : 7:c :3e: 2: 9: 7: 6: f: e: f: 9:  :f3: 9:</span><br><span class="line">    a :c1:6 :  : 1:9 :  :43:  : f: 5:  :0 :27: 4:</span><br><span class="line">    4 :a :  :e9:  : 8: 4:3 :8a: 6:16:d5:c : e: e:</span><br><span class="line">      :d : c:b :a8:  : 7:  : 9:  :7 :7d:  :  :  :</span><br><span class="line">      :  :  :4 :2 :  : 3: 3: 6:  :  :  :7b:0 :  :</span><br><span class="line">     e:  :0 :  :a :  : 5:  :  :  : 5:1 :82:c :0d:</span><br><span class="line">    4 :2 :fd:36: 5:50:0 :  :  :d : f: 6:  :  :e :</span><br><span class="line">    0 :  :  :ce:  :9e:8 :  :0 :d :07:b3:  :  :  :</span><br><span class="line">    0 :e4:  :  :68:b :c :  : c:5 :  :  :3 : 7: 2:</span><br><span class="line">     c:e0:  :5 :  :  :b4:  :ef: 7:  :1 :e : 0:f :</span><br><span class="line">      :6 :  :  :  :e0:c :3 :  :  : 3:  : d:  :  :</span><br><span class="line">     3: 3: c: a:  :b : a:71: 3: 0:a :  :4 :5d:  :</span><br><span class="line">    0 :4 &quot;&quot;&quot;)</span><br><span class="line"></span><br><span class="line">_, dpmask_msk, dpmask_val = msk(&quot;&quot;&quot;  : 3:2a:  : d:  :  :  :  :0 :1 : f:  :  : 6:</span><br><span class="line">    1 :2 :1b:07: a:e :b :c5:58:7 :  :e8: 7: 1: c:</span><br><span class="line">      : 1:b :a0: 4:0f:5 :67:  :3 :7 :6 :f9:  : c:</span><br><span class="line">      :79: 0:1 :65:  :8 :  :99: d:d :  :2 :9 :0 :</span><br><span class="line">     e:  :0 :  :  :  : d:  :d :7 :6 :a9: a:8b: b:</span><br><span class="line">      :  : 7: a:37:  :  :7 :1 :6 :  :c2: 7:6 :b :</span><br><span class="line">     e:  :  :  :  :  :  :b :3a:5 :  :  :  :  :  :</span><br><span class="line">      :  :  :cd:8 :  : d:  :7 : 3:  : f:e : c:  :</span><br><span class="line">      : a:  :c : f:c : 7:b :5 :  :  :2 :8 :8 :6 :</span><br><span class="line">    0a: a:  :  :3 :db:  : 4:00:  : d:  :b : 5:  :</span><br><span class="line">    20: 2: 5:  :82:  : 0: 6:  :8a:  :7 :  : 8:  :</span><br><span class="line">     4: 1:  :  :  : 8:46:  :  :  :  :  : 0:f :c8:</span><br><span class="line">    2 :  : c:7 :  : 1:  :  :2 : 0: 5:  :  : 1:9b:</span><br><span class="line">     6:9 : 0:74:  :c :  :e :  :  :cb:b :3 :3 :  :</span><br><span class="line">     2:  :  :47:  :2 : 0:5 :  :  : d: 6:83:  :  :</span><br><span class="line">      :c7:  :  :0b:  :  : c:  :3 :8 :  :9 :4 : 7:</span><br><span class="line">    5 :c0:fe:  :f9: 1:  :0 : e: 8:02:  : f:  :c :</span><br><span class="line">    55:61&quot;&quot;&quot;)</span><br><span class="line"></span><br><span class="line">_, dqmask_msk, dqmask_val = msk(&quot;&quot;&quot;  :0b:7 :4 :0 : 0:6 : 7:7e:  : 5:  : 7:  : a:</span><br><span class="line">    a :d : 0: 6: 4:86:  :  :8 :  :  :  :  :e :8f:</span><br><span class="line">     9:  :  :  : 1:  :2 :  : 7: b:1 :5 : f:  :8 :</span><br><span class="line">      :d :21:  :e : d:  :c9:e : b:  :  :1 :  :  :</span><br><span class="line">      :d :a2:b7:  :  :  :f3:  :42:  :e : c:  :f :</span><br><span class="line">      : 0:f :7 : 4: 5:34:  :4 : c:  :  :8 :d : 8:</span><br><span class="line">    5 :af: 3:1d: 5:4 :  :2 :  :6 :c : 6:a :1 :5 :</span><br><span class="line">     a:9 :  :d :  :  :0a:a1:  :f :7 :9 :b :  :  :</span><br><span class="line">     f:2 :27: f:  :0 :f6:4d:  :  :  :  :  :5 :  :</span><br><span class="line">     4:08:  : 5:  : 8: 5:  :  :  :18: 4: 8:57: 2:</span><br><span class="line">     f: a:  :  :a8: f: c:f : e: 1:9 :c : 4:9 :  :</span><br><span class="line">      :  :  :  :  : 1:  :2 :  :d1:  : 6:e : d:  :</span><br><span class="line">      : f:04:2 :8d:  : 3:  :  :b : 8:  :d6:  : 2:</span><br><span class="line">      :  :  :6 :  : f:  :  : 0:6 :  :51:  :48:19:</span><br><span class="line">      :  :  :69:4 : c:  :c :  : f:  :f4:d :  : f:</span><br><span class="line">     d:0 :0d:b :3 : 3:2 :  :  :6 : b:5 :2 :  : c:</span><br><span class="line">     1:5a: f:f :  :  :7e:3e:  :d :f :0 : d: c: 6:</span><br><span class="line">     1&quot;&quot;&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def search(K, Kp, Kq, check_level, break_step):</span><br><span class="line">    max_step = 0</span><br><span class="line">    cands = [0]</span><br><span class="line">    for step in range(1, break_step + 1):</span><br><span class="line">        max_step = max(step, max_step)</span><br><span class="line"></span><br><span class="line">        mod = 1 &lt;&lt; (4 * step)</span><br><span class="line">        mask = mod - 1</span><br><span class="line"></span><br><span class="line">        cands_next = []</span><br><span class="line">        for p, new_digit in product(cands, p_ranges[-step]):</span><br><span class="line">            pval = (new_digit &lt;&lt; ((step - 1) * 4)) | p</span><br><span class="line"></span><br><span class="line">            if check_level &gt;= 1:</span><br><span class="line">                qval = solve_linear(pval, N &amp; mask, mod)</span><br><span class="line">                if qval is None or not check_val(qval, mask, qmask_msk, qmask_val):</span><br><span class="line">                    continue</span><br><span class="line"></span><br><span class="line">            if check_level &gt;= 2:</span><br><span class="line">                val = solve_linear(E, 1 + K * (N - pval - qval + 1), mod)</span><br><span class="line">                if val is None or not check_val(val, mask, dmask_msk, dmask_val):</span><br><span class="line">                    continue</span><br><span class="line"></span><br><span class="line">            if check_level &gt;= 3:</span><br><span class="line">                val = solve_linear(E, 1 + Kp * (pval - 1), mod)</span><br><span class="line">                if val is None or not check_val(val, mask, dpmask_msk, dpmask_val):</span><br><span class="line">                    continue</span><br><span class="line"></span><br><span class="line">            if check_level &gt;= 4:</span><br><span class="line">                val = solve_linear(E, 1 + Kq * (qval - 1), mod)</span><br><span class="line">                if val is None or not check_val(val, mask, dqmask_msk, dqmask_val):</span><br><span class="line">                    continue</span><br><span class="line"></span><br><span class="line">                if pval * qval == N:</span><br><span class="line">                    print &quot;Kq =&quot;, Kq</span><br><span class="line">                    print &quot;pwned&quot;</span><br><span class="line">                    print &quot;p =&quot;, pval</span><br><span class="line">                    print &quot;q =&quot;, qval</span><br><span class="line">                    p = pval</span><br><span class="line">                    q = qval</span><br><span class="line">                    d = invmod(E, (p - 1) * (q - 1))</span><br><span class="line">                    coef = invmod(p, q)</span><br><span class="line"></span><br><span class="line">                    from Crypto.PublicKey import RSA</span><br><span class="line">                    print RSA.construct(map(long, (N, E, d, p, q, coef))).exportKey()</span><br><span class="line">                    quit()</span><br><span class="line"></span><br><span class="line">            cands_next.append(pval)</span><br><span class="line"></span><br><span class="line">        if not cands_next:</span><br><span class="line">            return False</span><br><span class="line">        cands = cands_next</span><br><span class="line">    return True</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def check_val(val, mask, mask_msk, mask_val):</span><br><span class="line">    test_mask = mask_msk &amp; mask</span><br><span class="line">    test_val = mask_val &amp; mask</span><br><span class="line">    return val &amp; test_mask == test_val</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">for K in range(1, E):</span><br><span class="line">    if K % 100 == 0:</span><br><span class="line">        print &quot;checking&quot;, K</span><br><span class="line">    if search(K, 0, 0, check_level=2, break_step=20):</span><br><span class="line">        print &quot;K =&quot;, K</span><br><span class="line">        break</span><br><span class="line"></span><br><span class="line">for Kp in range(1, E):</span><br><span class="line">    if Kp % 1000 == 0:</span><br><span class="line">        print &quot;checking&quot;, Kp</span><br><span class="line">    if search(K, Kp, 0, check_level=3, break_step=30):</span><br><span class="line">        print &quot;Kp =&quot;, Kp</span><br><span class="line">        break</span><br><span class="line"></span><br><span class="line">for Kq in range(1, E):</span><br><span class="line">    if Kq % 100 == 0:</span><br><span class="line">        print &quot;checking&quot;, Kq</span><br><span class="line">    if search(K, Kp, Kq, check_level=4, break_step=9999):</span><br><span class="line">        print &quot;Kq =&quot;, Kq</span><br><span class="line">        break</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">p = 30061432003658510087798871614869318011389940352798147030129806359975911392091235344042288409629143229311060231549478211871643725394470760528211801310601767727834886942210718412087541234398453046895030858579989874035849439867334906873642352112428914855967993998732685221108379784833027771293275558876952608462050146340591449046825135890871650866799299533696175818103240024841274114925018619060818213433528894936128306780366785977567327073724428211445259983614467640785163297734447975723664659822673456683284394386723716344090232882990461174301609971805075768328757325956784604364401827152431260896927633163074694121679</span><br><span class="line">q = 26136662545551829820746942051638228325025130519175536694008242208616774469870765684858288042819063837180243501117310278632509413217676559484513481677689042623348188876598901642459170232360966754692434316796014314498263800234390539118817050074978421973817764644287745302885861277447227180288605200894138168586207384484170481511828680117688324729381172912436910052489279406590356734739774635376711681212908417321705094537960645308009611045658947359297373154395500467689532455017647450616447445444254910371922944620114234547655209970657063715028350418518417105772707885648587233103869340985670430269862943630137067052883</span><br><span class="line">-----BEGIN RSA PRIVATE KEY-----</span><br><span class="line">MIIJKAIBAAKCAgEAwJd4U0VkhH2MxLQg6TNYZ+x4Pmz18FygPu7cJWPQ6yqeuo8Z</span><br><span class="line">UqJnC+dusjS4bVB24GrRA893M9ix6dc75escZQwllv2WILl63h2//fK2v4E+PkdE</span><br><span class="line">Q5i/ZS9nfid1+VZHusTwTmcr2uAadxRAKcGoZ1qP9S6+joIxPUMm1JeGKRUUqWk2</span><br><span class="line">LHbttZDr7G/O1cokHKr2Y/gGomLLJnTTW4JLttXgSTJ7YvgFxPcOhlmb8xclAqo8</span><br><span class="line">l3iEexb9GvVnzwMXl9DGaYXwjfrO7mgkYwYk4eRM+OmtJcfgwBW7tGdIkAObIH8M</span><br><span class="line">F+udE0Srqwilw9zBmIjFzk9ah5sLv73XDqkJWYH6iE9ZYGuEhK3ZxyWM6MDo9yae</span><br><span class="line">N5V84UgpD1HnvZgv9syA5/AyC4lRkk7CbVBTKzt3ctG9Gh+S1xJ5YWHFpH6zhevw</span><br><span class="line">fG1GA8Xm1YEsun7qjVF9Y1U0KrbU3DFa8Znj3IyDC6Iq1TxBSEFUGqnotnC/0/7t</span><br><span class="line">GRcUlBOzF+OLjm9T7eJE6Eoy1lwNqID1/ALpRlXVpNPnxjB3+XPpRFLYE51dv576</span><br><span class="line">OrWWeYJbzRlcBqkAlv1MpHOIGuw8Ed65PeBQAB6sIZehln1rFflsyTR/cNedLdFI</span><br><span class="line">SoFx+BLdMrpkMWAIJksJIgODkBd/86dyV7+JbeTXQCSLe73fM8D/MC7obB0CAwEA</span><br><span class="line">AQKCAgAuZ5DPh6XboqC7eKeBaSTBDaI/cGOmAbt+znDu9WkOcNuEGhzA426u2Jm8</span><br><span class="line">iKVzeXLbSgGIyIFxVaIwtPKyyH6z/kREaF+3DNoFEOgE2WmdJRgJS4SwQOrFB7IJ</span><br><span class="line">HJr5dAeegftg+M0BVQQrcw6uwQHBvXl4W0YA8m/I0hhWGxhxZ6nt0/MArbtDB2NB</span><br><span class="line">OgN9UdJ3sd3iYo2+rM1EO9v9bZyutkPvfyFpzFcfiWPPjWHdJdN+G+Szno9VVUmx</span><br><span class="line">KDZWE+moY96a6HH409juattxnLZgU3EUfMGCm/GUdugeZNCAGs5S+ym/zb6wONig</span><br><span class="line">QlomoldnWHVI66flir8++RALcUFWC46IH2FyrAJfWR+c8E5ns8Z+HlnZFFO+z2i/</span><br><span class="line">xWWc9jqFMqDq0yQccqLUWFqPDVINClfIu7bUoM7QLuEKohdkyTwbcx9zOqVuNg7d</span><br><span class="line">18g+Qrm3Ru+uD0ni85mnwWA3kZPdQ6pvJaEDJzRPp0rpZyjEP4p2FtXDbp7I1gy9</span><br><span class="line">qH834mmrcH2R5RANmJZFIb0T49beAqF7B3wO0AfCpUj1D827JRKCww1OLv02FVAL</span><br><span class="line">NPjcf7aIfecFAHTOc56NOwLdB7MvPw4O5LtUaLTHMUxZ1CIzB/Ks4P9Yn7O0du9n</span><br><span class="line">FxPmYPWCYoXJX+DFOqc3U4atY6bTs2z6QLs6cdPQrltEXeYFRQKCAQEA7iHlusjD</span><br><span class="line">SIy9vtxsYzr2qz6CqMUrd8FtaeYf2SCGXHEGfDlYCVNbS0dktyAkZ27mZxAovKzR</span><br><span class="line">hRwB04PxtNNboTPdo5iDbqC8J8Kxvz6W6TeCjZLDEyoOunrYdE8SyK/1tX7oCrbe</span><br><span class="line">+8Xk3pE5RzypwNZbp7V9gQsjJxe6oZlkRTXEGgJDJ5mV+v29ngoNki+zMhTk6emu</span><br><span class="line">bf23cSmT+f7cw5Cs5+jgaCMrYliciLaejF869+JCcZm2Kj7eCP0lDJ9HMVa+v79n</span><br><span class="line">KPeDyvdj680KMNv3RQhVjfavMsoIriIDfKczduzBdtylgBkLsqozoqmhyL/MuAY3</span><br><span class="line">1VwCrLXipyWIzwKCAQEAzwrQ0VVkMYZ7xIxCnv004/DyDePSOJkU2ToMaE0Bcf+y</span><br><span class="line">pEEu/KjW8aU6TKPNWHnAcCL0nzozoZcYNJyrI195DXiT8wXSaL2uR2gum+E71ov8</span><br><span class="line">5MdIz+z9NTqXJsvRjy5w399n/O+g+XeIObAMGi+/UdLYLgquPVa7Pd37sPt69Cf1</span><br><span class="line">H7TZx9y6+nXH1iCLa5LQm0pgedaQTxbR9EtY/Fj2vIc4I5JxduGb3kFm7D3Sc6Nq</span><br><span class="line">P354hJnmO/diiCjxLhVqHiiPuIrmAOSZ4X4VRWOkPMylKoFkx3HxqW1Zkq/Hk/ms</span><br><span class="line">jM8IUHBtSKd6Vh3//NYUq2SCt2Dys95f6YlonhQfUwKCAQEAwypk7cC8zCkNGe/t</span><br><span class="line">pSYeJBsHWuq9xVhyI+jHEVzmwbygZA9bZ8k5eWj50lw1edAaZT2JJZk93qollQT+</span><br><span class="line">hAT1hBjN/dZxYam6i5u1sdfKNzmXdhBicMJ3b75eyHRGINSVvDpWUvGtrwtxmDfN</span><br><span class="line">ieTd+32zgK/uPGS0WsXH38mntFFsdySDhWEK2ro7PdtfZABUDSeytUMgAmV+gvBg</span><br><span class="line">pvOKW32nOCpUQQUR+XhGUoXZS5KA8cguTIx+EAGWWCegxceEwZsmmmB0W87/5Mj8</span><br><span class="line">y7UwNPsSnTFHbSJQVH/gvVaDJRajx0QjCxerTGE6hSOZTidYwP7w+aGfAO54ArTP</span><br><span class="line">Hc5VYQKCAQBVC3RLCHBnh34/df3HoOqg1tAWtIYdiYPu1tFR5o+5a/bNUZkjX5cr</span><br><span class="line">G1ufL4mh1iEd7r3cyeN7dL0Un2YM2aK3zde386RCMefsnPbIQPR7ZHU05EccYZSA</span><br><span class="line">0NhVr1MdJU5oJzRnyWauElN6nr3Z49MKoTj7cJexynaPKye/wwz2TZN6uqbaWejU</span><br><span class="line">CJ1Vb3jVbzERGLQYV/JfClijqG+c+E4hksmUkwrYckO8P9EvKRXROkbiXejTTwQr</span><br><span class="line">jaqDk42+CD3WtYKTozpnE3/CCDBkmFFWSBlwJEZpRnylw60Pe/TW66/dBw27PPMm</span><br><span class="line">7ORri1cjXCyRWm/3M3N+PtHW9AJtLIbRAoIBABgyTrVuAjXd7qO57px/XHtUXvgX</span><br><span class="line">udo7XstJ9DYLE4roLEj8zUYDFS9KmGjANcmBpcgbKagWN9SqDQSfo8WkEoAue74n</span><br><span class="line">7+8goDbeh0YQ2y0mDmpP34dBwF79USn3O+2lVI+1HXUTfTxOTmLPo5bSsv38HL2t</span><br><span class="line">3Ll6cUCg//M7IAQbpRME3z8gIe0/HNWkZjyRadnBsk1QbEmZ8fBtiEp2LHFjnJLA</span><br><span class="line">SiU+f38+cqqUFcrGBlNvc/7W0SB2a5rp81XRwBGXEGtt+fYlBCWIuHVEih9qFqnP</span><br><span class="line">6VAeL6lKMzIpH1rbIrwFoIpMzyrnAjZGOJZ6bBcbgMFtNLBmJMSlmuSIao8=</span><br><span class="line">-----END RSA PRIVATE KEY-----</span><br></pre></td></tr></table></figure>
+<p>然后写入private.pem解密就行了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">from Crypto.PublicKey import RSA</span><br><span class="line">from Crypto.Cipher import PKCS1_OAEP</span><br><span class="line"></span><br><span class="line">with open(&apos;pubkey.pem&apos;, &apos;r&apos;) as f:</span><br><span class="line">    key = RSA.importKey(f)</span><br><span class="line">    N = key.n</span><br><span class="line">    e = key.e</span><br><span class="line"></span><br><span class="line">with open(&apos;private.pem&apos;, &apos;r&apos;) as f:</span><br><span class="line">    private = RSA.importKey(f)</span><br><span class="line">    oaep = PKCS1_OAEP.new(private)</span><br><span class="line"></span><br><span class="line">with open(&apos;flag.enc&apos;, &apos;r&apos;) as f:</span><br><span class="line">    print oaep.decrypt(f.read())</span><br><span class="line"># PCTF&#123;0h_U_r_ju5t_lik3_g0d&#125;</span><br></pre></td></tr></table></figure>
+<p>这里有个坑点是填充方式，不是PKCS1，而是PKCS1_OAEP，反正rsa填充方式就3种，一种一种试就行了，在线网站解方便一点</p>
+<p><a href="http://tool.chacuo.net/cryptrsaprikey" target="_blank" rel="noopener">tool.chacuo.net/cryptrsaprikey</a></p>
+<p>不过注意一下在线解密内容需要先base64，不然不可见字符你也输不进去。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  godlikeRSA cat flag.enc | base64</span><br><span class="line">JP1VehHnCOCVdVq+nGBKaDGH//PFuuRJRIbykZ+JUhkgrZsMDyOxcTKfZ3DdAGrxZXGE2x66BgW153l5ASiMxqNnzwoDy+/5E1fXo/ZUjN10see070ljLHYviAinkrpTs44joMx6n6nqBvqObERsOl6fC18eWWQFG7XnNQEp74IHs0GNV9PTVXXuEeDopRhHfjxiPzZEDJT6JwhY+XWaa2otfArjE4bT1UMvw6Q66rJ2M/z7vTuxmqz/xKDU+ZIZoQ5u1ppIxaq+5LOZvQvva8/yrYHZgEnKSuQjG7QBzJN5lLdi3bFeEWTe0VgT5KX2ydSGH0dNqo66wx9c4m7gReV2zW/P/K90Xn47frpGX8HNfQU1+53Qe9DGkAptfLkXP3z34EWU7mRBGWgSdonkZERWmk6ZQXTtEQH9OZMZW8rulIsZ2iTlIAfB0ZbiynoarxAamBzOJO77NkQZnRM5Nqy43v+ffAXqGBcFeeZwJ8St7zOOb4XIe0vNYZK1WCaN/a5bK+obYTAsLEUYd7NspM/HFyP7oYMzk4lgsRXJTdk5C2xy8pj3Y4aDHtcwT+MXEiOlve83X3idKs8EqwznUM1ZnvBXUqhWDBt7/JVKBxdN4OIdjSJtUJa47PnYsLrJVTB4bu5V8NJMzl5EoN/kAFAS5B84j0IfO6TEywmkt/M=</span><br></pre></td></tr></table></figure>
+<p><img src="http://oztni9daw.bkt.clouddn.com/518bb13e2cf7d20b8462a37cb3ad0b37.png" alt="rsa"></p>
+<h1 id="简单ECC概念"><a href="#简单ECC概念" class="headerlink" title="简单ECC概念"></a>简单ECC概念</h1><blockquote>
+<p>已知椭圆曲线加密Ep(a,b)参数为</p>
+<p>p = 15424654874903</p>
+<p>a = 16546484</p>
+<p>b = 4548674875</p>
+<p>G(6478678675,5636379357093)</p>
+<p>私钥为</p>
+<p>k = 546768</p>
+<p>求公钥K(x,y)</p>
+<p>提示：K=kG</p>
+<p>提交格式XUSTCTF{x+y}(注意，大括号里面是x和y加起来求和，不是用加号连接)</p>
+<p>注：题目来源XUSTCTF2016</p>
+</blockquote>
+<p>那就先来了解一下ECC</p>
+<p>ECC全称为椭圆曲线加密，EllipseCurve Cryptography，是一种基于椭圆曲线数学的公钥密码。与传统的基于大质数因子分解困难性的加密方法不同，ECC依赖于解决椭圆曲线离散对数问题的困难性。它的优势主要在于相对于其它方法，它可以在使用较短秘钥长度的同时保持相同的密码强度。目前椭圆曲线主要采用的有限域有</p>
+<ul>
+<li>以素数为模的整数域GF(p)，通常在通用处理器上更为有效。</li>
+<li>特征为2的伽罗华域GF（2^m），可以设计专门的硬件。</li>
+</ul>
+<p>baidu + google + duckduckgo 了一圈回来发现没有wp，网上关于ecc的ctf题少的可怜，这个什么XUSTCTF2016更是找不到这题的wp</p>
+<p>那么照着ecc的定义自己算吧，什么离散函数，有限域的，略蛋疼，还好这题简单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">a = 16546484</span><br><span class="line">M = 15424654874903</span><br><span class="line">G = (6478678675, 5636379357093)</span><br><span class="line">K = (0, 0)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def add(A, B):</span><br><span class="line">    if A == (0, 0):</span><br><span class="line">        return B</span><br><span class="line">    if B == (0, 0):</span><br><span class="line">        return A</span><br><span class="line">    x1, y1 = A</span><br><span class="line">    x2, y2 = B</span><br><span class="line">    if A != B:</span><br><span class="line">        p = (y2 - y1) * pow(x2 - x1, M - 2, M)</span><br><span class="line">    else:</span><br><span class="line">        p = (3 * x1 * x1 + a) * pow(2 * y1, M - 2, M)</span><br><span class="line">    x3 = p * p - x1 - x2</span><br><span class="line">    y3 = p * (x1 - x3) - y1</span><br><span class="line">    return (x3 % M, y3 % M)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">for i in range(546768):</span><br><span class="line">    K = add(K, G)</span><br><span class="line">print &apos;XUSTCTF&#123;%d&#125;&apos; % (K[0] + K[1])</span><br><span class="line"># XUSTCTF&#123;19477226185390&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="神秘的压缩包"><a href="#神秘的压缩包" class="headerlink" title="神秘的压缩包"></a>神秘的压缩包</h1><blockquote>
+<p>就不告诉你密码，看你怎么办。</p>
+<p>注：题目来源XUSTCTF2016</p>
+</blockquote>
+<p>crc32爆破</p>
+<p>crc32_util.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"></span><br><span class="line">import itertools</span><br><span class="line">import binascii</span><br><span class="line">import string</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class crc32_reverse_class(object):</span><br><span class="line">    def __init__(self, crc32, length, tbl=string.printable,</span><br><span class="line">                 poly=0xEDB88320, accum=0):</span><br><span class="line">        self.char_set = set(map(ord, tbl))</span><br><span class="line">        self.crc32 = crc32</span><br><span class="line">        self.length = length</span><br><span class="line">        self.poly = poly</span><br><span class="line">        self.accum = accum</span><br><span class="line">        self.table = []</span><br><span class="line">        self.table_reverse = []</span><br><span class="line"></span><br><span class="line">    def init_tables(self, poly, reverse=True):</span><br><span class="line">        # build CRC32 table</span><br><span class="line">        for i in range(256):</span><br><span class="line">            for j in range(8):</span><br><span class="line">                if i &amp; 1:</span><br><span class="line">                    i &gt;&gt;= 1</span><br><span class="line">                    i ^= poly</span><br><span class="line">                else:</span><br><span class="line">                    i &gt;&gt;= 1</span><br><span class="line">            self.table.append(i)</span><br><span class="line">        assert len(self.table) == 256, &quot;table is wrong size&quot;</span><br><span class="line">        # build reverse table</span><br><span class="line">        if reverse:</span><br><span class="line">            found_none = set()</span><br><span class="line">            found_multiple = set()</span><br><span class="line">            for i in range(256):</span><br><span class="line">                found = []</span><br><span class="line">                for j in range(256):</span><br><span class="line">                    if self.table[j] &gt;&gt; 24 == i:</span><br><span class="line">                        found.append(j)</span><br><span class="line">                self.table_reverse.append(tuple(found))</span><br><span class="line">                if not found:</span><br><span class="line">                    found_none.add(i)</span><br><span class="line">                elif len(found) &gt; 1:</span><br><span class="line">                    found_multiple.add(i)</span><br><span class="line">            assert len(self.table_reverse) == 256, &quot;reverse table is wrong size&quot;</span><br><span class="line"></span><br><span class="line">    def rangess(self, i):</span><br><span class="line">        return &apos;, &apos;.join(map(lambda x: &apos;[&#123;0&#125;,&#123;1&#125;]&apos;.format(*x), self.ranges(i)))</span><br><span class="line"></span><br><span class="line">    def ranges(self, i):</span><br><span class="line">        for kg in itertools.groupby(enumerate(i), lambda x: x[1] - x[0]):</span><br><span class="line">            g = list(kg[1])</span><br><span class="line">            yield g[0][1], g[-1][1]</span><br><span class="line"></span><br><span class="line">    def calc(self, data, accum=0):</span><br><span class="line">        accum = ~accum</span><br><span class="line">        for b in data:</span><br><span class="line">            accum = self.table[(accum ^ b) &amp; 0xFF] ^ (</span><br><span class="line">                (accum &gt;&gt; 8) &amp; 0x00FFFFFF)</span><br><span class="line">        accum = ~accum</span><br><span class="line">        return accum &amp; 0xFFFFFFFF</span><br><span class="line"></span><br><span class="line">    def findReverse(self, desired, accum):</span><br><span class="line">        solutions = set()</span><br><span class="line">        accum = ~accum</span><br><span class="line">        stack = [(~desired,)]</span><br><span class="line">        while stack:</span><br><span class="line">            node = stack.pop()</span><br><span class="line">            for j in self.table_reverse[(node[0] &gt;&gt; 24) &amp; 0xFF]:</span><br><span class="line">                if len(node) == 4:</span><br><span class="line">                    a = accum</span><br><span class="line">                    data = []</span><br><span class="line">                    node = node[1:] + (j,)</span><br><span class="line">                    for i in range(3, -1, -1):</span><br><span class="line">                        data.append((a ^ node[i]) &amp; 0xFF)</span><br><span class="line">                        a &gt;&gt;= 8</span><br><span class="line">                        a ^= self.table[node[i]]</span><br><span class="line">                    solutions.add(tuple(data))</span><br><span class="line">                else:</span><br><span class="line">                    stack.append(((node[0] ^ self.table[j]) &lt;&lt; 8,) + node[1:] + (j,))</span><br><span class="line">        return solutions</span><br><span class="line"></span><br><span class="line">    def dfs(self, length, outlist=[&apos;&apos;]):</span><br><span class="line">        tmp_list = []</span><br><span class="line">        if length == 0:</span><br><span class="line">            return outlist</span><br><span class="line">        for list_item in outlist:</span><br><span class="line">            tmp_list.extend([list_item + chr(x) for x in self.char_set])</span><br><span class="line">        return self.dfs(length - 1, tmp_list)</span><br><span class="line"></span><br><span class="line">    def run_reverse(self):</span><br><span class="line">        self.init_tables(self.poly)</span><br><span class="line">        desired = self.crc32</span><br><span class="line">        accum = self.accum</span><br><span class="line">        if self.length &gt;= 4:</span><br><span class="line">            patches = self.findReverse(desired, accum)</span><br><span class="line">            for patch in patches:</span><br><span class="line">                checksum = self.calc(patch, accum)</span><br><span class="line">                print &apos;verification checksum: 0x&#123;0:08x&#125; (&#123;1&#125;)&apos;.format(</span><br><span class="line">                    checksum, &apos;OK&apos; if checksum == desired else &apos;ERROR&apos;)</span><br><span class="line">            for item in self.dfs(self.length - 4):</span><br><span class="line">                patch = map(ord, item)</span><br><span class="line">                patches = self.findReverse(desired, self.calc(patch, accum))</span><br><span class="line">                for last_4_bytes in patches:</span><br><span class="line">                    if all(p in self.char_set for p in last_4_bytes):</span><br><span class="line">                        patch.extend(last_4_bytes)</span><br><span class="line">                        print &apos;[find]: &#123;1&#125; (&#123;0&#125;)&apos;.format(</span><br><span class="line">                            &apos;OK&apos; if self.calc(patch, accum) == desired else &apos;ERROR&apos;, &apos;&apos;.join(map(chr, patch)))</span><br><span class="line">        else:</span><br><span class="line">            for item in self.dfs(self.length):</span><br><span class="line">                if crc32(item) == desired:</span><br><span class="line">                    print &apos;[find]: &#123;0&#125; (OK)&apos;.format(item)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def crc32_reverse(crc32, length, char_set=string.printable,</span><br><span class="line">                  poly=0xEDB88320, accum=0):</span><br><span class="line">    obj = crc32_reverse_class(crc32, length, char_set, poly, accum)</span><br><span class="line">    obj.run_reverse()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def crc32(s):</span><br><span class="line">    return binascii.crc32(s) &amp; 0xffffffff</span><br></pre></td></tr></table></figure>
+<p>smdysb.py<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from crc32_5byte import *</span><br><span class="line"></span><br><span class="line">l = [0x20AE9F17,</span><br><span class="line">     0xD2D0067E,</span><br><span class="line">     0x6C53518D,</span><br><span class="line">     0x80DF4DC3,</span><br><span class="line">     0x3F637A50,</span><br><span class="line">     0xBCD9703B]</span><br><span class="line"></span><br><span class="line">for k in l:</span><br><span class="line">    crc32_reverse(k, 5)</span><br></pre></td></tr></table></figure></p>
+<p>运行脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">➜  crypto python smdysb.py</span><br><span class="line">verification checksum: 0x20ae9f17 (OK)</span><br><span class="line">[find]: l./rc (OK)</span><br><span class="line">[find]: passw (OK)</span><br><span class="line">verification checksum: 0xd2d0067e (OK)</span><br><span class="line">[find]: &quot;_YWn (OK)</span><br><span class="line">[find]: N,tS* (OK)</span><br><span class="line">[find]: Rc(R&gt; (OK)</span><br><span class="line">[find]: ord:f (OK)</span><br><span class="line">[find]: s=8;r (OK)</span><br><span class="line">verification checksum: 0x6c53518d (OK)</span><br><span class="line">[find]: /8LWp (OK)</span><br><span class="line">[find]: CKaS4 (OK)</span><br><span class="line">[find]: ~Z-;l (OK)</span><br><span class="line">verification checksum: 0x80df4dc3 (OK)</span><br><span class="line">[find]: apEwF (OK)</span><br><span class="line">verification checksum: 0x3f637a50 (OK)</span><br><span class="line">^Q6w (OK)</span><br><span class="line">[find]: \&lt;0Zk (OK)</span><br><span class="line">[find]: a-|23 (OK)</span><br><span class="line">[find]: &#125;b 3&apos; (OK)</span><br><span class="line">verification checksum: 0xbcd9703b (OK)</span><br><span class="line">[find]: hyAo5 (OK)</span><br></pre></td></tr></table></figure>
+<p>这么多重合的crc32，巨坑，手动一个一个试，最后得到</p>
+<p><code>password:f~Z-;lapEwF\&lt;0ZkhyAo5</code></p>
+<p>解压rar得到flag</p>
+<blockquote>
+<p>XUSTCTF{6ebd0342caa3cf39981b98ee24a1f0ac}</p>
+</blockquote>
+<h1 id="crypto题（上）完结"><a href="#crypto题（上）完结" class="headerlink" title="crypto题（上）完结"></a>crypto题（上）完结</h1><p>做完这题jarvis排名也上前100了，crypto题做了差不多一半了，这个文档也1000多行了，对一个开着实时预览的markdown文档有点吃不消了，写起来编辑器巨卡，看了下还有不少题，分为3篇写</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ctf/" rel="tag"># ctf</a>
+          
+            <a href="/tags/Jarvis-OJ/" rel="tag"># Jarvis OJ</a>
+          
+            <a href="/tags/writeup/" rel="tag"># writeup</a>
+          
+            <a href="/tags/crypto/" rel="tag"># crypto</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/27/hxb/" rel="next" title="湖湘杯部分题writeup">
+                <i class="fa fa-chevron-left"></i> 湖湘杯部分题writeup
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/30/sdr/" rel="prev" title="HackRF入门">
+                HackRF入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/head.png"
+                alt="D001UM3" />
+            
+              <p class="site-author-name" itemprop="name">D001UM3</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Medium-RSA"><span class="nav-number">1.</span> <span class="nav-text">Medium RSA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BrokenPic"><span class="nav-number">2.</span> <span class="nav-text">BrokenPic</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hard-RSA"><span class="nav-number">3.</span> <span class="nav-text">hard RSA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#very-hard-RSA"><span class="nav-number">4.</span> <span class="nav-text">very hard RSA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Extremely-hard-RSA"><span class="nav-number">5.</span> <span class="nav-text">Extremely hard RSA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#God-Like-RSA"><span class="nav-number">6.</span> <span class="nav-text">God Like RSA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单ECC概念"><span class="nav-number">7.</span> <span class="nav-text">简单ECC概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#神秘的压缩包"><span class="nav-number">8.</span> <span class="nav-text">神秘的压缩包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#crypto题（上）完结"><span class="nav-number">9.</span> <span class="nav-text">crypto题（上）完结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">D001UM3</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
