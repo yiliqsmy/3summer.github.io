@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/3565cc28740543ca21b3ac8c0e5c3c60.png">
 <meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/ef19588dc00b7e65bde84be7935635b8.png">
 <meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/0c1922d6a4d8b9e33e13e351d2639f13.png">
-<meta property="og:updated_time" content="2018-01-24T06:08:43.875Z">
+<meta property="og:updated_time" content="2018-01-24T08:29:23.365Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sagemath入门">
 <meta name="twitter:description" content="做密码学很多地方都需要用到sage，特此来学习一下">
@@ -366,15 +366,16 @@
 <p>SageMath 是一个基于GPL协议的开源数学软件。它使用Python作为通用接口，将现有的许多开源软件包整合在一起，构建一个统一的计算平台</p>
 </blockquote>
 <p>官网：<a href="http://www.sagemath.org/" target="_blank" rel="noopener">http://www.sagemath.org/</a><br>中文版官网：<a href="http://www.sagemath.org/zh/" target="_blank" rel="noopener">http://www.sagemath.org/zh/</a><br>中文版的SageMath入门手册： <a href="http://ai7.org/wp/html/682.html" target="_blank" rel="noopener">http://ai7.org/wp/html/682.html</a></p>
-<h1 id="sagemath安装"><a href="#sagemath安装" class="headerlink" title="sagemath安装"></a>sagemath安装</h1><h3 id="MACos"><a href="#MACos" class="headerlink" title="MACos"></a>MACos</h3><p>下载地址：<a href="http://www.sagemath.org/download-mac.html" target="_blank" rel="noopener">http://www.sagemath.org/download-mac.html</a></p>
-<p>选择一个服务器进行下载，这里我们选清华的服务器，然后选择cpu，一般是inter，然后选择是app还是命令行的，我选择app的，最后下载地址：<br><a href="https://mirrors.tuna.tsinghua.edu.cn/sagemath/osx/intel/sage-8.0-OSX_10.11.6-x86_64.app.dmg" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/sagemath/osx/intel/sage-8.0-OSX_10.11.6-x86_64.app.dmg</a></p>
+<h1 id="sagemath安装"><a href="#sagemath安装" class="headerlink" title="sagemath安装"></a>sagemath安装</h1><h2 id="MACos"><a href="#MACos" class="headerlink" title="MACos"></a>MACos</h2><p>下载地址：<a href="http://www.sagemath.org/download-mac.html" target="_blank" rel="noopener">http://www.sagemath.org/download-mac.html</a></p>
+<p>选择一个服务器进行下载，这里我们选清华的服务器，然后选择cpu，一般是inter，然后选择是app还是命令行的，我选择app的，最后下载地址：</p>
+<p><a href="https://mirrors.tuna.tsinghua.edu.cn/sagemath/osx/intel/sage-8.0-OSX_10.11.6-x86_64.app.dmg" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/sagemath/osx/intel/sage-8.0-OSX_10.11.6-x86_64.app.dmg</a></p>
 <p>打开，进入设置，改一下sage的执行命令为对应的可执行文件，然后加入环境变量</p>
 <p><img src="http://oztni9daw.bkt.clouddn.com/54ae2ec0836510f6223411f5975217f5.png" alt=""></p>
 <p>其实也就是做了个软链接，现在可以输入sage，进入交互命令行</p>
 <p><img src="http://oztni9daw.bkt.clouddn.com/c5be7bd2d2bb14a226514c7c79ef803b.png" alt=""></p>
 <p>终端选择iterm</p>
 <p><img src="http://oztni9daw.bkt.clouddn.com/3565cc28740543ca21b3ac8c0e5c3c60.png" alt=""></p>
-<h3 id="kali"><a href="#kali" class="headerlink" title="kali"></a>kali</h3><p>选择<code>sage-8.1-Ubuntu_16.04-x86_64.tar.bz2</code>下载：</p>
+<h2 id="kali"><a href="#kali" class="headerlink" title="kali"></a>kali</h2><p>选择<code>sage-8.1-Ubuntu_16.04-x86_64.tar.bz2</code>下载：</p>
 <p><a href="https://mirrors.tuna.tsinghua.edu.cn/sagemath/linux/64bit/sage-8.1-Ubuntu_16.04-x86_64.tar.bz2" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/sagemath/linux/64bit/sage-8.1-Ubuntu_16.04-x86_64.tar.bz2</a></p>
 <p>然后解压出来，进入解压目录</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -jxvf sage-8.1-Ubuntu_16.04-x86_64.tar.bz2</span><br><span class="line">cd SageMath/</span><br></pre></td></tr></table></figure>
@@ -600,7 +601,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#sagemath简介"><span class="nav-number">1.</span> <span class="nav-text">sagemath简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sagemath安装"><span class="nav-number">2.</span> <span class="nav-text">sagemath安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MACos"><span class="nav-number">2.0.1.</span> <span class="nav-text">MACos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kali"><span class="nav-number">2.0.2.</span> <span class="nav-text">kali</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行"><span class="nav-number">3.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些基本语法"><span class="nav-number">4.</span> <span class="nav-text">一些基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础运算"><span class="nav-number">4.0.1.</span> <span class="nav-text">基础运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#n-取精确值"><span class="nav-number">4.0.2.</span> <span class="nav-text">n()取精确值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进制转换"><span class="nav-number">4.0.3.</span> <span class="nav-text">进制转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内置文档"><span class="nav-number">4.0.4.</span> <span class="nav-text">内置文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解方程"><span class="nav-number">4.0.5.</span> <span class="nav-text">解方程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更多特性"><span class="nav-number">5.</span> <span class="nav-text">更多特性</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#sagemath简介"><span class="nav-number">1.</span> <span class="nav-text">sagemath简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sagemath安装"><span class="nav-number">2.</span> <span class="nav-text">sagemath安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MACos"><span class="nav-number">2.1.</span> <span class="nav-text">MACos</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kali"><span class="nav-number">2.2.</span> <span class="nav-text">kali</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行"><span class="nav-number">3.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些基本语法"><span class="nav-number">4.</span> <span class="nav-text">一些基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础运算"><span class="nav-number">4.0.1.</span> <span class="nav-text">基础运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#n-取精确值"><span class="nav-number">4.0.2.</span> <span class="nav-text">n()取精确值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进制转换"><span class="nav-number">4.0.3.</span> <span class="nav-text">进制转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内置文档"><span class="nav-number">4.0.4.</span> <span class="nav-text">内置文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解方程"><span class="nav-number">4.0.5.</span> <span class="nav-text">解方程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更多特性"><span class="nav-number">5.</span> <span class="nav-text">更多特性</span></a></li></ol></div>
             
 
           </div>
