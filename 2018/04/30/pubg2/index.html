@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/7525cea48852b77078b870473ff52c5a.png">
 <meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/066b5d8375e0e0f56c316aa2bc755991.png">
 <meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/9ace52ae51a7dc4608a0f136d1fbba3c.png">
-<meta property="og:updated_time" content="2018-04-30T11:19:20.337Z">
+<meta property="og:updated_time" content="2018-04-30T11:23:17.592Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="科学吃鸡的一些看法">
 <meta name="twitter:description" content="对《我的科学吃鸡之路》的一些补充">
@@ -452,7 +452,8 @@
 <blockquote>
 <p>如果人人都是挂，那么不开挂才破坏平衡。</p>
 </blockquote>
-<h2 id="蓝洞怎么不和谐这种外挂"><a href="#蓝洞怎么不和谐这种外挂" class="headerlink" title="蓝洞怎么不和谐这种外挂"></a>蓝洞怎么不和谐这种外挂</h2><p>看评论的时候还有人说，加密通讯可以治这个，比如https？</p>
+<h2 id="蓝洞怎么不和谐这种外挂"><a href="#蓝洞怎么不和谐这种外挂" class="headerlink" title="蓝洞怎么不和谐这种外挂"></a>蓝洞怎么不和谐这种外挂</h2><p>首先蓝洞是无法从客户端检测到的，因为你什么都没改，本地只是开了个加速器（sstap），剩下的操作都在云端完成。</p>
+<p>其次，看评论的时候还有人说，加密通讯可以治这个，比如https？</p>
 <p>但是传统的加密通讯比如https都是基于非对称密码体制去进行密钥分配，防止通讯过程中第三人监听，现在哪来的第三人，现在的窃听者就是你（也就是接收者）自己啊。大不了就是找到自己本地的私钥，传输给透视服务器，再进行解密等操作。反正就是，你PUBG客户端怎么解密数据，透视服务器上一样操作就行了。</p>
 <p>而蓝洞在4月初进行的和谐是通过每次游戏开始后，服务器会先发送给客户端一个encrypt token，作为密钥，采用aes对称加密每一次的数据包，对应的解密措施就是获取到encrypt token，然后解密出数据再像以前那样分析数据包就行了</p>
 <p>所以其根本还是密钥分配管理的问题。后面蓝洞如果要防止这种挂的话，个人猜测：</p>
