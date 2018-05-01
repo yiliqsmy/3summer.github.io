@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/7525cea48852b77078b870473ff52c5a.png">
 <meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/066b5d8375e0e0f56c316aa2bc755991.png">
 <meta property="og:image" content="http://oztni9daw.bkt.clouddn.com/9ace52ae51a7dc4608a0f136d1fbba3c.png">
-<meta property="og:updated_time" content="2018-04-30T11:52:30.967Z">
+<meta property="og:updated_time" content="2018-05-01T05:48:00.192Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="科学吃鸡的一些看法">
 <meta name="twitter:description" content="对《我的科学吃鸡之路》的一些补充">
@@ -413,7 +413,7 @@
 <li>服务器都喜欢选择和原文一样的centos，怎么不试试其他发行版</li>
 </ul>
 <blockquote>
-<p>有些地方的命令我现在回去看都感觉会不会是多余的，比如libpcap真的需要安装吗？我也没试过啊，懒～。反正大家也就这样都和我一起把它装上了</p>
+<p>有些地方的命令我现在回去看都感觉会不会是多余的，比如libpcap真的需要安装吗？我表示我也没试过啊，懒～，只是当时成功时安了这么个东西就记录上去了。反正大家也就这样都和我一起把它装上了</p>
 </blockquote>
 <p>当然，这种一键搭建脚本还是不错的，给小白们降低了部署难度。还有一些仓库，写的比我更详细，甚至还有视频教程，如：</p>
 <p><a href="https://github.com/XiaohuaCN/Cloud-Radar-Plus" target="_blank" rel="noopener">https://github.com/XiaohuaCN/Cloud-Radar-Plus</a></p>
@@ -421,17 +421,17 @@
 <h2 id="一些值得大家commit的地方"><a href="#一些值得大家commit的地方" class="headerlink" title="一些值得大家commit的地方"></a>一些值得大家commit的地方</h2><p>上面是几个有用的commit，但是项目本身还存在很多问题，比如：</p>
 <ul>
 <li>程序老是因为各种缓存不足，(NumGUIDsInBunch) &gt; 2048等一系列问题报错，停止运行，直观表现就是网页打不开了，然后需要ssh连上去再启动下脚本</li>
-<li>地图和部分js等都是加载国外网站的第三方资源，没翻墙的话加载缓慢</li>
+<li>地图和部分js等都是加载国外网站的第三方资源，没翻墙的话加载缓慢（这点已经看到有人解决了）</li>
 <li>不能保存用户的选项数据，每次刷新都要重新操作下选择</li>
 <li>考虑增加快捷键切换 搜索物资 和 与敌人战斗的两种模式</li>
 <li>可能不能时刻盯着手机，可以考虑敌人靠近语音提示</li>
-<li>Kotlin版本可以看到敌人的血量，装备枪支，杀人数等</li>
+<li>不像Kotlin版本可以看到敌人的血量，装备枪支，杀人数等</li>
 </ul>
 <p>这些都是一些值得去commit的地方，而不是改个作者qq什么的就拿去卖的。现在github上可能都有上百个和这个相关的仓库了，希望能有大佬真正的去将这样一个开源项目做好。除此之外我还看到有其他语言实现的版本，比如php版的，当然都是人家在卖的，不过能开源就最好了。</p>
 <h1 id="一些零散补充"><a href="#一些零散补充" class="headerlink" title="一些零散补充"></a>一些零散补充</h1><blockquote>
 <p>想到什么说什么</p>
 </blockquote>
-<h2 id="可能高分局已经人均透视了"><a href="#可能高分局已经人均透视了" class="headerlink" title="可能高分局已经人均透视了"></a>可能高分局已经人均透视了</h2><p>首先，基于我在社交平台所接触到的，用这个和知道这个的人已经很多了，而且还在大量增加</p>
+<h2 id="可能已经是使用人数最多的挂了"><a href="#可能已经是使用人数最多的挂了" class="headerlink" title="可能已经是使用人数最多的挂了"></a>可能已经是使用人数最多的挂了</h2><p>首先，基于我在社交平台所接触到的，用这个和知道这个的人已经很多了，而且还在大量增加</p>
 <ul>
 <li>比如我在抖音看到的：</li>
 </ul>
@@ -447,10 +447,15 @@
 </li>
 <li><p>稳定、不易被检测。至少我还没听到有人开这个被封，除非太蠢的，看到人演都不演，被人工审查给ban了</p>
 </li>
+<li><p>这挂现在普通人想用的话有两点：一是租的话太贵，二是自己搭建太难。但是现在开源项目的不断更新，各种一键脚本的出现，普通人上手很快就不是难事了</p>
+</li>
 </ul>
-<p>鉴于以上几点，这种云端透视可能已经成为使用人数最多的挂了，高分局可能已经人均透视了。</p>
 <blockquote>
-<p>如果人人都是挂，那么不开挂才破坏平衡。</p>
+<p>这里有人不同意，我修改了一下言语</p>
+</blockquote>
+<p>鉴于以上几点，这种云端透视 “可能” 已经成为 “现在” pubg中使用人数最多的挂了，高分局 “可能” 每把都有开这种的人了。</p>
+<blockquote>
+<p>我说的也只是可能，大佬们别讨论了，再说别人就算开了这种透视，你就算回放、复盘你看的出来么，更何况人家要是一个队友开，给另外3个队友爆点的这种情况呢。</p>
 </blockquote>
 <h2 id="蓝洞怎么不和谐这种外挂"><a href="#蓝洞怎么不和谐这种外挂" class="headerlink" title="蓝洞怎么不和谐这种外挂"></a>蓝洞怎么不和谐这种外挂</h2><p>首先蓝洞是无法从客户端检测到的，因为你什么都没改，本地只是开了个加速器（sstap），剩下的操作都在云端完成。</p>
 <p>其次，看评论的时候还有人说，加密通讯可以治这个，比如https？</p>
@@ -479,7 +484,7 @@
 <p>比如：吾爱破解，有个辅助分区</p>
 <p><a href="https://www.52pojie.cn/forum.php?mod=forumdisplay&amp;fid=16&amp;filter=typeid&amp;typeid=289" target="_blank" rel="noopener">https://www.52pojie.cn/forum.php?mod=forumdisplay&amp;fid=16&amp;filter=typeid&amp;typeid=289</a></p>
 <blockquote>
-<p>当然，找免费的可能麻烦了点，还得自己尝试。有钱的话直接去买就好了，也就几千一个月的样子</p>
+<p>当然，找免费的可能麻烦了点，还得自己尝试。要是有钱的话，直接去买就好了，也就几千一个月的样子</p>
 </blockquote>
 <h2 id="不是网页版的都有透视功能"><a href="#不是网页版的都有透视功能" class="headerlink" title="不是网页版的都有透视功能"></a>不是网页版的都有透视功能</h2><p>有人拿着一个也是web网页展现的雷达问我能不能用，比如：</p>
 <p><a href="https://github.com/nakating/PUBG-maphack-map" target="_blank" rel="noopener">https://github.com/nakating/PUBG-maphack-map</a></p>
@@ -488,7 +493,7 @@
 <p>这种是需要配合单独的内存读取模块一起用的，比如：</p>
 <p><a href="https://github.com/jussihi/PUBG-map-hack" target="_blank" rel="noopener">https://github.com/jussihi/PUBG-map-hack</a></p>
 <p>就是利用WDK编写了一个sys模块，加载后去读取PUBG的内存数据，再发送给这个网页雷达解析的。不过这种好像编译起来特别麻烦，编译完后sys还不好加载，要么花几百美元去认证一下，要么利用一些exp去加载，而且exp最好是0day之类的，因为BE会检测你加载sys的方法，然后还是很容易很ban的。无论从易用还是稳定来看，都不如嗅探的方式。</p>
-<h2 id="加我qq让我教的"><a href="#加我qq让我教的" class="headerlink" title="加我qq让我教的"></a>加我qq让我教的</h2><p>这本身就不是一件多么复杂的事，况且我每一步命令还都写出来了，借助百度谷歌，摸索几天搭建起来不是什么难事吧。</p>
+<h2 id="加我qq让我教的"><a href="#加我qq让我教的" class="headerlink" title="加我qq让我教的"></a>加我qq让我教的</h2><p>这本身就不是一件多么复杂的事，况且我每一步命令还都写出来了，借助百度谷歌，再学习一下基本的linux命令，摸索几天搭建起来不是什么难事吧。</p>
 <p>懂点计算机的看一眼就知道怎么操作，不懂的也别瞎搞了，老老实实花钱去租别人的，或者让别人帮你搭建。</p>
 <p>另外，我本来就不打算用这个获取任何利益，所以记录一下安装过程然后发出来了，要卖的话我才不会发这么详细，甚至会fork下来，学习一下nodejs，自己改进一下（而不是单纯改个作者qq什么的）。</p>
 <p>更多的我是想向大家分享一种新型的更加隐蔽的外挂，即通过中间机嗅探流量，分析数据包去知道敌人位置的外挂。不同于传统的外挂（可以通过检测本地文件的改变，内存的数据等反制），这种方式游戏厂商更加难以察觉，玩家封号的风险也小。期待出现一种有效的解决方案，解决通过嗅探流量作弊的方式</p>
@@ -669,7 +674,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#现在可用的项目"><span class="nav-number">2.</span> <span class="nav-text">现在可用的项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#天价外挂？"><span class="nav-number">3.</span> <span class="nav-text">天价外挂？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其后发生的一些有趣的事"><span class="nav-number">4.</span> <span class="nav-text">其后发生的一些有趣的事</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#随便改点开源项目也能卖？"><span class="nav-number">5.</span> <span class="nav-text">随便改点开源项目也能卖？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一些有用的commit"><span class="nav-number">5.1.</span> <span class="nav-text">一些有用的commit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些值得大家commit的地方"><span class="nav-number">5.2.</span> <span class="nav-text">一些值得大家commit的地方</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些零散补充"><span class="nav-number">6.</span> <span class="nav-text">一些零散补充</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#可能高分局已经人均透视了"><span class="nav-number">6.1.</span> <span class="nav-text">可能高分局已经人均透视了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#蓝洞怎么不和谐这种外挂"><span class="nav-number">6.2.</span> <span class="nav-text">蓝洞怎么不和谐这种外挂</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我如何找到可用的版本"><span class="nav-number">6.3.</span> <span class="nav-text">我如何找到可用的版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不是网页版的都有透视功能"><span class="nav-number">6.4.</span> <span class="nav-text">不是网页版的都有透视功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加我qq让我教的"><span class="nav-number">6.5.</span> <span class="nav-text">加我qq让我教的</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">7.</span> <span class="nav-text">最后</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#现在可用的项目"><span class="nav-number">2.</span> <span class="nav-text">现在可用的项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#天价外挂？"><span class="nav-number">3.</span> <span class="nav-text">天价外挂？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其后发生的一些有趣的事"><span class="nav-number">4.</span> <span class="nav-text">其后发生的一些有趣的事</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#随便改点开源项目也能卖？"><span class="nav-number">5.</span> <span class="nav-text">随便改点开源项目也能卖？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一些有用的commit"><span class="nav-number">5.1.</span> <span class="nav-text">一些有用的commit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些值得大家commit的地方"><span class="nav-number">5.2.</span> <span class="nav-text">一些值得大家commit的地方</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些零散补充"><span class="nav-number">6.</span> <span class="nav-text">一些零散补充</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#可能已经是使用人数最多的挂了"><span class="nav-number">6.1.</span> <span class="nav-text">可能已经是使用人数最多的挂了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#蓝洞怎么不和谐这种外挂"><span class="nav-number">6.2.</span> <span class="nav-text">蓝洞怎么不和谐这种外挂</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我如何找到可用的版本"><span class="nav-number">6.3.</span> <span class="nav-text">我如何找到可用的版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不是网页版的都有透视功能"><span class="nav-number">6.4.</span> <span class="nav-text">不是网页版的都有透视功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加我qq让我教的"><span class="nav-number">6.5.</span> <span class="nav-text">加我qq让我教的</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">7.</span> <span class="nav-text">最后</span></a></li></ol></div>
             
 
           </div>
