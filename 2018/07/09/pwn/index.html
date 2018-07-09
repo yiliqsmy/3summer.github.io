@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.3.0',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="做题遇到的一些问题及笔记">
+<meta name="keywords" content="pwn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pwn笔记">
+<meta property="og:url" content="https://4Five.github.io/2018/07/09/pwn/index.html">
+<meta property="og:site_name" content="4Five&#39;S BLOG">
+<meta property="og:description" content="做题遇到的一些问题及笔记">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-09T01:43:06.107Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pwn笔记">
+<meta name="twitter:description" content="做题遇到的一些问题及笔记">
+
+
+
+
+
+
+  <link rel="canonical" href="https://4Five.github.io/2018/07/09/pwn/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>pwn笔记 | 4Five'S BLOG</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">4Five'S BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://4Five.github.io/2018/07/09/pwn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="4Five">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/billy-christian-smoking-mob.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="4Five'S BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">pwn笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-09 09:41:54 / 修改时间：09:43:06" itemprop="dateCreated datePublished" datetime="2018-07-09T09:41:54+08:00">2018-07-09</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ctf/" itemprop="url" rel="index"><span itemprop="name">ctf</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">做题遇到的一些问题及笔记</div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a>pwntools</h1><p><a href="http://docs.pwntools.com/en/stable/index.html" target="_blank" rel="noopener">http://docs.pwntools.com/en/stable/index.html</a></p>
+<h2 id="Tubes"><a href="#Tubes" class="headerlink" title="Tubes"></a>Tubes</h2><ul>
+<li>recv(numb=4096, timeout=default)</li>
+<li>recvline(keepends=True) : keepends为是否保留行尾的\n</li>
+<li>recvuntil(delims, drop=False) : 一直读到delims的pattern出现为止</li>
+<li>recvrepeat(timeout=default) : 持续接受直到EOF或timeout</li>
+<li>recvline_contains(items, keepends=False, timeout=pwnlib.timeout.Timeout.default)</li>
+<li>recvline_pred(pred, keepends = False)</li>
+<li>sendlineafter(delim, data, timeout = default)</li>
+</ul>
+<h2 id="asm"><a href="#asm" class="headerlink" title="asm"></a>asm</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>asm(<span class="string">'nop'</span>)</span><br><span class="line"><span class="string">'\x90'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>asm(<span class="string">'nop'</span>, arch=<span class="string">'arm'</span>)</span><br><span class="line"><span class="string">'\x00\xf0 \xe3'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> disasm(<span class="string">'6a0258cd80ebf9'</span>.decode(<span class="string">'hex'</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="ROP"><a href="#ROP" class="headerlink" title="ROP"></a>ROP</h2><p><a href="http://docs.pwntools.com/en/stable/rop.html" target="_blank" rel="noopener">http://docs.pwntools.com/en/stable/rop.html</a></p>
+<h2 id="gdb"><a href="#gdb" class="headerlink" title="gdb"></a>gdb</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s = process(<span class="string">'./pwnme'</span>)</span><br><span class="line">context.terminal = [<span class="string">'gnome-terminal'</span>, <span class="string">'-x'</span>, <span class="string">'sh'</span>, <span class="string">'-c'</span>]</span><br><span class="line">context.terminal = [<span class="string">'tmux'</span>, <span class="string">'splitw'</span>, <span class="string">'-h'</span>]</span><br><span class="line">gdb.attach(s, execute=<span class="string">'b *0x400620\nc\n'</span>)</span><br><span class="line">gdb.attach(proc.pidof(s)[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+<h2 id="DynELF"><a href="#DynELF" class="headerlink" title="DynELF"></a>DynELF</h2><p><a href="http://docs.pwntools.com/en/stable/dynelf.html" target="_blank" rel="noopener">http://docs.pwntools.com/en/stable/dynelf.html</a></p>
+<h2 id="format"><a href="#format" class="headerlink" title="format"></a>format</h2><p><a href="http://docs.pwntools.com/en/stable/fmtstr.html#" target="_blank" rel="noopener">http://docs.pwntools.com/en/stable/fmtstr.html#</a></p>
+<h3 id="构造格式化字符串"><a href="#构造格式化字符串" class="headerlink" title="构造格式化字符串"></a>构造格式化字符串</h3><blockquote>
+<p>fmtstr_payload(offset, writes, numbwritten=0, write_size=’byte’) → str</p>
+</blockquote>
+<h3 id="自动构造格式化的函数"><a href="#自动构造格式化的函数" class="headerlink" title="自动构造格式化的函数"></a>自动构造格式化的函数</h3><blockquote>
+<p>FmtStr(execute_fmt, offset=None, padlen=0, numbwritten=0)</p>
+</blockquote>
+<h2 id="other"><a href="#other" class="headerlink" title="other"></a>other</h2><h3 id="log等级"><a href="#log等级" class="headerlink" title="log等级"></a>log等级</h3><p><code>context.log_level = &#39;debug&#39;</code></p>
+<h3 id="加载指定libc"><a href="#加载指定libc" class="headerlink" title="加载指定libc"></a>加载指定libc</h3><p><code>p = process(&#39;./pwn&#39;,env= {&quot;LD_PRELOAD&quot;:&quot;./libc.so&quot;})</code></p>
+<p>多个：</p>
+<p><code>p = process(&#39;./glibc_2.26/tcache_dup&#39;,env= {&quot;LD_PRELOAD&quot;:&#39;./glibc_versions/ld-2.26.so ./glibc_versions/libc-2.26.so&#39;})</code></p>
+<h3 id="kali-libc"><a href="#kali-libc" class="headerlink" title="kali - libc"></a>kali - libc</h3><p><code>libc = ELF(&#39;/lib/x86_64-linux-gnu/libc-2.27.so&#39;)</code></p>
+<h1 id="heap"><a href="#heap" class="headerlink" title="heap"></a>heap</h1><h2 id="doc"><a href="#doc" class="headerlink" title="doc"></a>doc</h2><blockquote>
+<p>ctf-wiki</p>
+</blockquote>
+<p><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/heap/heap_structure/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/pwn/heap/heap_structure/</a></p>
+<blockquote>
+<p>Heap Exploitation</p>
+</blockquote>
+<p><a href="https://heap-exploitation.dhavalkapil.com" target="_blank" rel="noopener">https://heap-exploitation.dhavalkapil.com</a></p>
+<blockquote>
+<p>Glibc Heap简介</p>
+</blockquote>
+<p><a href="http://brieflyx.me/2016/heap/glibc-heap/" target="_blank" rel="noopener">http://brieflyx.me/2016/heap/glibc-heap/</a></p>
+<blockquote>
+<p>how2heap</p>
+</blockquote>
+<p><a href="https://github.com/shellphish/how2heap" target="_blank" rel="noopener">https://github.com/shellphish/how2heap</a></p>
+<h2 id="bins"><a href="#bins" class="headerlink" title="bins"></a>bins</h2><blockquote>
+<p>Ptmalloc 一共 维护了 128 个 bin，并使用一个数组来存储这些 bin。数组中的第一个为 unsorted bin，数组中从 2 开始编号的前 64 个 bin 称为 small bins，同 一个small bin中的chunk具有相同的大小。两个相邻的small bin中的chunk大小相差8bytes。Small bins后面的bin被称作large bins。large bins中的每一个bin分别包含了一个给定范围 内的 chunk，其中的 chunk 按大小序排列。ptmalloc 使用“smallest-first，best-fit”原则在空闲 large bins 中查找合适的 chunk。除了fast bin是单向链表LIFO外，其余都是双向循环链表且为FIFO。</p>
+</blockquote>
+<h1 id="gcc"><a href="#gcc" class="headerlink" title="gcc"></a>gcc</h1><ul>
+<li><code>-m32</code>, 编译成32位</li>
+<li><code>-s</code>, 删除符号表</li>
+<li><code>-g</code>, 加入调试信息</li>
+<li><code>-no-pie</code></li>
+<li><code>-fno-stack-protector</code></li>
+<li><code>-Wno-format-security</code></li>
+</ul>
+<h1 id="gdb-1"><a href="#gdb-1" class="headerlink" title="gdb"></a>gdb</h1><h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><p>指定libc<br><code>LD_PRELOAD=glibc_versions/libc-2.26.so glibc_versions/ld-2.26.so ./glibc_2.26/tcache_dup</code></p>
+<p>gdb预加载libc<br><code>gdb -iex &#39;set exec-wrapper env LD_PRELOAD=&quot;./glibc_versions/libc-2.26.so&quot; &quot;./glibc_versions/ld-2.26.so&quot;&#39; ./glibc_2.26/tcache_dup</code></p>
+<h2 id="pwndbg"><a href="#pwndbg" class="headerlink" title="pwndbg"></a>pwndbg</h2><p><a href="https://github.com/pwndbg/pwndbg" target="_blank" rel="noopener">https://github.com/pwndbg/pwndbg</a></p>
+<p>usage:</p>
+<p><a href="https://github.com/pwndbg/pwndbg/blob/dev/FEATURES.md" target="_blank" rel="noopener">https://github.com/pwndbg/pwndbg/blob/dev/FEATURES.md</a></p>
+<h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p>查看所有容器<br><code>docker ps -a</code> </p>
+<p>查看所有容器ID<br><code>docker ps -a -q</code></p>
+<p>stop停止所有容器<br><code>docker stop $(docker ps -a -q)</code> </p>
+<p>remove删除所有容器<br><code>docker rm $(docker ps -a -q)</code> </p>
+<p>删除所有镜像<br><code>docker rmi $(docker images -q)</code></p>
+<p>启动容器<br><code>docker run --name=&quot;pwn&quot; --privileged -v ~/Downloads/:/home/dir -it d001um3/pwn /bin/zsh</code></p>
+<p>启动shell<br><code>docker exec -it pwn /bin/zsh</code></p>
+<p>设置代理，走宿主机ss的http代理<br><code>export http_proxy=http://192.1.1.141:1087</code></p>
+<p>更新镜像<br><code>docker commit -a &#39;d001um3&#39; -m &#39;messages&#39; container_id d001um3/pwn</code></p>
+<p>Dockerfile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu:16.04</span><br><span class="line"></span><br><span class="line">RUN sed -i &quot;s/http:\/\/archive.ubuntu.com/http:\/\/mirrors.tuna.tsinghua.edu.cn/g&quot; /etc/apt/sources.list</span><br><span class="line">RUN apt-get update &amp;&amp; apt-get -y dist-upgrade</span><br><span class="line">RUN apt-get update &amp;&amp; apt-get install -y sudo lib32z1 lib32ncurses5 lib32stdc++6 xinetd build-essential m4 wget curl python2.7 python-pip python-dev ipython git libssl-dev libffi-dev gdb vim socat zsh tmux</span><br></pre></td></tr></table></figure>
+<p>解决中文乱码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">apt-get install locales</span><br><span class="line">locale-gen zh_CN.UTF-8</span><br><span class="line"><span class="comment"># echo "export LC_ALL=zh_CN.UTF-8" &gt;&gt; ~/.zshrc</span></span><br><span class="line"><span class="built_in">export</span> LC_ALL=zh_CN.UTF-8</span><br></pre></td></tr></table></figure>
+<h1 id="tools"><a href="#tools" class="headerlink" title="tools"></a>tools</h1><h2 id="LibcSearcher"><a href="#LibcSearcher" class="headerlink" title="LibcSearcher"></a>LibcSearcher</h2><p><a href="https://github.com/lieanu/LibcSearcher" target="_blank" rel="noopener">https://github.com/lieanu/LibcSearcher</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#第二个参数，为已泄露的实际地址,或最后12位(比如：d90)，int类型</span></span><br><span class="line">obj = LibcSearcher(<span class="string">"fgets"</span>, <span class="number">0X7ff39014bd90</span>)</span><br><span class="line"></span><br><span class="line">obj.dump(<span class="string">"system"</span>)        <span class="comment">#system 偏移</span></span><br><span class="line">obj.dump(<span class="string">"str_bin_sh"</span>)    <span class="comment">#/bin/sh 偏移</span></span><br><span class="line">obj.dump(<span class="string">"__libc_start_main_ret"</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="ROPgadget"><a href="#ROPgadget" class="headerlink" title="ROPgadget"></a>ROPgadget</h2><p><a href="https://github.com/JonathanSalwan/ROPgadget" target="_blank" rel="noopener">https://github.com/JonathanSalwan/ROPgadget</a></p>
+<p><code>ROPgadget --binary rop  --only &#39;pop|ret&#39; | grep &#39;eax&#39;</code></p>
+<h2 id="socat"><a href="#socat" class="headerlink" title="socat"></a>socat</h2><p>新建一个 <code>run.sh</code></p>
+<p><code>socat tcp-l:5002,reuseaddr,fork exec:&quot;python server.py&quot;</code></p>
+<p>后台启动</p>
+<p><code>nohup ./run.sh &amp;</code></p>
+<h2 id="tmux"><a href="#tmux" class="headerlink" title="tmux"></a>tmux</h2><p><a href="https://www.cnblogs.com/kevingrace/p/6496899.html" target="_blank" rel="noopener">https://www.cnblogs.com/kevingrace/p/6496899.html</a></p>
+<ul>
+<li><code>ctrl+b &quot;</code>   模向分隔窗口</li>
+<li><code>ctrl+b %</code>   纵向分隔窗口</li>
+<li><code>ctrl+b 方向键</code>   移动光标以选择面板</li>
+<li><code>ctrl+b o</code>   在当前窗口中选择下一面板</li>
+<li><code>ctrl+b d</code>  脱离当前会话</li>
+<li><code>tmux attach</code>    能够重新进入之前的会话</li>
+<li><code>ctrl+b fn+↑</code>  向上翻页</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pwn/" rel="tag"># pwn</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/24/CTF-RSA-tool-install/" rel="next" title="CTF-RSA-tool 安装篇">
+                <i class="fa fa-chevron-left"></i> CTF-RSA-tool 安装篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/billy-christian-smoking-mob.jpg"
+                alt="4Five" />
+            
+              <p class="site-author-name" itemprop="name">4Five</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pwntools"><span class="nav-number">1.</span> <span class="nav-text">pwntools</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tubes"><span class="nav-number">1.1.</span> <span class="nav-text">Tubes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#asm"><span class="nav-number">1.2.</span> <span class="nav-text">asm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ROP"><span class="nav-number">1.3.</span> <span class="nav-text">ROP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gdb"><span class="nav-number">1.4.</span> <span class="nav-text">gdb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DynELF"><span class="nav-number">1.5.</span> <span class="nav-text">DynELF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#format"><span class="nav-number">1.6.</span> <span class="nav-text">format</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#构造格式化字符串"><span class="nav-number">1.6.1.</span> <span class="nav-text">构造格式化字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动构造格式化的函数"><span class="nav-number">1.6.2.</span> <span class="nav-text">自动构造格式化的函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#other"><span class="nav-number">1.7.</span> <span class="nav-text">other</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#log等级"><span class="nav-number">1.7.1.</span> <span class="nav-text">log等级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载指定libc"><span class="nav-number">1.7.2.</span> <span class="nav-text">加载指定libc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kali-libc"><span class="nav-number">1.7.3.</span> <span class="nav-text">kali - libc</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#heap"><span class="nav-number">2.</span> <span class="nav-text">heap</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#doc"><span class="nav-number">2.1.</span> <span class="nav-text">doc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bins"><span class="nav-number">2.2.</span> <span class="nav-text">bins</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gcc"><span class="nav-number">3.</span> <span class="nav-text">gcc</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gdb-1"><span class="nav-number">4.</span> <span class="nav-text">gdb</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#tips"><span class="nav-number">4.1.</span> <span class="nav-text">tips</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pwndbg"><span class="nav-number">4.2.</span> <span class="nav-text">pwndbg</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker"><span class="nav-number">5.</span> <span class="nav-text">Docker</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tools"><span class="nav-number">6.</span> <span class="nav-text">tools</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LibcSearcher"><span class="nav-number">6.1.</span> <span class="nav-text">LibcSearcher</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ROPgadget"><span class="nav-number">6.2.</span> <span class="nav-text">ROPgadget</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#socat"><span class="nav-number">6.3.</span> <span class="nav-text">socat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tmux"><span class="nav-number">6.4.</span> <span class="nav-text">tmux</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">4Five</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.4.4</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Gemini</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
